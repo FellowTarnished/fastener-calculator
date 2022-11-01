@@ -41,3 +41,30 @@ body {
     transform: rotate(360deg);
   }
 }
+
+.flexBox {
+  display: flex;
+  justify-content: center;
+}
+
+/*Hide head type radio buttons*/
+.headType [type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/*Style Images*/
+[type="radio"] + img {
+  cursor: pointer;
+}
+
+/*Style Checked Image*/
+[type="radio"]:checked + img {
+  outline: 2px solid black;
+}
+
+img {
+  height: 100px;
+}
