@@ -8,24 +8,25 @@ import ucut from "./style/ucut.png";
 
 function App() {
   const [capacity, setCapacity] = useContext(CapacityContext);
-  const [properties, setProperties] = useState([
-    {
-      fastDia: undefined,
-      headType: undefined,
-      fastMat: undefined,
-      baseMat1: undefined,
-      baseThick1: undefined,
-      baseMat2: undefined,
-      baseThick2: undefined,
-      edgeDist: undefined,
-      spacing: undefined,
-      slottedHole: undefined,
-    },
-  ]);
+  const [properties, setProperties] = useState([{}]);
 
   function updateProperties(e) {
     let temp = properties.slice();
     temp[0][e.target.name] = e.target.value;
+    setProperties(temp);
+    console.log(properties);
+  }
+
+  function updateRadioProperty(e) {
+    let temp = properties.slice();
+    temp[0][e.target.name] = e.target.id;
+    setProperties(temp);
+    console.log(properties);
+  }
+
+  function updateTextInput(e) {
+    let temp = properties.slice();
+    temp[0][e.target.id] = e.target.value;
     setProperties(temp);
     console.log(properties);
   }
@@ -74,7 +75,9 @@ function App() {
                 type="radio"
                 id="hexHead"
                 name="headType"
-                onChange={(e) => updateProperties(e)}
+                onChange={(e) => {
+                  updateRadioProperty(e);
+                }}
               ></input>{" "}
               <img alt="hex head" src={hex}></img>
             </label>
@@ -83,7 +86,7 @@ function App() {
                 type="radio"
                 id="countersunk"
                 name="headType"
-                onChange={(e) => updateProperties(e)}
+                onChange={(e) => updateRadioProperty(e)}
               ></input>{" "}
               <img alt="countersunk" src={csunk}></img>
             </label>
@@ -92,7 +95,7 @@ function App() {
                 type="radio"
                 id="undercut"
                 name="headType"
-                onChange={(e) => updateProperties(e)}
+                onChange={(e) => updateRadioProperty(e)}
               ></input>{" "}
               <img alt="undercut" src={ucut}></img>
             </label>
@@ -134,18 +137,9 @@ function App() {
             <input
               type="number"
               id="spacing"
+              name="spacing"
               step=".1"
-              onChange={(e) => updateProperties(e)}
-            ></input>{" "}
-            <div>inches</div>
-          </div>
-          <div className="flexBox">
-            <label htmlFor="edgeDist">Edge Distance</label>
-            <input
-              type="number"
-              id="edgeDist"
-              step=".1"
-              onChange={(e) => updateProperties(e)}
+              onChange={(e) => updateTextInput(e)}
             ></input>{" "}
             <div>inches</div>
           </div>
@@ -154,14 +148,14 @@ function App() {
             type="radio"
             id="yes"
             name="slotted"
-            onChange={(e) => updateProperties(e)}
+            onChange={(e) => updateRadioProperty(e)}
           ></input>{" "}
           <label htmlFor="yes">Yes</label>
           <input
             type="radio"
             id="no"
             name="slotted"
-            onChange={(e) => updateProperties(e)}
+            onChange={(e) => updateRadioProperty(e)}
           ></input>{" "}
           <label htmlFor="no">No</label>
           <div>----------------</div>
@@ -191,8 +185,19 @@ function App() {
             <input
               type="number"
               id="comp1Thick"
+              name="comp1Thick"
               step=".1"
-              onChange={(e) => updateProperties(e)}
+              onChange={(e) => updateTextInput(e)}
+            ></input>{" "}
+            <div>inches</div>
+          </div>
+          <div className="flexBox">
+            <label htmlFor="edgeDist1">Edge Distance</label>
+            <input
+              type="number"
+              id="edgeDist1"
+              step=".1"
+              onChange={(e) => updateTextInput(e)}
             ></input>{" "}
             <div>inches</div>
           </div>
@@ -222,11 +227,38 @@ function App() {
             <input
               type="number"
               id="comp2Thick"
+              name="comp2Thick"
               step=".1"
-              onChange={(e) => updateProperties(e)}
+              onChange={(e) => updateTextInput(e)}
             ></input>{" "}
             <div>inches</div>
           </div>
+          <div className="flexBox">
+            <label htmlFor="edgeDist2">Edge Distance</label>
+            <input
+              type="number"
+              id="edgeDist2"
+              step=".1"
+              onChange={(e) => updateTextInput(e)}
+            ></input>{" "}
+            <div>inches</div>
+          </div>
+          <div>Is hole tapped?</div>
+          <input
+            type="radio"
+            id="yesTapped"
+            name="tapped"
+            onChange={(e) => updateRadioProperty(e)}
+          ></input>{" "}
+          <label htmlFor="yesTapped">Yes</label>
+          <input
+            type="radio"
+            id="notTapped"
+            name="tapped"
+            onChange={(e) => updateRadioProperty(e)}
+          ></input>{" "}
+          <label htmlFor="notTapped">No</label>
+          <div>----------------</div>
           <button
             type="button"
             onClick={(e) => {

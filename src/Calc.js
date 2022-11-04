@@ -6,7 +6,9 @@ import {
   getDiameter,
   getThreadCount,
 } from "./props";
-import { screwCap } from "./fastener";
+import { fastenerShear } from "./fastenerShear";
+import { fastenerTension } from "./fastenerTension";
+import { bearingShear } from "./bearingShear";
 
 export default function CalcCapacity(
   properties,
@@ -25,4 +27,11 @@ export default function CalcCapacity(
   getFastType(properties, setProperties);
 
   console.log(properties);
+
+  //Find screw shear and tension
+  let Vfast = fastenerShear(properties);
+  let Tfast = fastenerTension(properties);
+
+  //Find bearing
+  let Vbear = bearingShear(properties);
 }

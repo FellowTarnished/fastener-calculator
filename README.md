@@ -16,3 +16,4 @@ Note, the following use cases are **NOT** covered by this calculator:
 - Carbon steel or stainless steel base material
 - Screws in oversized holes
 - Screws interfacing with screw chases (Ref. Seciton 13 & 14 of AAMA TIR-A9-14 for more information)
+- Screw tilting for screws larger than 1/4" diameter
