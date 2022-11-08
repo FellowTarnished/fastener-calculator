@@ -5,6 +5,10 @@ import { CapacityContext } from "./CapacityContext";
 import hex from "./style/hex.png";
 import csunk from "./style/csunk.png";
 import ucut from "./style/ucut.png";
+import hwh from "./style/hwh.png";
+import crown from "./style/crown.webp";
+import valley from "./style/valley.webp";
+import flush from "./style/flush.jpg";
 
 function App() {
   const [capacity, setCapacity] = useContext(CapacityContext);
@@ -81,6 +85,15 @@ function App() {
               ></input>{" "}
               <img alt="hex head" src={hex}></img>
             </label>
+            <label htmlFor="hexWithWasher">
+              <input
+                type="radio"
+                id="hexWithWasher"
+                name="headType"
+                onChange={(e) => updateRadioProperty(e)}
+              ></input>{" "}
+              <img alt="hex with washer" src={hwh}></img>
+            </label>
             <label htmlFor="countersunk">
               <input
                 type="radio"
@@ -143,21 +156,39 @@ function App() {
             ></input>{" "}
             <div>inches</div>
           </div>
-          <div>Are holes slotted?</div>
-          <input
-            type="radio"
-            id="yes"
-            name="slotted"
-            onChange={(e) => updateRadioProperty(e)}
-          ></input>{" "}
-          <label htmlFor="yes">Yes</label>
-          <input
-            type="radio"
-            id="no"
-            name="slotted"
-            onChange={(e) => updateRadioProperty(e)}
-          ></input>{" "}
-          <label htmlFor="no">No</label>
+          <div>----------------</div>
+          <div>INTERFACE CONFIGURATION</div>
+          <div className="headType">
+            <label htmlFor="valley">
+              <input
+                type="radio"
+                id="valley"
+                name="interface"
+                onChange={(e) => {
+                  updateRadioProperty(e);
+                }}
+              ></input>{" "}
+              <img alt="valley" src={valley}></img>
+            </label>
+            <label htmlFor="crown">
+              <input
+                type="radio"
+                id="crown"
+                name="interface"
+                onChange={(e) => updateRadioProperty(e)}
+              ></input>{" "}
+              <img alt="crown" src={crown}></img>
+            </label>
+            <label htmlFor="flush">
+              <input
+                type="radio"
+                id="flush"
+                name="interface"
+                onChange={(e) => updateRadioProperty(e)}
+              ></input>{" "}
+              <img alt="flush" src={flush}></img>
+            </label>
+          </div>
           <div>----------------</div>
           <div>COMPONENT 1 INFO (IN CONTACT WITH FASTENER HEAD)</div>
           <label htmlFor="fastMat">Material</label>
@@ -173,8 +204,7 @@ function App() {
             <optgroup label="ALUMINUM">
               <option value="6063-T6">6063-T6</option>
               <option value="6063-T5">6063-T5 </option>
-              <option value="6061-T6 EXT">6061-T6 EXTRUSION</option>
-              <option value="6061-T6 PL">6061-T6 PLATE</option>
+              <option value="6061-T6">6061-T6</option>
               <option value="6005A-T61">6005A-T61</option>
               <option value="5005-H34">5005-H34</option>
               <option value="3003-H14">3003-H14</option>
@@ -201,6 +231,21 @@ function App() {
             ></input>{" "}
             <div>inches</div>
           </div>
+          <div>Hole Type</div>
+          <input
+            type="radio"
+            id="standard"
+            name="holeType"
+            onChange={(e) => updateRadioProperty(e)}
+          ></input>{" "}
+          <label htmlFor="standard">Standard</label>
+          <input
+            type="radio"
+            id="slotted"
+            name="holeType"
+            onChange={(e) => updateRadioProperty(e)}
+          ></input>{" "}
+          <label htmlFor="slotted">Slotted</label>
           <div>----------------</div>
           <div>COMPONENT 2 INFO (NOT IN CONTACT WITH FASTENER HEAD)</div>
           <label htmlFor="fastMat">Material</label>
@@ -243,21 +288,6 @@ function App() {
             ></input>{" "}
             <div>inches</div>
           </div>
-          <div>Is hole tapped?</div>
-          <input
-            type="radio"
-            id="yesTapped"
-            name="tapped"
-            onChange={(e) => updateRadioProperty(e)}
-          ></input>{" "}
-          <label htmlFor="yesTapped">Yes</label>
-          <input
-            type="radio"
-            id="notTapped"
-            name="tapped"
-            onChange={(e) => updateRadioProperty(e)}
-          ></input>{" "}
-          <label htmlFor="notTapped">No</label>
           <div>----------------</div>
           <button
             type="button"

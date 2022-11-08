@@ -116,3 +116,49 @@ export function getFastType(properties, setProperties) {
   temp[0].fastFy = Fy;
   setProperties(temp);
 }
+
+export function getMatType(properties, setProperties) {
+  let temp = properties.slice();
+
+  if (properties[0].comp1Mat === "6005A-T61") {
+    temp[0].comp1Fu = 38000;
+    temp[0].comp1Fy = 35000;
+  } else if (properties[0].comp1Mat === "6063-T6") {
+    temp[0].comp1Fu = 30000;
+    temp[0].comp1Fy = 25000;
+  } else if (properties[0].comp1Mat === "6063-T5") {
+    temp[0].comp1Fu = 22000;
+    temp[0].comp1Fy = 16000;
+  } else if (properties[0].comp1Mat === "6061-T6") {
+    temp[0].comp1Fu = 38000;
+    temp[0].comp1Fy = 35000;
+  } else if (properties[0].comp1Mat === "5005-H34") {
+    temp[0].comp1Fu = 20000;
+    temp[0].comp1Fy = 15000;
+  } else if (properties[0].comp1Mat === "3003-H14") {
+    temp[0].comp1Fu = 20000;
+    temp[0].comp1Fy = 17000;
+  }
+
+  if (properties[0].comp2Mat === "6005A-T61") {
+    temp[0].comp2Fu = 38000;
+    temp[0].comp2Fy = 35000;
+  } else if (properties[0].comp2Mat === "6063-T6") {
+    temp[0].comp2Fu = 30000;
+    temp[0].comp2Fy = 25000;
+  } else if (properties[0].comp2Mat === "6063-T5") {
+    temp[0].comp2Fu = 22000;
+    temp[0].comp2Fy = 16000;
+  } else if (properties[0].comp2Mat === "6061-T6") {
+    temp[0].comp2Fu = 38000;
+    temp[0].comp2Fy = 35000;
+  } else if (properties[0].comp2Mat === "5005-H34") {
+    temp[0].comp2Fu = 20000;
+    temp[0].comp2Fy = 15000;
+  } else if (properties[0].comp2Mat === "3003-H14") {
+    temp[0].comp2Fu = 20000;
+    temp[0].comp2Fy = 17000;
+  }
+
+  setProperties(temp);
+}

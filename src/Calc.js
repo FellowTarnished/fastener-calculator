@@ -5,6 +5,7 @@ import {
   getFastType,
   getDiameter,
   getThreadCount,
+  getMatType,
 } from "./props";
 import { fastenerShear } from "./fastenerShear";
 import { fastenerTension } from "./fastenerTension";
@@ -25,6 +26,7 @@ export default function CalcCapacity(
   getThreadCount(properties, setProperties);
   getThreadType(properties, setProperties);
   getFastType(properties, setProperties);
+  getMatType(properties, setProperties);
 
   console.log(properties);
 

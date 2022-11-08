@@ -14,12 +14,13 @@ export function bearingShear(properties) {
   let e2 = +properties[0].edgeDist2;
   let e = [e1, e2];
   //base material types
-  let cm1 = properties[0].comp1Mat;
-  let cm2 = properties[0].comp2Mat;
-  let cm = [cm1, cm2];
+  // let cm1 = properties[0].comp1Mat;
+  // let cm2 = properties[0].comp2Mat;
+  // let cm = [cm1, cm2];
 
   let SF = null;
 
+  //find safety factor
   if (d <= 0.25) SF = 3;
   else SF = 2.5;
 
@@ -28,18 +29,7 @@ export function bearingShear(properties) {
   let invalidInput = undefined;
 
   //Find component ultimate strengths
-
-  let Fu = cm.map((object, index, ult = []) => {
-    if (object === "6005A-T61") ult = 38000;
-    else if (object === "6063-T6") ult = 30000;
-    else if (object === "6063-T5") ult = 22000;
-    else if (object === "6061-T6 EXT") ult = 38000;
-    else if (object === "6061-T6 PL") ult = 42000;
-    else if (object === "5005-H34") ult = 20000;
-    else if (object === "3003-H14") ult = 22000;
-    else ult = null;
-    return ult;
-  });
+  let Fu = [properties[0].comp1Fu, properties[0].comp2Fu];
 
   //Find bearing capacities
   for (let i = 0; i < 2; i++) {
