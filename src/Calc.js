@@ -10,6 +10,8 @@ import {
 import { fastenerShear } from "./fastenerShear";
 import { fastenerTension } from "./fastenerTension";
 import { bearingShear } from "./bearingShear";
+import pullover from "./pullover";
+import pullout from "./pullout";
 
 export default function CalcCapacity(
   properties,
@@ -36,4 +38,9 @@ export default function CalcCapacity(
 
   //Find bearing
   let Vbear = bearingShear(properties);
+  let Tpout = pullout(properties);
+  let Tpover = pullover(properties);
+
+  let Tgovern = Math.min(Tfast, Tpout, Tpover);
+  let Vgovern = Math.min(Vfast, Vbear);
 }
