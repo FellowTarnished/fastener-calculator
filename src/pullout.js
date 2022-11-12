@@ -51,7 +51,8 @@ export function pullout(properties) {
   //internal UNC thread stripping (base metal)
   if (threadType === "unc") {
     if (t2 < 0.06) {
-      Tint = "ERROR TOO THIN BASE MATERIAL FOR UNC";
+      Tint =
+        "INVALID COMPONENT #2 THICKNESS: t2 must be > 0.06 inches for UNC screws";
     }
     if (t2 >= 0.06 && t2 <= 0.08)
       Tint = (0.56 * Math.PI * d * t2 * Fy2) / 3 ** 0.5;
@@ -62,12 +63,15 @@ export function pullout(properties) {
         ((0.665 * Math.PI) / 3 ** 0.5) * d * Fy2 * (0.25 - t2) +
         (2 / 3 ** 0.5) * N * Atsi * Fu2 * (t2 - 0.125);
     if (t2 >= 0.25 && t2 <= 0.375) Tint = (t2 * N * Atsi * Fu2) / 3 ** 0.5;
-    if (t2 > 0.375) Tint = "ERROR PULLOUT INFO NOT AVAILABLE FOR BASE MATERIAL";
+    if (t2 > 0.375)
+      Tint =
+        "INVALID COMPONENT #2 THICKNESS: t2 must be < 0.375 inches for specification to provide pullout values";
   }
   //internal SPACED thread stripping (base metal)
   else if (threadType === "spaced") {
     if (t2 < 0.038) {
-      Tint = "ERROR TOO THIN BASE MATERIAL";
+      Tint =
+        "INVALID COMPONENT #2 THICKNESS: t2 must be > 0.06 inches for SPACED screws";
     }
     if (t2 >= 0.038 && t2 < 0.08)
       Tint = (0.56 * Math.PI * d * t2 * Fy2) / 3 ** 0.5;
@@ -79,7 +83,9 @@ export function pullout(properties) {
         ((1.8 * Math.PI) / 3 ** 0.5) * d * Fu2 * (t2 - 2 / N);
     if (t2 >= 4 / N && t2 <= 0.375)
       Tint = (0.9 * Math.PI * d * t2 * Fu2) / 3 ** 0.5;
-    if (t2 > 0.375) Tint = "ERROR PULLOUT INFO NOT AVAILABLE FOR BASE MATERIAL";
+    if (t2 > 0.375)
+      Tint =
+        "INVALID COMPONENT #2 THICKNESS: t2 must be < 0.375 inches for specification to provide pullout values";
   }
   if (typeof Tint === "string") return Tint;
   else return Math.min(Text, Tint);

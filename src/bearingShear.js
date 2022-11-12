@@ -33,14 +33,19 @@ export function bearingShear(properties) {
 
   //Find bearing capacities
   for (let i = 0; i < 2; i++) {
-    if (+s < 2.5 * d) {
-      invalidInput = "INVALID SPACING";
+    if ((+s < 2.5 * d && e[0] < 1.5 * d) || (+s < 2.5 * d && e[1] < 1.5 * d)) {
+      invalidInput = [
+        "INVALID SCREW SPACING: must be > 2.5 d.",
+        "INVALID EDGE DISTANCE: must be >= 1.5d",
+      ];
+    } else if (+s < 2.5 * d) {
+      invalidInput = "INVALID SCREW SPACING: must be > 2.5 d";
     } else if (e[i] >= 2 * d) {
       V[i] = (2 * d * t[i] * Fu[i]) / SF;
     } else if (e[i] < 2.0 * d && e[i] >= 1.5 * d) {
       V[i] = (t[i] * e[i] * Fu[i]) / SF;
     } else {
-      invalidInput = "INVALID EDGE DIST";
+      invalidInput = "INVALID EDGE DISTANCE: must be >= 1.5d";
     }
   }
 

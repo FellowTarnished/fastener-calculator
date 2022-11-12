@@ -10,8 +10,8 @@ import {
 import { fastenerShear } from "./fastenerShear";
 import { fastenerTension } from "./fastenerTension";
 import { bearingShear } from "./bearingShear";
-import pullover from "./pullover";
-import pullout from "./pullout";
+import { pullover } from "./pullover";
+import { pullout } from "./pullout";
 
 export default function CalcCapacity(
   properties,
@@ -19,10 +19,6 @@ export default function CalcCapacity(
   capacity,
   setCapacity
 ) {
-  let temp = capacity.slice();
-  temp[0]["shear"] = 500;
-  setCapacity(temp);
-
   //Pull properties from input and add to state
   getDiameter(properties, setProperties);
   getThreadCount(properties, setProperties);
@@ -41,6 +37,29 @@ export default function CalcCapacity(
   let Tpout = pullout(properties);
   let Tpover = pullover(properties);
 
-  let Tgovern = Math.min(Tfast, Tpout, Tpover);
-  let Vgovern = Math.min(Vfast, Vbear);
+  if (
+    typeof Tfast !== "number" ||
+    typeof Vfast !== "number" ||
+    typeof Vbear !== "number" ||
+    typeof Tpout !== "number" ||
+    typeof Tpover !== "number"
+  ) {
+    let temp = [];
+    if (typeof Tfast !== "number") temp.push(Tfast);
+    if (typeof Vfast !== "number") temp.push(Vfast);
+    if (typeof Vbear !== "number")
+      Vbear.map((item) => {
+        return temp.push(item);
+      });
+    if (typeof Tpout !== "number") temp.push(Tpout);
+    if (typeof Tpover !== "number") temp.push(Tpover);
+    console.log(temp);
+    setCapacity({ shear: " - ", tension: " - ", notes: temp });
+  } else {
+    let Tgovern = Math.min(Tfast, Tpout, Tpover);
+    let Vgovern = Math.min(Vfast, Vbear);
+    Tgovern = Math.round(Tgovern * 10) / 10;
+    Vgovern = Math.round(Vgovern * 10) / 10;
+    setCapacity({ shear: Vgovern, tension: Tgovern, notes: [""] });
+  }
 }

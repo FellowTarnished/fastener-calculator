@@ -17,3 +17,7 @@ Note, the following use cases are **NOT** covered by this calculator:
 - Screws in oversized holes
 - Screws interfacing with screw chases (Ref. Seciton 13 & 14 of AAMA TIR-A9-14 for more information)
 - Screw tilting for screws larger than 1/4" diameter
+
+### Attributions:
+
+- Artwork inspiration provided by julygal88450431 on [Vecteezy](https://www.vecteezy.com/free-vector/screw")

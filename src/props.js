@@ -1,4 +1,3 @@
-import { getRoles } from "@testing-library/react";
 import React, { useState, useContext, useEffect } from "react";
 
 export function getThreadType(properties, setProperties) {
@@ -69,43 +68,43 @@ export function getFastType(properties, setProperties) {
   let type = undefined;
   let Fu = undefined;
   let Fy = undefined;
-  if (properties[0].fastMat === "SAE Gr. 2") {
+  if (properties[0].fastMatInput === "SAE Gr. 2") {
     type = "cs";
     Fu = 74000;
     Fy = 57000;
-  } else if (properties[0].fastMat === "SAE Gr. 5") {
+  } else if (properties[0].fastMatInput === "SAE Gr. 5") {
     type = "cs";
     Fu = 120000;
     Fy = 92000;
   }
   //Cond AF needs to be kept before A to prevent accidental use of A properties when AF is chosen.
-  else if (properties[0].fastMat.includes("Alloy A1/A2/A3 Cond AF")) {
+  else if (properties[0].fastMatInput.includes("Alloy A1/A2/A3 Cond AF")) {
     type = "ss";
     Fu = 65000;
     Fy = 20000;
-  } else if (properties[0].fastMat.includes("Alloy A1/A2/A3 Cond A")) {
+  } else if (properties[0].fastMatInput.includes("Alloy A1/A2/A3 Cond A")) {
     type = "ss";
     Fu = 75000;
     Fy = 30000;
-  } else if (properties[0].fastMat.includes("Alloy A1/A2/A3 Cond CW")) {
+  } else if (properties[0].fastMatInput.includes("Alloy A1/A2/A3 Cond CW")) {
     type = "ss";
     Fu = 100000;
     Fy = 65000;
-  } else if (properties[0].fastMat.includes("Alloy A1/A2/A3 Cond SH")) {
+  } else if (properties[0].fastMatInput.includes("Alloy A1/A2/A3 Cond SH")) {
     type = "ss";
     Fu = 120000;
     Fy = 95000;
-  } else if (properties[0].fastMat.includes("Alloy A4 Cond A")) {
+  } else if (properties[0].fastMatInput.includes("Alloy A4 Cond A")) {
     type = "ss";
     Fu = 55000;
     Fy = 30000;
   }
   //Cond HT needs to be kept before H to prevent accidental use of H properties when HT is chosen.
-  else if (properties[0].fastMat.includes("Alloy A5 Cond HT")) {
+  else if (properties[0].fastMatInput.includes("Alloy A5 Cond HT")) {
     type = "ss";
     Fu = 160000;
     Fy = 120000;
-  } else if (properties[0].fastMat.includes("Alloy A5 Cond H")) {
+  } else if (properties[0].fastMatInput.includes("Alloy A5 Cond H")) {
     type = "ss";
     Fu = 110000;
     Fy = 90000;

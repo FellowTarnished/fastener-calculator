@@ -83,7 +83,8 @@ export function pullover(properties) {
     else if (d === 0.3125) thead = 0.134;
     else if (d === 0.375) thead = 0.161;
 
-    if (thead > t1) T = "ERROR TOO THIN BASE MATERIAL";
+    if (thead > t1)
+      T = "INVALID COMPONENT #1 THICKNESS: t1 must be > the fastener head";
     else if (t1 >= 0.04 && t1 < 0.19 && t1 / d > 1.1)
       T = ((0.27 + 1.45 * 1.1) * d * t1 * Fy1) / SF;
     else T = ((0.27 + (1.45 * t1) / d) * d * t1 * Fy1) / SF;

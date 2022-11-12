@@ -7,7 +7,7 @@ export const CapacityProvider = (props) => {
     {
       shear: undefined,
       tension: undefined,
-      notes: undefined,
+      notes: ["", ""],
     },
   ]);
 
