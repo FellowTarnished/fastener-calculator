@@ -5,7 +5,7 @@ export function fastenerTension(properties) {
   let Fu = properties[0].fastFu;
   let Fy = properties[0].fastFy;
   let TSA = null;
-  let T = null;
+  let T = [null, undefined];
 
   if (properties[0].threadType === "unc") {
     TSA = (Math.PI * (D - 0.9743 / N) ** 2) / 4;
@@ -16,12 +16,14 @@ export function fastenerTension(properties) {
   if (properties[0].nomDia <= 0.25) {
     let SF = 3;
     let Ft = Math.min(Fu / SF, 0.75 * Fy);
-    T = TSA * Ft;
+    T[0] = TSA * Ft;
   } else if (properties[0].nomDia > 0.25) {
     let SF = 2.5;
     let Ft = Math.min(Fu / SF, 0.75 * Fy);
-    T = TSA * Ft;
+    T[0] = TSA * Ft;
   } else console.error("error");
+
+  T[1] = "T.allow = A(S)*Ft   (Eqn. 7.4)";
 
   return T;
 }

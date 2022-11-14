@@ -8,6 +8,7 @@ export function pullover(properties) {
   let T = null;
   let SF = null;
   let Cpov = null;
+  let equationTracker = undefined;
 
   if (inter === "flush" || inter === "valley") Cpov = 1.0;
   if (inter === "crown") Cpov = 0.7;
@@ -48,6 +49,7 @@ export function pullover(properties) {
     else if (d === 0.375) Dws = 9 / 16;
 
     T = (Cpov * t1 * Fu1 * (Dws - Dh)) / SF;
+    equationTracker = "(Cpov*t1*Ftu1*(Dws-Dws)/SF   (Eqn. 11.1)";
   }
 
   //hex head with washer or flange
@@ -63,12 +65,15 @@ export function pullover(properties) {
     let ratio = t1 / Dws;
 
     //equation 11.2
-    if (t1 < 0.04) T = "ERROR TOO THIN BASE MATERIAL";
+    if (t1 < 0.04)
+      T = "INVALID COMPONENT #1 THICKNESS: t1 must be >= 0.04 inches";
     else if (t1 / Dws > 0.5) {
       ratio = 0.5;
       T = ((1.0 + 1.7 * ratio) * Dws * t1 * Fy1) / SF;
+      equationTracker = "(1.0+1.7*0.5)*Dws*t1*Fty1/SF   (Eqn. 11.2)";
     } else {
       T = ((1.0 + 1.7 * ratio) * Dws * t1 * Fy1) / SF;
+      equationTracker = "(1.0+1.7*t1/Dws)*Dws*t1*Fty1/SF   (Eqn. 11.2)";
     }
   }
 
@@ -85,10 +90,13 @@ export function pullover(properties) {
 
     if (thead > t1)
       T = "INVALID COMPONENT #1 THICKNESS: t1 must be > the fastener head";
-    else if (t1 >= 0.04 && t1 < 0.19 && t1 / d > 1.1)
+    else if (t1 >= 0.06 && t1 < 0.19 && t1 / d > 1.1) {
       T = ((0.27 + 1.45 * 1.1) * d * t1 * Fy1) / SF;
-    else T = ((0.27 + (1.45 * t1) / d) * d * t1 * Fy1) / SF;
+      equationTracker = "(0.27+1.45*1.1)*d*t1*Fty1/SF   (Eqn. 11.3)";
+    } else {
+      T = ((0.27 + (1.45 * t1) / d) * d * t1 * Fy1) / SF;
+      equationTracker = "(0.27+1.45*t1/d)*d*t1*Fty1/SF   (Eqn. 11.3)";
+    }
   }
-
-  return T;
+  return [T, equationTracker];
 }

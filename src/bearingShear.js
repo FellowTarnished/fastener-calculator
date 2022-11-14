@@ -18,6 +18,9 @@ export function bearingShear(properties) {
   // let cm2 = properties[0].comp2Mat;
   // let cm = [cm1, cm2];
 
+  let equationTracker = undefined;
+  let equationTrackerTilt = undefined;
+
   let SF = null;
 
   //find safety factor
@@ -39,22 +42,31 @@ export function bearingShear(properties) {
         "INVALID EDGE DISTANCE: must be >= 1.5d",
       ];
     } else if (+s < 2.5 * d) {
-      invalidInput = "INVALID SCREW SPACING: must be > 2.5 d";
+      invalidInput = ["INVALID SCREW SPACING: must be > 2.5 d"];
     } else if (e[i] >= 2 * d) {
       V[i] = (2 * d * t[i] * Fu[i]) / SF;
+      equationTracker = "V.bearing = 2*d*t*Ftu / Omega (Eqn. 8.14)";
     } else if (e[i] < 2.0 * d && e[i] >= 1.5 * d) {
       V[i] = (t[i] * e[i] * Fu[i]) / SF;
+      equationTracker = "V.bearing = t*ea*Ftu / Omega (Eqn. 8.15)";
     } else {
-      invalidInput = "INVALID EDGE DISTANCE: must be >= 1.5d";
+      invalidInput = ["INVALID EDGE DISTANCE: must be >= 1.5d"];
     }
   }
 
   //Find tilting value
   if (t[0] <= t[1]) {
     V[2] = (4.2 * (t[1] ** 3 * d) ** 0.5 * Fu[1]) / SF;
+    equationTrackerTilt = "V.bearing = 4.2*(t2^3*d)^0.5*Ftu/3.0 (Eqn. 8.16)";
+  }
+
+  if (V[2]) {
+    if (V[2] > V[1] && V[2] > V[1]) {
+      equationTracker = equationTrackerTilt;
+    }
   }
 
   if (invalidInput) return invalidInput;
-  else if (V[2]) return Math.min(V[0], V[1], V[2]);
-  else return Math.min(V[0], V[1]);
+  else if (V[2]) return [Math.min(V[0], V[1], V[2]), equationTracker];
+  else return [Math.min(V[0], V[1]), equationTracker];
 }

@@ -2,6 +2,7 @@ import "./style/App.css";
 import CalcCapacity from "./Calc";
 import React, { useState, useContext, useEffect } from "react";
 import { CapacityContext } from "./CapacityContext";
+import { AllResultsContext } from "./CapacityContext";
 import hex from "./style/images/hexJSX.svg";
 import csunk from "./style/images/countersunkJSX.svg";
 // import ucut from "./style/ucut.js";
@@ -13,6 +14,7 @@ import gitLogo from "./style/images/GitHub-Mark-64px.png";
 
 function App() {
   const [capacity, setCapacity] = useContext(CapacityContext);
+  const [allResults, setAllResults] = useContext(AllResultsContext);
   const [properties, setProperties] = useState([
     {
       comp1Fu: 38000,
@@ -39,12 +41,14 @@ function App() {
       threadType: "spaced",
     },
   ]);
+  let [resultsToggle, setResultsToggle] = useState(false);
 
   function updateProperties(e) {
     let temp = properties.slice();
     temp[0][e.target.name] = e.target.value;
     setProperties(temp);
     console.log(properties);
+    setResultsToggle(false);
   }
 
   function updateRadioProperty(e) {
@@ -52,6 +56,7 @@ function App() {
     temp[0][e.target.name] = e.target.id;
     setProperties(temp);
     console.log(properties);
+    setResultsToggle(false);
   }
 
   function updateTextInput(e) {
@@ -59,6 +64,7 @@ function App() {
     temp[0][e.target.id] = e.target.value;
     setProperties(temp);
     console.log(properties);
+    setResultsToggle(false);
   }
 
   return (
@@ -102,7 +108,7 @@ function App() {
           </select>
           <div>Head Type</div>
           <div className="headType">
-            <div class="headCard">
+            <div className="headCard">
               <label htmlFor="hexHead">
                 <input
                   type="radio"
@@ -214,7 +220,6 @@ function App() {
               <input
                 type="radio"
                 id="valley"
-                checked
                 required
                 name="interface"
                 onChange={(e) => {
@@ -349,36 +354,112 @@ function App() {
           <button
             type="button"
             onClick={(e) => {
-              CalcCapacity(properties, setProperties, capacity, setCapacity);
+              CalcCapacity(
+                properties,
+                setProperties,
+                capacity,
+                setCapacity,
+                allResults,
+                setAllResults
+              );
+              setResultsToggle(true);
             }}
           >
             SUBMIT
           </button>
         </form>
-        <div className="results">
-          <div className="resultItem">Shear: {capacity.shear} lbs</div>
-          <div className="resultItem">Tension: {capacity.tension} lbs</div>
-          <div className="resultItem">Warnings:</div>
-          {capacity.notes?.map((item, index) => {
-            return <div key={index}>{item}</div>;
-          })}
-          <ul className="resultItem">
-            Notes:
-            <li className="resultItem">
-              Screw Tilting for screws larger than 1/4" in diameter are excluded
-              from the spec.
-            </li>
-            <li className="resultItem">
-              Washer diameters and undercut head thicknesses have been assumed
-              using standard industry values. User shall verify applicability to
-              their project.
-            </li>
-            <li className="resultItem">
-              Screw engagement length assumed to be full thickness of component
-              #2.
-            </li>
-          </ul>
-        </div>
+        {resultsToggle ? (
+          <div className="results">
+            <h4>Results Summary:</h4>
+            <div className="resultItem">Shear: {capacity.shear} lbs</div>
+            <div className="resultItem">Tension: {capacity.tension} lbs</div>
+            <div className="resultItem">Warnings:</div>
+            {capacity.notes?.map((item, index) => {
+              return <div key={index}>{item}</div>;
+            })}
+            <hr></hr>
+            <h4 className="detailedResults"> Detailed Results:</h4>
+            <div>
+              {" "}
+              Fastener Shear Capacity:
+              {Math.round(allResults[0].shear * 10) / 10} lbs
+            </div>
+            <div> {allResults[0].notes} </div>
+            <br></br>
+            <div>
+              {" "}
+              Fastener Tension Capacity:
+              {Math.round(allResults[1].tension * 10) / 10} lbs
+            </div>
+            <div> {allResults[1].notes} </div>
+            <br></br>
+            {/* ONLY RENDER DETAILED RESULTS IF THERE ARE NO ERRORS */}
+            {typeof allResults[2].shear !== "number" ? (
+              <div>Bearing Shear Capacity: --- (see warnings)</div>
+            ) : (
+              <div>
+                <div>
+                  {" "}
+                  Bearing Shear Capacity:
+                  {Math.round(allResults[2].shear * 10) / 10} lbs
+                </div>
+                <div> {allResults[2].notes} </div>{" "}
+              </div>
+            )}
+            <br></br>
+            {typeof allResults[3].tension !== "number" ? (
+              <div>Pullout Tension Capacity: --- (see warnings)</div>
+            ) : (
+              <div>
+                <div>
+                  {" "}
+                  Pullout Tension Capacity:
+                  {Math.round(allResults[3].tension * 10) / 10} lbs
+                </div>
+                <div> {allResults[3].notes} </div>{" "}
+              </div>
+            )}
+
+            <br></br>
+            {typeof allResults[4].tension !== "number" ? (
+              <div>Pullover Tension Capacity: --- (see warnings)</div>
+            ) : (
+              <div>
+                <div>
+                  {" "}
+                  Pullover Tension Capacity:
+                  {Math.round(allResults[4].tension * 10) / 10} lbs
+                </div>
+                <div> {allResults[4].notes} </div>{" "}
+              </div>
+            )}
+            <h4 className="detailedResults"> Input:</h4>
+            <hr></hr>
+            <ul className="resultItem">
+              Notes:
+              <li className="resultItem">
+                All symbols shown above follow the convention used in AAMA
+                TIR-A9-14. Reference Section 2.0 of AAMA TIR-A9-14 for all
+                symbol definitions.
+              </li>
+              <li className="resultItem">
+                Screw Tilting for screws larger than 1/4" in diameter is
+                excluded from the spec.
+              </li>
+              <li className="resultItem">
+                Washer diameter and countersunk head thicknesses have been
+                assumed based on standard industry values. User shall verify
+                applicability to fasteners used on their project.
+              </li>
+              <li className="resultItem">
+                Screw engagement length assumed to be full thickness of
+                component #2.
+              </li>
+            </ul>
+          </div>
+        ) : (
+          <div></div>
+        )}
       </div>
       <footer>
         <div className="footerContainer">

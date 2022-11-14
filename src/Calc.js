@@ -1,5 +1,6 @@
 // import { CapacityContext } from "./CapacityContext";
 // import React, { useState, useContext, useEffect } from "react";
+
 import {
   getThreadType,
   getFastType,
@@ -7,7 +8,7 @@ import {
   getThreadCount,
   getMatType,
 } from "./props";
-import { fastenerShear } from "./fastenerShear";
+import { FastenerShear } from "./fastenerShear";
 import { fastenerTension } from "./fastenerTension";
 import { bearingShear } from "./bearingShear";
 import { pullover } from "./pullover";
@@ -17,7 +18,9 @@ export default function CalcCapacity(
   properties,
   setProperties,
   capacity,
-  setCapacity
+  setCapacity,
+  allResults,
+  setAllResults
 ) {
   //Pull properties from input and add to state
   getDiameter(properties, setProperties);
@@ -29,37 +32,55 @@ export default function CalcCapacity(
   console.log(properties);
 
   //Find screw shear and tension
-  let Vfast = fastenerShear(properties);
-  let Tfast = fastenerTension(properties);
+  let V = FastenerShear(properties, setAllResults);
+  let T = fastenerTension(properties);
+  let temp = allResults.slice();
+  temp[0].shear = V[0];
+  temp[0].notes = V[1];
+  temp[1].tension = T[0];
+  temp[1].notes = T[1];
 
   //Find bearing
   let Vbear = bearingShear(properties);
+  temp[2].shear = Vbear[0];
+  temp[2].notes = Vbear[1];
+
+  //Find pullout and pullover
   let Tpout = pullout(properties);
   let Tpover = pullover(properties);
+  console.log(Tpover);
+  temp[3].tension = Tpout[0];
+  temp[3].notes = Tpout[1];
+  temp[4].tension = Tpover[0];
+  temp[4].notes = Tpover[1];
+  setAllResults(temp);
 
   if (
-    typeof Tfast !== "number" ||
-    typeof Vfast !== "number" ||
-    typeof Vbear !== "number" ||
-    typeof Tpout !== "number" ||
-    typeof Tpover !== "number"
+    typeof T[0] !== "number" ||
+    typeof V[0] !== "number" ||
+    typeof Vbear[0] !== "number" ||
+    typeof Tpout[0] !== "number" ||
+    typeof Tpover[0] !== "number"
   ) {
-    let temp = [];
-    if (typeof Tfast !== "number") temp.push(Tfast);
-    if (typeof Vfast !== "number") temp.push(Vfast);
-    if (typeof Vbear !== "number")
+    let errors = [];
+    if (typeof T[0] !== "number") errors.push(T[0]);
+    if (typeof V[0] !== "number") errors.push(V[0]);
+    if (typeof Vbear[0] !== "number") {
+      console.log(Vbear);
       Vbear.map((item) => {
-        return temp.push(item);
+        return errors.push(item);
       });
-    if (typeof Tpout !== "number") temp.push(Tpout);
-    if (typeof Tpover !== "number") temp.push(Tpover);
-    console.log(temp);
-    setCapacity({ shear: " - ", tension: " - ", notes: temp });
+    }
+    if (typeof Tpout[0] !== "number") errors.push(Tpout[0]);
+    if (typeof Tpover[0] !== "number") errors.push(Tpover[0]);
+    console.log(errors);
+    setCapacity({ shear: " --- ", tension: " --- ", notes: errors });
   } else {
-    let Tgovern = Math.min(Tfast, Tpout, Tpover);
-    let Vgovern = Math.min(Vfast, Vbear);
+    let Tgovern = Math.min(T[0], Tpout[0], Tpover[0]);
+    let Vgovern = Math.min(V[0], Vbear[0]);
     Tgovern = Math.round(Tgovern * 10) / 10;
     Vgovern = Math.round(Vgovern * 10) / 10;
     setCapacity({ shear: Vgovern, tension: Tgovern, notes: [""] });
   }
+  console.log(allResults);
 }
