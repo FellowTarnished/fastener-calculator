@@ -20,4 +20,7 @@ Note, the following use cases are **NOT** covered by this calculator:
 
 ### Attributions:
 
-- Artwork inspiration provided by julygal88450431 on [Vecteezy](https://www.vecteezy.com/free-vector/screw")
+Artwork inspiration provided by:
+
+- julygal88450431 on [Vecteezy](https://www.vecteezy.com/free-vector/screw")
+- sleepy panda on [Vecteezy](https://www.vecteezy.com/free-vector/robot")

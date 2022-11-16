@@ -1,52 +1,52 @@
+@font-face {
+  font-family: "galindo";
+  src: url(./Galindo-Regular.ttf);
+}
+
+/*MUI CSS*/
+formControl {
+  display: flex;
+}
+
+TextField {
+  margin-bottom: 20px;
+}
+
+/*CSS DIRECTLY TO HTML COMPONENTS*/
+
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-body {
-  background-color: white;
-  color: black;
-  height: 80vh;
-}
-
-.App-header {
-  background-color: #white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: black;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 .flexBox {
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.robot {
+  height: 150px;
+  margin-top: 10px;
+  padding-top: 0px;
 }
 
+h1 {
+  font-family: "galindo", Arial, Helvetica, sans-serif;
+  font-size: 2.5em;
+  margin-top: 60px;
+}
+
+h4 {
+  margin-bottom: 0px;
+}
+
+.subDesc {
+  font-size: 0.75rem;
+}
+
+.resultNotes {
+  text-align: left;
+}
 /*FASTENER INFO STYLING*/
 .headType {
   display: flex;

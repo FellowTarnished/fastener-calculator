@@ -1,4 +1,25 @@
 import "./style/App.css";
+
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+
+import {
+  InputLabel,
+  Select,
+  FormControl,
+  TextField,
+  MenuItem,
+  InputAdornment,
+  Radio,
+  RadioGroup,
+  FormLabel,
+  FormControlLabel,
+  Button,
+  Grid,
+  Divider,
+} from "@mui/material";
+
 import CalcCapacity from "./Calc";
 import React, { useState, useContext, useEffect } from "react";
 import { CapacityContext } from "./CapacityContext";
@@ -11,6 +32,7 @@ import crown from "./style/images/crownJSX.svg";
 import valley from "./style/images/valleyJSX.svg";
 import flush from "./style/images/flushJSX.svg";
 import gitLogo from "./style/images/GitHub-Mark-64px.png";
+import robot from "./style/images/robot-cropped.png";
 
 function App() {
   const [capacity, setCapacity] = useContext(CapacityContext);
@@ -68,308 +90,356 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <Container
+      className="App"
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+      }}
+    >
       <header className="App-header">
-        <h1> CURTAIN WALL FASTENER CALCULATOR!</h1>
-        <p> The engineer's guide to understanding AAMA TIR-A9-14</p>
+        <div className="flexBox">
+          <img alt="" src={robot} className="robot"></img>
+          <h1>AAMA-TRON!</h1>
+        </div>
+        <p> An engineer's guide to using AAMA TIR-A9-14</p>
       </header>
       <div className="body">
         <form>
-          <div>FASTENER INFO</div>
-          <label htmlFor="fastDia"> Nominal Diameter</label>
-          <select
-            name="fastDia"
-            id="fastDia"
-            value="#6-20"
-            required
-            onChange={(e) => updateProperties(e)}
+          <Grid
+            container
+            rowSpacing={2}
+            columnSpacing={4}
+            justifyContent="center"
+            alignItems="center"
+            flexDirection="column"
           >
-            <option hidden disabled value="void">
-              -- select an option --
-            </option>
-            <optgroup label="SPACED THREADS">
-              <option value="#6-20">#6-20</option>
-              <option value="#8-18">#8-18</option>
-              <option value="#10-16">#10-16</option>
-              <option value="#12-14">#12-14</option>
-              <option value="1/4-14">1/4-14</option>
-              <option value="5/16-12">5/16-12</option>
-              <option value="3/8-12">3/8-12</option>
-            </optgroup>
-            <optgroup label="UNC THREADS">
-              <option value="#6-32">#6-32</option>
-              <option value="#8-32">#8-32</option>
-              <option value="#10-24">#10-24</option>
-              <option value="#12-24">#12-24</option>
-              <option value="1/4-20">1/4-20</option>
-              <option value="5/16-18">5/16-18</option>
-              <option value="3/8-16">3/8-16</option>
-            </optgroup>
-          </select>
-          <div>Head Type</div>
-          <div className="headType">
-            <div className="headCard">
-              <label htmlFor="hexHead">
+            {" "}
+            <Divider
+              variant="middle"
+              sx={{ bgcolor: "primary.main" }}
+            ></Divider>
+            <h4>FASTENER INFO</h4>
+            <Grid item xs>
+              <TextField
+                label="Fastener Size"
+                onChange={(e) => updateProperties(e)}
+                select
+                name="fastDia"
+                variant="outlined"
+                style={{ width: 250 }}
+              >
+                <MenuItem disabled> UNC THREADS </MenuItem>
+                <MenuItem value="#6-20">#6-20</MenuItem>
+                <MenuItem value="#8-18">#8-18</MenuItem>
+                <MenuItem value="#10-16">#10-16</MenuItem>
+                <MenuItem value="#12-14">#12-14</MenuItem>
+                <MenuItem value="1/4-14">1/4-14</MenuItem>
+                <MenuItem value="5/16-12">5/16-12</MenuItem>
+                <MenuItem value="3/8-12">3/8-12</MenuItem>
+                <MenuItem disabled> SPACED THREADS </MenuItem>
+                <MenuItem value="#6-32">#6-32</MenuItem>
+                <MenuItem value="#8-32">#8-32</MenuItem>
+                <MenuItem value="#10-24">#10-24</MenuItem>
+                <MenuItem value="#12-24">#12-24</MenuItem>
+                <MenuItem value="1/4-20">1/4-20</MenuItem>
+                <MenuItem value="5/16-18">5/16-18</MenuItem>
+                <MenuItem value="3/8-16">3/8-16</MenuItem>
+              </TextField>
+            </Grid>
+            <Grid item xs>
+              <TextField
+                label="Fastener Material"
+                onChange={(e) => updateProperties(e)}
+                select
+                name="fastMatInput"
+                variant="outlined"
+                style={{ width: 250 }}
+              >
+                <MenuItem disabled> STEEL </MenuItem>
+                <MenuItem value="SAE Gr. 2">SAE Gr. 2</MenuItem>
+                <MenuItem value="SAE Gr. 5">SAE Gr. 5</MenuItem>
+                <MenuItem disabled> STAINLESS STEEL </MenuItem>
+                <MenuItem value="Alloy A1/A2/A3 Cond A">
+                  Alloy A1/A2/A3 Cond A
+                </MenuItem>
+                <MenuItem value="Alloy A1/A2/A3 Cond AF">
+                  Alloy A1/A2/A3 Cond AF
+                </MenuItem>
+                <MenuItem value="Alloy A1/A2/A3 Cond CW">
+                  Alloy A1/A2/A3 Cond CW
+                </MenuItem>
+                <MenuItem value="Alloy A1/A2/A3 Cond SH">
+                  {" "}
+                  Alloy A1/A2/A3 Cond SH
+                </MenuItem>
+                <MenuItem value="Alloy A4 Cond A">Alloy A4 Cond A</MenuItem>
+                <MenuItem value="Alloy A5 Cond H">Alloy A5 Cond H</MenuItem>
+                <MenuItem value="Alloy A5 Cond HT">Alloy A5 Cond HT</MenuItem>
+              </TextField>
+            </Grid>
+            <Grid item xs>
+              <TextField
+                label="Fastener Spacing"
+                onChange={(e) => {
+                  console.log(e);
+                  updateTextInput(e);
+                }}
+                name="spacing"
+                id="spacing"
+                variant="outlined"
+                style={{ width: 250 }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">in</InputAdornment>
+                  ),
+                }}
+              />
+            </Grid>
+            <div>Head Type</div>
+            <div className="headType">
+              <div className="headCard">
+                <label htmlFor="hexHead">
+                  <input
+                    type="radio"
+                    id="hexHead"
+                    required
+                    name="headType"
+                    onChange={(e) => {
+                      updateRadioProperty(e);
+                    }}
+                  ></input>{" "}
+                  <img alt="hex head" src={hex}></img>
+                </label>
+                HEX HEAD
+              </div>
+              <div className="headCard">
+                <label htmlFor="hexWithWasher">
+                  <input
+                    type="radio"
+                    id="hexWithWasher"
+                    name="headType"
+                    onChange={(e) => updateRadioProperty(e)}
+                  ></input>{" "}
+                  <img alt="hex with washer" src={hwh}></img>
+                </label>
+                HEX HEAD W/ WASHER (OR FLANGED)
+              </div>
+              <div className="headCard">
+                <label htmlFor="countersunk">
+                  <input
+                    type="radio"
+                    id="countersunk"
+                    name="headType"
+                    onChange={(e) => updateRadioProperty(e)}
+                  ></input>{" "}
+                  <img alt="countersunk" src={csunk}></img>
+                </label>
+                COUNTERSUNK
+              </div>
+            </div>
+            <Divider
+              variant="middle"
+              sx={{ bgcolor: "silver" }}
+              flexItem="false"
+            ></Divider>
+            <h4>INTERFACE CONFIGURATION</h4>
+            <div className="headType">
+              <label htmlFor="flush">
                 <input
                   type="radio"
-                  id="hexHead"
+                  id="flush"
+                  name="interface"
+                  onChange={(e) => updateRadioProperty(e)}
+                ></input>{" "}
+                <img alt="flush" src={flush}></img>
+              </label>
+              <label htmlFor="valley">
+                <input
+                  type="radio"
+                  id="valley"
                   required
-                  name="headType"
+                  name="interface"
                   onChange={(e) => {
                     updateRadioProperty(e);
                   }}
                 ></input>{" "}
-                <img alt="hex head" src={hex}></img>
+                <img alt="valley" src={valley}></img>
               </label>
-              HEX HEAD
-            </div>
-            <div className="headCard">
-              <label htmlFor="hexWithWasher">
+              <label htmlFor="crown">
                 <input
                   type="radio"
-                  id="hexWithWasher"
-                  name="headType"
+                  id="crown"
+                  name="interface"
                   onChange={(e) => updateRadioProperty(e)}
                 ></input>{" "}
-                <img alt="hex with washer" src={hwh}></img>
+                <img alt="crown" src={crown}></img>
               </label>
-              HEX HEAD W/ WASHER (OR FLANGED)
             </div>
-            <div className="headCard">
-              <label htmlFor="countersunk">
-                <input
-                  type="radio"
-                  id="countersunk"
-                  name="headType"
-                  onChange={(e) => updateRadioProperty(e)}
-                ></input>{" "}
-                <img alt="countersunk" src={csunk}></img>
-              </label>
-              COUNTERSUNK
+            <Divider
+              variant="middle"
+              sx={{ bgcolor: "silver" }}
+              flexItem="false"
+            />
+            <h4>COMPONENT #1 INFO </h4>
+            <div className="subDesc">
+              (MATERIAL IN CONTACT WITH FASTENER HEAD)
             </div>
-            {/* <label htmlFor="undercut">
-              <input
-                type="radio"
-                id="undercut"
-                name="headType"
-                onChange={(e) => updateRadioProperty(e)}
-              ></input>{" "}
-              <img alt="undercut" src={ucut}></img>
-            </label> */}
-          </div>
-          <label htmlFor="fastMatInput"> Material</label>
-          <select
-            name="fastMatInput"
-            id="fastMatInput"
-            value="Alloy A1/A2/A3 Cond A"
-            required
-            onChange={(e) => updateProperties(e)}
-          >
-            <option hidden disabled value="void">
-              -- select an option --
-            </option>
-            <optgroup label="STEEL">
-              <option value="SAE Gr. 2">SAE Gr. 2</option>
-              <option value="SAE Gr. 5">SAE Gr. 5</option>
-            </optgroup>
-            <optgroup label="STAINLESS STEEL">
-              <option value="Alloy A1/A2/A3 Cond A">
-                Alloy A1/A2/A3 Cond A
-              </option>
-              <option value="Alloy A1/A2/A3 Cond AF">
-                Alloy A1/A2/A3 Cond AF
-              </option>
-              <option value="Alloy A1/A2/A3 Cond CW">
-                Alloy A1/A2/A3 Cond CW
-              </option>
-              <option value="Alloy A1/A2/A3 Cond SH">
-                Alloy A1/A2/A3 Cond SH
-              </option>
-              <option value="Alloy A4 Cond A">Alloy A4 Cond A</option>
-              <option value="Alloy A5 Cond H">Alloy A5 Cond H</option>
-              <option value="Alloy A5 Cond HT">Alloy A5 Cond HT</option>
-            </optgroup>
-          </select>
-          <div></div>
-          <div className="flexBox">
-            <label htmlFor="spacing">Spacing</label>
-            <input
-              type="number"
-              id="spacing"
-              name="spacing"
-              step=".1"
-              defaultValue={0.1}
-              required
-              onChange={(e) => updateTextInput(e)}
-            ></input>{" "}
-            <div>inches</div>
-          </div>
-          <div>----------------</div>
-          <div>INTERFACE CONFIGURATION</div>
-          <div className="headType">
-            <label htmlFor="flush">
-              <input
-                type="radio"
-                id="flush"
-                name="interface"
-                onChange={(e) => updateRadioProperty(e)}
-              ></input>{" "}
-              <img alt="flush" src={flush}></img>
-            </label>
-            <label htmlFor="valley">
-              <input
-                type="radio"
-                id="valley"
-                required
-                name="interface"
-                onChange={(e) => {
-                  updateRadioProperty(e);
+            <Grid item xs>
+              <TextField
+                label="Material"
+                onChange={(e) => updateProperties(e)}
+                select
+                name="comp1Mat"
+                variant="outlined"
+                style={{ width: 250 }}
+              >
+                <MenuItem disabled> ALUMINUM </MenuItem>
+                <MenuItem value="6063-T6">6063-T6</MenuItem>
+                <MenuItem value="6063-T5">6063-T5 </MenuItem>
+                <MenuItem value="6061-T6">6061-T6</MenuItem>
+                <MenuItem value="6005A-T61">6005A-T61</MenuItem>
+                <MenuItem value="5005-H34">5005-H34</MenuItem>
+                <MenuItem value="3003-H14">3003-H14</MenuItem>
+              </TextField>
+            </Grid>
+            <Grid item xs>
+              <TextField
+                label="Thickness"
+                onChange={(e) => updateTextInput(e)}
+                name="comp1Thick"
+                id="comp1Thick"
+                variant="outlined"
+                style={{ width: 250 }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">in</InputAdornment>
+                  ),
                 }}
-              ></input>{" "}
-              <img alt="valley" src={valley}></img>
-            </label>
-            <label htmlFor="crown">
-              <input
-                type="radio"
-                id="crown"
-                name="interface"
-                onChange={(e) => updateRadioProperty(e)}
-              ></input>{" "}
-              <img alt="crown" src={crown}></img>
-            </label>
-          </div>
-          <div>----------------</div>
-          <div>COMPONENT 1 INFO (IN CONTACT WITH FASTENER HEAD)</div>
-          <label htmlFor="comp1Mat">Material</label>
-          <select
-            name="comp1Mat"
-            id="comp1Mat"
-            value="6063-T6"
-            required
-            onChange={(e) => updateProperties(e)}
-          >
-            <option hidden disabled value="void">
-              -- select an option --
-            </option>
-
-            <optgroup label="ALUMINUM">
-              <option value="6063-T6">6063-T6</option>
-              <option value="6063-T5">6063-T5 </option>
-              <option value="6061-T6">6061-T6</option>
-              <option value="6005A-T61">6005A-T61</option>
-              <option value="5005-H34">5005-H34</option>
-              <option value="3003-H14">3003-H14</option>
-            </optgroup>
-          </select>
-          <div className="flexBox">
-            <label htmlFor="comp1Thick">Thickness</label>
-            <input
-              type="number"
-              id="comp1Thick"
-              name="comp1Thick"
-              step=".1"
-              defaultValue={0.1}
-              required
-              onChange={(e) => updateTextInput(e)}
-            ></input>{" "}
-            <div>inches</div>
-          </div>
-          <div className="flexBox">
-            <label htmlFor="edgeDist1">Edge Distance</label>
-            <input
-              type="number"
-              id="edgeDist1"
-              step=".1"
-              defaultValue={0.1}
-              required
-              onChange={(e) => updateTextInput(e)}
-            ></input>{" "}
-            <div>inches</div>
-          </div>
-          <div>Hole Type</div>
-          <input
-            type="radio"
-            id="standard"
-            name="holeType"
-            checked
-            required
-            onChange={(e) => updateRadioProperty(e)}
-          ></input>{" "}
-          <label htmlFor="standard">Standard</label>
-          <input
-            type="radio"
-            id="slotted"
-            name="holeType"
-            onChange={(e) => updateRadioProperty(e)}
-          ></input>{" "}
-          <label htmlFor="slotted">Slotted</label>
-          <div>----------------</div>
-          <div>COMPONENT 2 INFO (NOT IN CONTACT WITH FASTENER HEAD)</div>
-          <label htmlFor="comp2Mat">Material</label>
-          <select
-            name="comp2Mat"
-            id="comp2Mat"
-            value="6063-T5"
-            required
-            onChange={(e) => updateProperties(e)}
-          >
-            <option hidden disabled value="void">
-              -- select an option --
-            </option>
-            <optgroup label="ALUMINUM">
-              <option value="6063-T6">6063-T6</option>
-              <option value="6063-T5">6063-T5 </option>
-              <option value="6061-T6 ">6061-T6 </option>
-              <option value="6005A-T61">6005A-T61</option>
-              <option value="5005-H34">5005-H34</option>
-              <option value="3003-H14">3003-H14</option>
-            </optgroup>
-          </select>
-          <div className="flexBox">
-            <label htmlFor="comp1Thick">Thickness</label>
-            <input
-              type="number"
-              id="comp2Thick"
-              name="comp2Thick"
-              step=".1"
-              defaultValue={0.1}
-              required
-              onChange={(e) => updateTextInput(e)}
-            ></input>{" "}
-            <div>inches</div>
-          </div>
-          <div className="flexBox">
-            <label htmlFor="edgeDist2">Edge Distance</label>
-            <input
-              type="number"
-              id="edgeDist2"
-              step=".1"
-              defaultValue={0.1}
-              required
-              onChange={(e) => updateTextInput(e)}
-            ></input>{" "}
-            <div>inches</div>
-          </div>
-          <div>----------------</div>
-          <button
-            type="button"
-            onClick={(e) => {
-              CalcCapacity(
-                properties,
-                setProperties,
-                capacity,
-                setCapacity,
-                allResults,
-                setAllResults
-              );
-              setResultsToggle(true);
-            }}
-          >
-            SUBMIT
-          </button>
+              />
+            </Grid>
+            <Grid item xs>
+              <TextField
+                label="Edge Distance"
+                onChange={(e) => updateTextInput(e)}
+                name="edgeDist1"
+                id="edgeDist1"
+                variant="outlined"
+                style={{ width: 250 }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">in</InputAdornment>
+                  ),
+                }}
+              />
+            </Grid>
+            <div></div>
+            <FormLabel id="holeType">Hole Type</FormLabel>
+            <RadioGroup
+              row
+              aria-labelledby="holeType-button-group-label"
+              name="holeType"
+              onChange={(e) => updateProperties(e)}
+            >
+              <FormControlLabel
+                value="standard"
+                control={<Radio />}
+                label="Standard"
+              />
+              <FormControlLabel
+                value="slotted"
+                control={<Radio />}
+                label="Slotted"
+              />
+            </RadioGroup>
+            <Divider
+              variant="middle"
+              sx={{ bgcolor: "silver" }}
+              flexItem="false"
+            ></Divider>
+            <h4>COMPONENT #2 INFO </h4>
+            <div className="subDesc">
+              (MATERIAL NOT IN CONTACT WITH FASTENER HEAD)
+            </div>
+            <Grid item xs>
+              <TextField
+                label="Material"
+                onChange={(e) => updateProperties(e)}
+                select
+                name="comp2Mat"
+                variant="outlined"
+                style={{ width: 250 }}
+              >
+                <MenuItem disabled> ALUMINUM </MenuItem>
+                <MenuItem value="6063-T6">6063-T6</MenuItem>
+                <MenuItem value="6063-T5">6063-T5 </MenuItem>
+                <MenuItem value="6061-T6">6061-T6</MenuItem>
+                <MenuItem value="6005A-T61">6005A-T61</MenuItem>
+                <MenuItem value="5005-H34">5005-H34</MenuItem>
+                <MenuItem value="3003-H14">3003-H14</MenuItem>
+              </TextField>
+            </Grid>
+            <Grid item xs>
+              <TextField
+                label="Thickness"
+                onChange={(e) => updateTextInput(e)}
+                name="comp2Thick"
+                id="comp2Thick"
+                variant="outlined"
+                style={{ width: 250 }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">in</InputAdornment>
+                  ),
+                }}
+              />
+            </Grid>
+            <Grid item xs>
+              <TextField
+                label="Edge Distance"
+                onChange={(e) => updateTextInput(e)}
+                name="edgeDist2"
+                id="edgeDist2"
+                variant="outlined"
+                style={{ width: 250 }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">in</InputAdornment>
+                  ),
+                }}
+              />
+            </Grid>
+            <div></div>
+            <Grid item m>
+              <Button
+                type="button"
+                variant="contained"
+                size="large"
+                onClick={(e) => {
+                  CalcCapacity(
+                    properties,
+                    setProperties,
+                    capacity,
+                    setCapacity,
+                    allResults,
+                    setAllResults
+                  );
+                  setResultsToggle(true);
+                }}
+              >
+                SUBMIT
+              </Button>
+            </Grid>
+          </Grid>
         </form>
         {resultsToggle ? (
           <div className="results">
+            <Divider
+              variant="middle"
+              sx={{ bgcolor: "silver" }}
+              flexItem="false"
+            ></Divider>
             <h4>Results Summary:</h4>
             <div className="resultItem">Shear: {capacity.shear} lbs</div>
             <div className="resultItem">Tension: {capacity.tension} lbs</div>
@@ -377,7 +447,6 @@ function App() {
             {capacity.notes?.map((item, index) => {
               return <div key={index}>{item}</div>;
             })}
-            <hr></hr>
             <h4 className="detailedResults"> Detailed Results:</h4>
             <div>
               {" "}
@@ -419,7 +488,6 @@ function App() {
                 <div> {allResults[3].notes} </div>{" "}
               </div>
             )}
-
             <br></br>
             {typeof allResults[4].tension !== "number" ? (
               <div>Pullover Tension Capacity: --- (see warnings)</div>
@@ -433,9 +501,13 @@ function App() {
                 <div> {allResults[4].notes} </div>{" "}
               </div>
             )}
-            <h4 className="detailedResults"> Input:</h4>
-            <hr></hr>
-            <ul className="resultItem">
+            {/* <h4 className="detailedResults"> Input:</h4> */}
+            <Divider
+              variant="middle"
+              sx={{ bgcolor: "silver" }}
+              flexInput="false"
+            ></Divider>{" "}
+            <ol className="resultNotes">
               Notes:
               <li className="resultItem">
                 All symbols shown above follow the convention used in AAMA
@@ -455,12 +527,17 @@ function App() {
                 Screw engagement length assumed to be full thickness of
                 component #2.
               </li>
-            </ul>
+            </ol>
           </div>
         ) : (
           <div></div>
         )}
       </div>
+      <Divider
+        variant="middle"
+        sx={{ bgcolor: "silver" }}
+        flexInput="false"
+      ></Divider>{" "}
       <footer>
         <div className="footerContainer">
           <div>Copyright Ken Metz 2022</div>
@@ -469,7 +546,7 @@ function App() {
           </a>
         </div>
       </footer>
-    </div>
+    </Container>
   );
 }
 
