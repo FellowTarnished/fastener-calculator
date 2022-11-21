@@ -1,7 +1,9 @@
 {
   "files": {
-    "main.css": "/fastener-calculator/static/css/main.0835fd15.css",
-    "main.js": "/fastener-calculator/static/js/main.33489864.js",
+    "main.css": "/fastener-calculator/static/css/main.72709dbb.css",
+    "main.js": "/fastener-calculator/static/js/main.3e4c84fa.js",
+    "static/media/Galindo-Regular.ttf": "/fastener-calculator/static/media/Galindo-Regular.e4c5502cc98a942863cf.ttf",
+    "static/media/robot-cropped.png": "/fastener-calculator/static/media/robot-cropped.83252022a94bdc5b49af.png",
     "static/media/valleyJSX.svg": "/fastener-calculator/static/media/valleyJSX.12ea4fa2643d11abefc8d2113b67446d.svg",
     "static/media/crownJSX.svg": "/fastener-calculator/static/media/crownJSX.ba4c58e2c4cf795363152096e2bd716a.svg",
     "static/media/flushJSX.svg": "/fastener-calculator/static/media/flushJSX.a9b289dc497609f8bd5c28d53e946731.svg",
@@ -9,11 +11,11 @@
     "static/media/hex-flangedJSX.svg": "/fastener-calculator/static/media/hex-flangedJSX.ca6f7e6587ef1cd1a0d11ea51b7c3641.svg",
     "static/media/hexJSX.svg": "/fastener-calculator/static/media/hexJSX.95fcbfa7e6e5376eb190d09f86aff57c.svg",
     "index.html": "/fastener-calculator/index.html",
-    "main.0835fd15.css.map": "/fastener-calculator/static/css/main.0835fd15.css.map",
-    "main.33489864.js.map": "/fastener-calculator/static/js/main.33489864.js.map"
+    "main.72709dbb.css.map": "/fastener-calculator/static/css/main.72709dbb.css.map",
+    "main.3e4c84fa.js.map": "/fastener-calculator/static/js/main.3e4c84fa.js.map"
   },
   "entrypoints": [
-    "static/css/main.0835fd15.css",
-    "static/js/main.33489864.js"
+    "static/css/main.72709dbb.css",
+    "static/js/main.3e4c84fa.js"
   ]
 }
