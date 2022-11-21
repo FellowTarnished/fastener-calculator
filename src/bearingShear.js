@@ -45,10 +45,12 @@ export function bearingShear(properties) {
       invalidInput = ["INVALID SCREW SPACING: must be > 2.5 d"];
     } else if (e[i] >= 2 * d) {
       V[i] = (2 * d * t[i] * Fu[i]) / SF;
-      equationTracker = "V.bearing = 2*d*t*Ftu / Omega (Eqn. 8.14)";
+      equationTracker =
+        "`V_b = 2*d*t*F_(TU) / Omega ` ` ` ` ` ` ` ` ` ` [Eqn. 8.14]";
     } else if (e[i] < 2.0 * d && e[i] >= 1.5 * d) {
       V[i] = (t[i] * e[i] * Fu[i]) / SF;
-      equationTracker = "V.bearing = t*ea*Ftu / Omega (Eqn. 8.15)";
+      equationTracker =
+        "`V_b = t*e_a*F_(TU) / Omega ` ` ` ` ` ` ` ` ` ` [Eqn. 8.15]";
     } else {
       invalidInput = ["INVALID EDGE DISTANCE: must be >= 1.5d"];
     }
@@ -57,7 +59,8 @@ export function bearingShear(properties) {
   //Find tilting value
   if (t[0] <= t[1]) {
     V[2] = (4.2 * (t[1] ** 3 * d) ** 0.5 * Fu[1]) / SF;
-    equationTrackerTilt = "V.bearing = 4.2*(t2^3*d)^0.5*Ftu/3.0 (Eqn. 8.16)";
+    equationTrackerTilt =
+      "`V_b = (4.2*sqrt(t_2^3*d)*F_(TU))/Omega` ` ` ` ` ` ` ` ` ` [Eqn. 8.16]`";
   }
 
   if (V[2]) {

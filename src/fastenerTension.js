@@ -23,7 +23,7 @@ export function fastenerTension(properties) {
     T[0] = TSA * Ft;
   } else console.error("error");
 
-  T[1] = "T.allow = A(S)*Ft   (Eqn. 7.4)";
+  T[1] = "`T_A = A(S)*F_t` ` ` ` ` ` ` ` ` ` [Eqn. 7.4]`";
 
   return T;
 }

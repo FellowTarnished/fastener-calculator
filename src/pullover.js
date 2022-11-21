@@ -49,7 +49,8 @@ export function pullover(properties) {
     else if (d === 0.375) Dws = 9 / 16;
 
     T = (Cpov * t1 * Fu1 * (Dws - Dh)) / SF;
-    equationTracker = "(Cpov*t1*Ftu1*(Dws-Dws)/SF   (Eqn. 11.1)";
+    equationTracker =
+      "`(C_(pov)*t_1*F_(tu1)*(D_(WS)-D_H))/S_F ` ` ` ` ` ` ` ` ` ` [Eqn. 11.1]`";
   }
 
   //hex head with washer or flange
@@ -70,10 +71,12 @@ export function pullover(properties) {
     else if (t1 / Dws > 0.5) {
       ratio = 0.5;
       T = ((1.0 + 1.7 * ratio) * Dws * t1 * Fy1) / SF;
-      equationTracker = "(1.0+1.7*0.5)*Dws*t1*Fty1/SF   (Eqn. 11.2)";
+      equationTracker =
+        "`((1.0+1.7*0.5)*D_(WS)*t_1*F_(TY1))/S_F ` ` ` ` ` ` ` ` ` ` [Eqn. 11.2]`";
     } else {
       T = ((1.0 + 1.7 * ratio) * Dws * t1 * Fy1) / SF;
-      equationTracker = "(1.0+1.7*t1/Dws)*Dws*t1*Fty1/SF   (Eqn. 11.2)";
+      equationTracker =
+        "`(1.0+1.7*t_1/D_(WS))*D_(WS)*t_1*F_(TY1)/S_F ` ` ` ` ` ` ` ` ` ` [Eqn. 11.2]`";
     }
   }
 
@@ -92,10 +95,12 @@ export function pullover(properties) {
       T = "INVALID COMPONENT #1 THICKNESS: t1 must be > the fastener head";
     else if (t1 >= 0.06 && t1 < 0.19 && t1 / d > 1.1) {
       T = ((0.27 + 1.45 * 1.1) * d * t1 * Fy1) / SF;
-      equationTracker = "(0.27+1.45*1.1)*d*t1*Fty1/SF   (Eqn. 11.3)";
+      equationTracker =
+        "`(0.27+1.45*1.1)*d*t_1*F_(TY1)/S_F ` ` ` ` ` ` ` ` ` ` [Eqn. 11.3]`";
     } else {
       T = ((0.27 + (1.45 * t1) / d) * d * t1 * Fy1) / SF;
-      equationTracker = "(0.27+1.45*t1/d)*d*t1*Fty1/SF   (Eqn. 11.3)";
+      equationTracker =
+        "`(0.27+1.45*t_1/d)*d*t_1*F_(TY1)/S_F ` ` ` ` ` ` ` ` ` ` [Eqn. 11.3]`";
     }
   }
   return [T, equationTracker];

@@ -7,17 +7,23 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme";
 
 import App from "./App";
-import { CapacityProvider } from "./CapacityContext";
-import { AllResultsProvider } from "./CapacityContext";
+import {
+  AllInputProvider,
+  CapacityProvider,
+  AllResultsProvider,
+} from "./CapacityContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <CapacityProvider>
         <AllResultsProvider>
-          <App />
+          <AllInputProvider>
+            <App />
+          </AllInputProvider>
         </AllResultsProvider>
       </CapacityProvider>
     </ThemeProvider>

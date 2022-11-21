@@ -36,16 +36,38 @@ h1 {
   margin-top: 60px;
 }
 
-h4 {
-  margin-bottom: 0px;
+.headType {
+  margin-top: 20px;
 }
 
+#holeType {
+  margin-top: 20px;
+}
+
+h4 {
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+.css-qfz70r-MuiFormGroup-root {
+  justify-content: center;
+}
+
+.break {
+  margin-top: 20px;
+}
 .subDesc {
   font-size: 0.75rem;
+  margin-top: -20px;
+  margin-bottom: 10px;
 }
 
 .resultNotes {
   text-align: left;
+}
+
+.resultLabel {
+  font-size: 18px;
 }
 /*FASTENER INFO STYLING*/
 .headType {
@@ -87,8 +109,17 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 3em;
 }
-.logo {
-  height: 40px;
+svg {
   margin-left: 10px;
+  height: 3em;
+}
+a {
+  display: flex;
+  align-items: center;
+}
+.css-i4bv87-MuiSvgIcon-root {
+  height: 1.5em;
+  width: 1.5em;
 }

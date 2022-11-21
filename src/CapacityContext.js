@@ -1,5 +1,7 @@
 import React, { useState, createContext } from "react";
 
+//*****Context #1: Governing Capacity
+
 export const CapacityContext = createContext();
 
 export const CapacityProvider = (props) => {
@@ -17,6 +19,8 @@ export const CapacityProvider = (props) => {
     </CapacityContext.Provider>
   );
 };
+
+//*****Context #2: All Results
 
 export const AllResultsContext = createContext();
 
@@ -53,5 +57,44 @@ export const AllResultsProvider = (props) => {
     <AllResultsContext.Provider value={[allResults, setAllResults]}>
       {props.children}
     </AllResultsContext.Provider>
+  );
+};
+
+//*****Context #3: All Input
+
+export const AllInputContext = createContext();
+
+export const AllInputProvider = (props) => {
+  const [allInput, setAllInput] = useState([
+    {
+      comp1Fu: undefined,
+      comp1Fy: undefined,
+      comp1Mat: undefined,
+      comp1Thick: undefined,
+      edgeDist1: undefined,
+      comp2Fu: undefined,
+      comp2Fy: undefined,
+      comp2Mat: undefined,
+      comp2Thick: undefined,
+      edgeDist2: undefined,
+      fastDia: undefined,
+      fastFu: undefined,
+      fastFy: undefined,
+      fastMatInput: undefined,
+      headType: undefined,
+      interface: undefined,
+      minorDia: undefined,
+      nomDia: undefined,
+      spacing: undefined,
+      threadCount: undefined,
+      threadType: undefined,
+      SF: undefined,
+    },
+  ]);
+
+  return (
+    <AllInputContext.Provider value={[allInput, setAllInput]}>
+      {props.children}
+    </AllInputContext.Provider>
   );
 };
