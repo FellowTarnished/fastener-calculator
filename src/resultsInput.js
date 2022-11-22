@@ -32,7 +32,7 @@ export default function resultsInput(properties, allInput) {
           <Grid item>
             <div>Fastener Properties:</div>
             <MathJax>Size : {properties[0].fastDia} </MathJax>
-            <MathJax>`D` = `d` = {properties[0].nomDia}</MathJax>
+            <MathJax>`D` = `d` = {properties[0].nomDia} inches</MathJax>
             <MathJax>Spacing : {properties[0].spacing} inches</MathJax>
             <MathJax>Material : {properties[0].fastMatInput} inches</MathJax>
             <MathJax>`F_U` = `F_TU` = {properties[0].fastFu} psi</MathJax>

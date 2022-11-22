@@ -109,7 +109,7 @@ export default function formFastenerInfo(
         </Grid>
       </Box>
 
-      <div className="headType">Head Type</div>
+      <h4 className="headType">HEAD TYPE</h4>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={5} justifyContent="center">
           <div className="headType">
@@ -161,12 +161,8 @@ export default function formFastenerInfo(
           </div>
         </Grid>
       </Box>
-      <Divider
-        variant="middle"
-        sx={{ bgcolor: "silver" }}
-        flexItem="false"
-      ></Divider>
-      <h4>INTERFACE CONFIGURATION</h4>
+
+      <h4 className="headType">INTERFACE CONFIGURATION</h4>
       <div className="headType">
         <div class="interfaceCard">
           <label htmlFor="flush">
