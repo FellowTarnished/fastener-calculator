@@ -26,7 +26,7 @@ export default function ResultsTable(capacity) {
             size="small"
             aria-label="Results Summary:"
           >
-            <TableHead sx={{ fontWeights: "bold" }}>
+            <TableHead sx={{ fontWeights: "bold", fontFamily: "robotoBold" }}>
               <TableRow>
                 <TableCell>Failure Mode</TableCell>
                 <TableCell align="right">Capacity [lbs]</TableCell>

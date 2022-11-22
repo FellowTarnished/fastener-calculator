@@ -20,6 +20,7 @@ import "./style/App.css";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import robot from "./style/images/robot-cropped.png";
 import resultsDetailed from "./resultsDetailed";
+import { flushSync } from "react-dom";
 
 function App() {
   //*****PROPS AND STATE*****
@@ -27,6 +28,7 @@ function App() {
     loader: { load: ["input/asciimath"] },
   };
   const ref = useRef(null);
+
   const scrollToResults = () => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -136,18 +138,26 @@ function App() {
               type="button"
               variant="contained"
               size="large"
+              sx={{
+                minWidth: "320px",
+                minHeight: "65px",
+                marginTop: "20px",
+                fontSize: "1.25em",
+              }}
               onClick={(e) => {
-                CalcCapacity(
-                  properties,
-                  setProperties,
-                  capacity,
-                  setCapacity,
-                  allResults,
-                  setAllResults,
-                  allInput,
-                  setAllInput
-                );
-                setResultsToggle(true);
+                flushSync(() => {
+                  CalcCapacity(
+                    properties,
+                    setProperties,
+                    capacity,
+                    setCapacity,
+                    allResults,
+                    setAllResults,
+                    allInput,
+                    setAllInput
+                  );
+                  setResultsToggle(true);
+                });
                 scrollToResults();
               }}
             >
