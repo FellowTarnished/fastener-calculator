@@ -1,6 +1,3 @@
-import { AllInputContext } from "./CapacityContext";
-import { useContext } from "react";
-
 export function FastenerShear(properties) {
   let K = properties[0].minorDia;
   let D = properties[0].nomDia;
@@ -27,10 +24,6 @@ export function FastenerShear(properties) {
     Fv = Math.min(Fu / (SF * 3 ** 0.5), 0.75 * Fy);
     V[0] = TRA * Fv;
   } else console.error("error");
-
-  // let temp = allInput.slice();
-  // temp[0].SF = SF;
-  // setAllInput(temp);
 
   V[1] = "`V_A = A(R)*F_V` ` ` ` ` ` ` ` ` ` [Eqn. 7.5]`";
 

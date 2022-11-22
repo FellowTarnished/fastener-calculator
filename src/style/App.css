@@ -52,6 +52,7 @@ h1 {
 
 .headType {
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 #holeType {
@@ -125,7 +126,7 @@ th {
 }
 
 img {
-  height: 100px;
+  height: 140px;
   padding: 20px;
   border-radius: 5px;
 }

@@ -48,6 +48,8 @@ export function pullover(properties) {
     else if (d === 0.3125) Dws = 1 / 2;
     else if (d === 0.375) Dws = 9 / 16;
 
+    thead = " --- ";
+
     T = (Cpov * t1 * Fu1 * (Dws - Dh)) / SF;
     equationTracker =
       "`(C_(pov)*t_1*F_(tu1)*(D_(WS)-D_H))/S_F ` ` ` ` ` ` ` ` ` ` [Eqn. 11.1]`";
@@ -62,6 +64,8 @@ export function pullover(properties) {
     else if (d === 0.25) Dws = 0.52;
     else if (d === 0.3125) Dws = 0.676;
     else if (d === 0.375) Dws = 0.78;
+
+    thead = " --- ";
 
     let ratio = t1 / Dws;
 
@@ -89,6 +93,8 @@ export function pullover(properties) {
     else if (d === 0.25) thead = 0.107;
     else if (d === 0.3125) thead = 0.134;
     else if (d === 0.375) thead = 0.161;
+
+    Dws = " --- ";
 
     if (thead > t1)
       T = "INVALID COMPONENT #1 THICKNESS: t1 must be > the fastener head";
