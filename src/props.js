@@ -1,6 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
 
-export function getThreadType(properties, setProperties) {
+export function getThreadType(
+  properties,
+  setProperties,
+  allInput,
+  setAllInput
+) {
   let fast = properties[0].fastDia;
   let threadType = undefined;
   if (
@@ -19,7 +24,7 @@ export function getThreadType(properties, setProperties) {
   setProperties(temp);
 }
 
-export function getDiameter(properties, setProperties) {
+export function getDiameter(properties, setProperties, allInput, setAllInput) {
   let D = undefined;
   let K = undefined;
   if (properties[0].fastDia.includes("#6")) {
@@ -50,7 +55,12 @@ export function getDiameter(properties, setProperties) {
   setProperties(temp);
 }
 
-export function getThreadCount(properties, setProperties) {
+export function getThreadCount(
+  properties,
+  setProperties,
+  allInput,
+  setAllInput
+) {
   let N = undefined;
   if (properties[0].fastDia.includes("32")) N = 32;
   else if (properties[0].fastDia.includes("24")) N = 24;
@@ -64,7 +74,7 @@ export function getThreadCount(properties, setProperties) {
   setProperties(temp);
 }
 
-export function getFastType(properties, setProperties) {
+export function getFastType(properties, setProperties, allInput, setAllInput) {
   let type = undefined;
   let Fu = undefined;
   let Fy = undefined;
@@ -116,7 +126,7 @@ export function getFastType(properties, setProperties) {
   setProperties(temp);
 }
 
-export function getMatType(properties, setProperties) {
+export function getMatType(properties, setProperties, allInput, setAllInput) {
   let temp = properties.slice();
 
   if (properties[0].comp1Mat === "6005A-T61") {

@@ -9,6 +9,9 @@ export function pullover(properties) {
   let SF = null;
   let Cpov = null;
   let equationTracker = undefined;
+  let thead = null;
+  let Dh = null;
+  let Dws = null;
 
   if (inter === "flush" || inter === "valley") Cpov = 1.0;
   if (inter === "crown") Cpov = 0.7;
@@ -17,9 +20,6 @@ export function pullover(properties) {
   if (d <= 0.25) SF = 3;
   else SF = 2.5;
 
-  let Dws = null;
-
-  let Dh = null;
   if (headType === "hexHead" || headType === "hexWithWasher") {
     if (d === 0.138) Dh = 0.138 + 0.0625;
     else if (d === 0.164) Dh = 0.164 + 0.0625;
@@ -82,7 +82,6 @@ export function pullover(properties) {
 
   //equation 11.3
   else if (headType === "countersunk") {
-    let thead = null;
     if (d === 0.138) thead = 0.059;
     else if (d === 0.164) thead = 0.094;
     else if (d === 0.19) thead = 0.11;
@@ -103,5 +102,5 @@ export function pullover(properties) {
         "`(0.27+1.45*t_1/d)*d*t_1*F_(TY1)/S_F ` ` ` ` ` ` ` ` ` ` [Eqn. 11.3]`";
     }
   }
-  return [T, equationTracker];
+  return [T, equationTracker, thead, Dws, Dh];
 }

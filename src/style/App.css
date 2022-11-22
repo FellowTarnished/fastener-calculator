@@ -3,6 +3,20 @@
   src: url(./Galindo-Regular.ttf);
 }
 
+@font-face {
+  font-family: "roboto";
+  src: url(./Roboto-Regular.ttf);
+}
+
+@font-face {
+  font-family: "robotoBold";
+  src: url(./Roboto-Bold.ttf);
+}
+
+body {
+  font-family: "roboto", Arial, Helvetica, sans-serif;
+}
+
 /*MUI CSS*/
 formControl {
   display: flex;
@@ -66,7 +80,19 @@ h4 {
   text-align: left;
 }
 
-.resultLabel {
+.resultItem {
+  font-size: 15px;
+}
+
+.tableContainer {
+  display: flex;
+  justify-content: center;
+}
+span {
+  font-size: 12px;
+}
+th {
+  font-family: "robotoBold", Arial, Helvetica, sans-serif;
   font-size: 18px;
 }
 /*FASTENER INFO STYLING*/

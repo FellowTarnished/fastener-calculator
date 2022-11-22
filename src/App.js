@@ -1,3 +1,5 @@
+import ResultsTable from "./resultsTable";
+
 import "./style/App.css";
 
 import Container from "@mui/material/Container";
@@ -32,7 +34,11 @@ import Paper from "@mui/material/Paper";
 import CalcCapacity from "./Calc";
 import React, { useState, useContext, useRef } from "react";
 
-import { CapacityContext, AllResultsContext } from "./CapacityContext";
+import {
+  CapacityContext,
+  AllResultsContext,
+  AllInputContext,
+} from "./CapacityContext";
 
 import hex from "./style/images/hexJSX.svg";
 import csunk from "./style/images/countersunkJSX.svg";
@@ -58,7 +64,7 @@ function App() {
 
   const [capacity, setCapacity] = useContext(CapacityContext);
   const [allResults, setAllResults] = useContext(AllResultsContext);
-  // const [allInput, setAllInput] = useContext(AllInputContext);
+  const [allInput, setAllInput] = useContext(AllInputContext);
 
   const [properties, setProperties] = useState([
     {
@@ -437,7 +443,9 @@ function App() {
                   capacity,
                   setCapacity,
                   allResults,
-                  setAllResults
+                  setAllResults,
+                  allInput,
+                  setAllInput
                 );
                 setResultsToggle(true);
                 scrollToResults();
@@ -447,97 +455,118 @@ function App() {
             </Button>
           </form>
           <div className="break"></div>
+          <Divider
+            variant="middle"
+            sx={{ bgcolor: "silver" }}
+            flexItem="false"
+          ></Divider>
 
           {resultsToggle ? (
             <div className="results">
-              <Divider
-                variant="middle"
-                sx={{ bgcolor: "silver" }}
-                flexItem="false"
-              ></Divider>
               <h4 ref={ref}>Results Summary:</h4>
-              <div className="resultLabel">Shear: {capacity.shear} lbs</div>
-              <div className="resultLabel">Tension: {capacity.tension} lbs</div>
-              <h4 className="resultItem">Warnings:</h4>
-              {capacity.notes?.map((item, index) => {
-                return <div key={index}>{item}</div>;
-              })}
-              <h4 className="detailedResults"> Detailed Results:</h4>
-              <div className="resultLabel">
-                Fastener Shear Capacity:
-                {Math.round(allResults[0].shear * 10) / 10} lbs
-              </div>
-              <MathJax>{allResults[0].notes}</MathJax>
-              <br></br>
-              <div className="resultLabel">
-                Fastener Tension Capacity:
-                {Math.round(allResults[1].tension * 10) / 10} lbs
-              </div>
-              <MathJax>{allResults[1].notes}</MathJax>
-              <br></br>
-              {/* ONLY RENDER DETAILED RESULTS IF THERE ARE NO ERRORS */}
-              {typeof allResults[2].shear !== "number" ? (
-                <div>Bearing Shear Capacity: --- (see warnings)</div>
-              ) : (
-                <div>
-                  <div className="resultLabel">
-                    Bearing Shear Capacity:
-                    {Math.round(allResults[2].shear * 10) / 10} lbs
-                  </div>
-                  <MathJax>{allResults[2].notes}</MathJax>
+              {ResultsTable(capacity)}
+              <TableContainer>
+                <h4 className="detailedResults"> Detailed Results:</h4>
+                <div className="resultLabel">
+                  Fastener Shear Capacity:
+                  {Math.round(allResults[0].shear * 10) / 10} lbs
                 </div>
-              )}
-              <br></br>
-              {typeof allResults[3].tension !== "number" ? (
-                <div>Pullout Tension Capacity: --- (see warnings)</div>
-              ) : (
-                <div>
-                  <div className="resultLabel">
-                    Pullout Tension Capacity:
-                    {Math.round(allResults[3].tension * 10) / 10} lbs
-                  </div>
-                  <MathJax> {allResults[3].notes} </MathJax>
+                <MathJax>{allResults[0].notes}</MathJax>
+                <br></br>
+                <div className="resultLabel">
+                  Fastener Tension Capacity:
+                  {Math.round(allResults[1].tension * 10) / 10} lbs
                 </div>
-              )}
-              <br></br>
-              {typeof allResults[4].tension !== "number" ? (
-                <div>Pullover Tension Capacity: --- (see warnings)</div>
-              ) : (
-                <div>
-                  <div className="resultLabel">
-                    Pullover Tension Capacity:
-                    {Math.round(allResults[4].tension * 10) / 10} lbs
+                <MathJax>{allResults[1].notes}</MathJax>
+                <br></br>
+                {/* ONLY RENDER DETAILED RESULTS IF THERE ARE NO ERRORS */}
+                {typeof allResults[2].shear !== "number" ? (
+                  <div>Bearing Shear Capacity: --- (see warnings)</div>
+                ) : (
+                  <div>
+                    <div className="resultLabel">
+                      Bearing Shear Capacity:
+                      {Math.round(allResults[2].shear * 10) / 10} lbs
+                    </div>
+                    <MathJax className="resultLabel">
+                      {allResults[2].notes}
+                    </MathJax>
                   </div>
-                  <MathJax> {allResults[4].notes} </MathJax>{" "}
-                </div>
-              )}
-              {/* <h4 className="detailedResults"> Input:</h4> */}
-              <Divider
-                variant="middle"
-                sx={{ bgcolor: "silver" }}
-                flexInput="false"
-              ></Divider>{" "}
-              <ol className="resultNotes">
-                Notes:
-                <li className="resultItem">
-                  All symbols shown above follow the convention used in AAMA
-                  TIR-A9-14. Reference Section 2.0 of AAMA TIR-A9-14 for all
-                  symbol definitions.
-                </li>
-                <li className="resultItem">
-                  Screw Tilting for screws larger than 1/4" in diameter is
-                  excluded from the spec.
-                </li>
-                <li className="resultItem">
-                  Washer diameter and countersunk head thicknesses have been
-                  assumed based on standard industry values. User shall verify
-                  applicability to fasteners used on their project.
-                </li>
-                <li className="resultItem">
-                  Screw engagement length assumed to be full thickness of
-                  component #2.
-                </li>
-              </ol>
+                )}
+                <br></br>
+                {typeof allResults[3].tension !== "number" ? (
+                  <div>Pullout Tension Capacity: --- (see warnings)</div>
+                ) : (
+                  <div>
+                    <div className="resultLabel">
+                      Pullout Tension Capacity:
+                      {Math.round(allResults[3].tension * 10) / 10} lbs
+                    </div>
+                    <MathJax> {allResults[3].notes} </MathJax>
+                  </div>
+                )}
+                <br></br>
+                {typeof allResults[4].tension !== "number" ? (
+                  <div>Pullover Tension Capacity: --- (see warnings)</div>
+                ) : (
+                  <div>
+                    <div className="resultLabel">
+                      Pullover Tension Capacity:
+                      {Math.round(allResults[4].tension * 10) / 10} lbs
+                    </div>
+                    <MathJax> {allResults[4].notes} </MathJax>{" "}
+                  </div>
+                )}
+                <h4 className="detailedResults"> Input:</h4>
+                <div>Component #1 Properties:</div>
+                <MathJax>`t_1` = {properties[0].comp1Thick} inches</MathJax>
+                <MathJax>`F_(U1)` = {properties[0].comp1Fu} psi</MathJax>
+                <MathJax>`F_(Y1)` = {properties[0].comp1Fy} psi</MathJax>
+                <MathJax>Alloy : {properties[0].comp1Mat}</MathJax>
+                <MathJax>Edge Distance : {properties[0].edgeDist1}</MathJax>
+                <div>Component #2 Properties:</div>
+                <MathJax>`t_2` = {properties[0].comp2Thick} inches</MathJax>
+                <MathJax>`F_(U2)` = {properties[0].comp2Fu} psi</MathJax>
+                <MathJax>`F_(Y2)` = {properties[0].comp2Fy} psi</MathJax>
+                <MathJax>Alloy : {properties[0].comp2Mat}</MathJax>
+                <MathJax>Edge Distance : {properties[0].edgeDist1}</MathJax>
+                <div>Fastener Properties:</div>
+
+                <MathJax>t1 = {properties[0].comp1Thick} inches</MathJax>
+                <MathJax>t1 = {properties[0].comp1Thick} inches</MathJax>
+                <MathJax>t1 = {properties[0].comp1Thick} inches</MathJax>
+                <MathJax>t1 = {properties[0].comp1Thick} inches</MathJax>
+                <MathJax>t1 = {properties[0].comp1Thick} inches</MathJax>
+                <MathJax>t1 = {properties[0].comp1Thick} inches</MathJax>
+                <MathJax>t1 = {properties[0].comp1Thick} inches</MathJax>
+                <MathJax>t1 = {properties[0].comp1Thick} inches</MathJax>
+                <MathJax>t1 = {properties[0].comp1Thick} inches</MathJax>
+                <MathJax>t1 = {properties[0].comp1Thick} inches</MathJax>
+                <MathJax>t1 = {properties[0].comp1Thick} inches</MathJax>
+                <MathJax>t1 = {properties[0].comp1Thick} inches</MathJax>
+
+                <ol className="resultNotes">
+                  Notes:
+                  <li className="resultItem">
+                    All symbols shown above follow the convention used in AAMA
+                    TIR-A9-14. Reference Section 2.0 of AAMA TIR-A9-14 for all
+                    symbol definitions.
+                  </li>
+                  <li className="resultItem">
+                    Screw Tilting for screws larger than 1/4" in diameter is
+                    excluded from the spec.
+                  </li>
+                  <li className="resultItem">
+                    Washer diameter and countersunk head thicknesses have been
+                    assumed based on standard industry values. User shall verify
+                    applicability to fasteners used on their project.
+                  </li>
+                  <li className="resultItem">
+                    Screw engagement length assumed to be full thickness of
+                    component #2.
+                  </li>
+                </ol>
+              </TableContainer>
             </div>
           ) : (
             <div></div>

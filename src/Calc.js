@@ -20,14 +20,17 @@ export default function CalcCapacity(
   capacity,
   setCapacity,
   allResults,
-  setAllResults
+  setAllResults,
+  allInput,
+  setAllInput
 ) {
   //Pull properties from input and add to state
-  getDiameter(properties, setProperties);
-  getThreadCount(properties, setProperties);
-  getThreadType(properties, setProperties);
-  getFastType(properties, setProperties);
-  getMatType(properties, setProperties);
+
+  getDiameter(properties, setProperties, allInput, setAllInput);
+  getThreadCount(properties, setProperties, allInput, setAllInput);
+  getThreadType(properties, setProperties, allInput, setAllInput);
+  getFastType(properties, setProperties, allInput, setAllInput);
+  getMatType(properties, setProperties, allInput, setAllInput);
 
   console.log(properties);
 
@@ -35,8 +38,11 @@ export default function CalcCapacity(
   let V = FastenerShear(properties, setAllResults);
   let T = fastenerTension(properties);
   let temp = allResults.slice();
+  let tempInput = allInput.slice();
+
   temp[0].shear = V[0];
   temp[0].notes = V[1];
+  tempInput[0].SF = V[2];
   temp[1].tension = T[0];
   temp[1].notes = T[1];
 
@@ -53,7 +59,12 @@ export default function CalcCapacity(
   temp[3].notes = Tpout[1];
   temp[4].tension = Tpover[0];
   temp[4].notes = Tpover[1];
+  if (Tpover[2]) tempInput[0].thead = Tpover[2];
+  tempInput[0].Dws = Tpover[3];
+  tempInput[0].Dh = Tpover[4];
+
   setAllResults(temp);
+  setAllInput(tempInput);
 
   if (
     typeof T[0] !== "number" ||
@@ -83,4 +94,5 @@ export default function CalcCapacity(
     setCapacity({ shear: Vgovern, tension: Tgovern, notes: [""] });
   }
   console.log(allResults);
+  console.log(allInput);
 }

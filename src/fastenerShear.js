@@ -12,8 +12,6 @@ export function FastenerShear(properties) {
   let V = [null, undefined];
   let SF = null;
 
-  // const [allInput, setAllInput] = useContext(AllInputContext);
-
   if (properties[0].threadType === "unc") {
     TRA = (Math.PI * (D - 1.2269 / N) ** 2) / 4;
   } else if (properties[0].threadType === "spaced") {
@@ -35,6 +33,8 @@ export function FastenerShear(properties) {
   // setAllInput(temp);
 
   V[1] = "`V_A = A(R)*F_V` ` ` ` ` ` ` ` ` ` [Eqn. 7.5]`";
+
+  V[2] = SF;
 
   return V;
 }
