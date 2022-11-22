@@ -168,36 +168,45 @@ export default function formFastenerInfo(
       ></Divider>
       <h4>INTERFACE CONFIGURATION</h4>
       <div className="headType">
-        <label htmlFor="flush">
-          <input
-            type="radio"
-            id="flush"
-            name="interface"
-            onChange={(e) => updateRadioProperty(e)}
-          ></input>{" "}
-          <img alt="flush" src={flush}></img>
-        </label>
-        <label htmlFor="valley">
-          <input
-            type="radio"
-            id="valley"
-            required
-            name="interface"
-            onChange={(e) => {
-              updateRadioProperty(e);
-            }}
-          ></input>{" "}
-          <img alt="valley" src={valley}></img>
-        </label>
-        <label htmlFor="crown">
-          <input
-            type="radio"
-            id="crown"
-            name="interface"
-            onChange={(e) => updateRadioProperty(e)}
-          ></input>{" "}
-          <img alt="crown" src={crown}></img>
-        </label>
+        <div class="interfaceCard">
+          <label htmlFor="flush">
+            <input
+              type="radio"
+              id="flush"
+              name="interface"
+              onChange={(e) => updateRadioProperty(e)}
+            ></input>{" "}
+            <img alt="flush" src={flush}></img>
+          </label>
+          FLUSH
+        </div>
+        <div class="interfaceCard">
+          <label htmlFor="valley">
+            <input
+              type="radio"
+              id="valley"
+              required
+              name="interface"
+              onChange={(e) => {
+                updateRadioProperty(e);
+              }}
+            ></input>{" "}
+            <img alt="valley" src={valley}></img>
+          </label>
+          VALLEY
+        </div>
+        <div class="interfaceCard">
+          <label htmlFor="crown">
+            <input
+              type="radio"
+              id="crown"
+              name="interface"
+              onChange={(e) => updateRadioProperty(e)}
+            ></input>{" "}
+            <img alt="crown" src={crown}></img>
+          </label>
+          CROWN
+        </div>
       </div>
       <Divider variant="middle" sx={{ bgcolor: "silver" }} flexItem="false" />
     </div>

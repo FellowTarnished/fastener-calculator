@@ -1,34 +1,58 @@
 import MathJax from "better-react-mathjax/MathJax";
+import {
+  TextField,
+  MenuItem,
+  InputAdornment,
+  Divider,
+  Grid,
+  Box,
+} from "@mui/material";
 
 export default function resultsInput(properties, allInput) {
   return (
     <div>
-      <div>Component #1 Properties:</div>
-      <MathJax>`t_1` = {properties[0].comp1Thick} inches</MathJax>
-      <MathJax>Alloy : {properties[0].comp1Mat}</MathJax>
-      <MathJax>`F_(U1)` = {properties[0].comp1Fu} psi</MathJax>
-      <MathJax>`F_(Y1)` = {properties[0].comp1Fy} psi</MathJax>
-      <MathJax>Edge Distance : {properties[0].edgeDist1} inches</MathJax>
-      <div>Component #2 Properties:</div>
-      <MathJax>`t_2` = {properties[0].comp2Thick} inches</MathJax>
-      <MathJax>Alloy : {properties[0].comp2Mat}</MathJax>
-      <MathJax>`F_(U2)` = {properties[0].comp2Fu} psi</MathJax>
-      <MathJax>`F_(Y2)` = {properties[0].comp2Fy} psi</MathJax>
-      <MathJax>Edge Distance : {properties[0].edgeDist1} inches</MathJax>
-      <div>Fastener Properties:</div>
-      <MathJax>Size : {properties[0].fastDia} </MathJax>
-      <MathJax>Spacing : {properties[0].spacing} inches</MathJax>
-      <MathJax>Material : {properties[0].fastMatInput} inches</MathJax>
-      <MathJax>`F_u` = {properties[0].fastFu} psi</MathJax>
-      <MathJax>`F_y` = {properties[0].fastFy} psi</MathJax>
-      {allInput[0].Dws ? (
-        <MathJax>`D_(WS)` = {allInput[0].Dws} inches</MathJax>
-      ) : (
-        <MathJax>`D_(WS)` = not-applicable </MathJax>
-      )}
-      <MathJax>`D_H` = {allInput[0].Dh} inches</MathJax>
-      <MathJax>`t_(head)` = {allInput[0].thead} inches</MathJax>
-      <MathJax>`S_F` = {allInput[0].SF}</MathJax>
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid container spacing={5} justifyContent="center">
+          <Grid item>
+            <div>Component #1 Properties:</div>
+            <MathJax>`t_1` = {properties[0].comp1Thick} inches</MathJax>
+            <MathJax>Alloy : {properties[0].comp1Mat}</MathJax>
+            <MathJax>`F_(U1)` = {properties[0].comp1Fu} psi</MathJax>
+            <MathJax>`F_(Y1)` = {properties[0].comp1Fy} psi</MathJax>
+            <MathJax>`e_A` = {properties[0].edgeDist1} inches</MathJax>
+          </Grid>
+          <Grid item>
+            <div>Component #2 Properties:</div>
+            <MathJax>`t_2` = {properties[0].comp2Thick} inches</MathJax>
+            <MathJax>Alloy : {properties[0].comp2Mat}</MathJax>
+            <MathJax>`F_(U2)` = {properties[0].comp2Fu} psi</MathJax>
+            <MathJax>`F_(Y2)` = {properties[0].comp2Fy} psi</MathJax>
+            <MathJax>`e_A` = {properties[0].edgeDist1} inches</MathJax>
+          </Grid>
+          <Grid item>
+            <div>Fastener Properties:</div>
+            <MathJax>Size : {properties[0].fastDia} </MathJax>
+            <MathJax>`D` = `d` = {properties[0].nomDia}</MathJax>
+            <MathJax>Spacing : {properties[0].spacing} inches</MathJax>
+            <MathJax>Material : {properties[0].fastMatInput} inches</MathJax>
+            <MathJax>`F_U` = `F_TU` = {properties[0].fastFu} psi</MathJax>
+            <MathJax>`F_Y` = {properties[0].fastFy} psi</MathJax>
+            <MathJax>`F_V` = min(`0.75*F_Y, S_F * sqrt 3`)</MathJax>
+            <MathJax>`F_T` = min(`0.75*F_Y, F_U / S_F`)</MathJax>
+            {allInput[0].Dws ? (
+              <MathJax>`D_(WS)` = {allInput[0].Dws} inches</MathJax>
+            ) : (
+              <MathJax>`D_(WS)` = not-applicable </MathJax>
+            )}
+            <MathJax>`D_H` = {allInput[0].Dh} inches</MathJax>
+            <MathJax>`t_(head)` = {allInput[0].thead} inches</MathJax>
+            <MathJax>`K` = {properties[0].minorDia} inches</MathJax>
+            <MathJax>`A(S)` = {allInput[0].tensileStressArea} sq in</MathJax>
+            <MathJax>`A(R)` = {allInput[0].threadRootArea} sq in</MathJax>
+            <MathJax>`S_F` = `Omega` = {allInput[0].SF}</MathJax>
+          </Grid>
+        </Grid>
+      </Box>
       <ol className="resultNotes">
         Notes:
         <MathJax>

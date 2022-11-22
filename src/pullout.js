@@ -115,7 +115,7 @@ export function pullout(properties) {
     if (t2 >= 4 / N && t2 <= 0.375) {
       Tint = (0.9 * Math.PI * d * t2 * Fu2) / 3 ** 0.5;
       equationTrackerInt =
-        "`0.9*n*d*t*F_(TU)]/sqrt 3 ` ` ` ` ` ` ` ` ` ` [Eqn. 22.5]`";
+        "`0.9*n*d*t*F_(TU)/sqrt 3 ` ` ` ` ` ` ` ` ` ` [Eqn. 22.5]`";
     }
     if (t2 > 0.375)
       Tint =

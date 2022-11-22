@@ -43,8 +43,10 @@ export default function CalcCapacity(
   temp[0].shear = V[0];
   temp[0].notes = V[1];
   tempInput[0].SF = V[2];
+  tempInput[0].threadRootArea = V[3];
   temp[1].tension = T[0];
   temp[1].notes = T[1];
+  tempInput[0].tensileStressArea = T[2];
 
   //Find bearing
   let Vbear = bearingShear(properties);

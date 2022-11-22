@@ -28,6 +28,7 @@ export function FastenerShear(properties) {
   V[1] = "`V_A = A(R)*F_V` ` ` ` ` ` ` ` ` ` [Eqn. 7.5]`";
 
   V[2] = SF;
+  V[3] = TRA;
 
   return V;
 }
