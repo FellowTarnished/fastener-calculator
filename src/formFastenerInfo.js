@@ -10,6 +10,7 @@ import {
   Divider,
   Grid,
   Box,
+  Sheet,
 } from "@mui/material";
 
 import React, { useState, useContext, useRef } from "react";
@@ -39,7 +40,7 @@ export default function formFastenerInfo(
               variant="outlined"
               style={{ width: 250 }}
             >
-              <MenuItem disabled> UNC THREADS </MenuItem>
+              <MenuItem disabled> SPACED THREADS </MenuItem>
               <MenuItem value="#6-20">#6-20</MenuItem>
               <MenuItem value="#8-18">#8-18</MenuItem>
               <MenuItem value="#10-16">#10-16</MenuItem>
@@ -47,7 +48,7 @@ export default function formFastenerInfo(
               <MenuItem value="1/4-14">1/4-14</MenuItem>
               <MenuItem value="5/16-12">5/16-12</MenuItem>
               <MenuItem value="3/8-12">3/8-12</MenuItem>
-              <MenuItem disabled> SPACED THREADS </MenuItem>
+              <MenuItem disabled> UNC THREADS </MenuItem>
               <MenuItem value="#6-32">#6-32</MenuItem>
               <MenuItem value="#8-32">#8-32</MenuItem>
               <MenuItem value="#10-24">#10-24</MenuItem>
@@ -111,100 +112,109 @@ export default function formFastenerInfo(
 
       <h4 className="headType">HEAD TYPE</h4>
       <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={5} justifyContent="center">
-          <div className="headType">
-            <Grid item>
-              <div className="headCard" sx={{ width: 250 }}>
-                <label htmlFor="hexHead">
-                  <input
-                    type="radio"
-                    id="hexHead"
-                    required
-                    name="headType"
-                    onChange={(e) => {
-                      updateRadioProperty(e);
-                    }}
-                  ></input>{" "}
-                  <img alt="hex head" src={hex}></img>
-                </label>
-                HEX HEAD
-              </div>
-            </Grid>
-            <Grid item>
-              <div className="headCard">
-                <label htmlFor="hexWithWasher">
-                  <input
-                    type="radio"
-                    id="hexWithWasher"
-                    name="headType"
-                    onChange={(e) => updateRadioProperty(e)}
-                  ></input>{" "}
-                  <img alt="hex with washer" src={hwh}></img>
-                </label>
-                HEX HEAD W/ WASHER (OR FLANGED)
-              </div>
-            </Grid>
-            <Grid item>
-              <div className="headCard">
-                <label htmlFor="countersunk">
-                  <input
-                    type="radio"
-                    id="countersunk"
-                    name="headType"
-                    onChange={(e) => updateRadioProperty(e)}
-                  ></input>{" "}
-                  <img alt="countersunk" src={csunk}></img>
-                </label>
-                COUNTERSUNK
-              </div>
-            </Grid>
-          </div>
+        <Grid
+          container
+          spacing={2}
+          justifyContent="center"
+          className="headType"
+        >
+          <Grid item sx={{ flexDirection: "column", minWidth: 250 }}>
+            <label htmlFor="hexHead">
+              <input
+                type="radio"
+                id="hexHead"
+                required
+                name="headType"
+                onChange={(e) => {
+                  updateRadioProperty(e);
+                }}
+              ></input>{" "}
+              <img alt="hex head" src={hex}></img>
+              <div className="headCard">HEX HEAD (NO WASHER)</div>
+            </label>
+          </Grid>
+          <Grid item sx={{ flexDirection: "column", width: 250 }}>
+            <label htmlFor="hexWithWasher">
+              <input
+                type="radio"
+                id="hexWithWasher"
+                name="headType"
+                onChange={(e) => updateRadioProperty(e)}
+              ></input>{" "}
+              <img alt="hex with washer" src={hwh}></img>
+            </label>{" "}
+            <div className="headCard">HEX HEAD (WITH WASHER OR FLANGED)</div>
+          </Grid>
+          <Grid item sx={{ flexDirection: "column", width: 250 }}>
+            <label htmlFor="countersunk">
+              <input
+                type="radio"
+                id="countersunk"
+                name="headType"
+                onChange={(e) => updateRadioProperty(e)}
+              ></input>{" "}
+              <img alt="countersunk" src={csunk}></img>
+            </label>{" "}
+            <div className="headCard">COUNTERSUNK</div>
+          </Grid>
         </Grid>
       </Box>
 
       <h4 className="headType">INTERFACE CONFIGURATION</h4>
-      <div className="headType">
-        <div class="interfaceCard">
-          <label htmlFor="flush">
-            <input
-              type="radio"
-              id="flush"
-              name="interface"
-              onChange={(e) => updateRadioProperty(e)}
-            ></input>{" "}
-            <img alt="flush" src={flush}></img>
-          </label>
-          FLUSH
-        </div>
-        <div class="interfaceCard">
-          <label htmlFor="valley">
-            <input
-              type="radio"
-              id="valley"
-              required
-              name="interface"
-              onChange={(e) => {
-                updateRadioProperty(e);
-              }}
-            ></input>{" "}
-            <img alt="valley" src={valley}></img>
-          </label>
-          VALLEY
-        </div>
-        <div class="interfaceCard">
-          <label htmlFor="crown">
-            <input
-              type="radio"
-              id="crown"
-              name="interface"
-              onChange={(e) => updateRadioProperty(e)}
-            ></input>{" "}
-            <img alt="crown" src={crown}></img>
-          </label>
-          CROWN
-        </div>
-      </div>
-      <Divider variant="middle" sx={{ bgcolor: "silver" }} flexItem="false" />
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid
+          container
+          spacing={2}
+          justifyContent="center"
+          className="headType"
+        >
+          <Grid item sx={{ flexDirection: "column", minWidth: 250 }}>
+            <label htmlFor="flush">
+              <input
+                type="radio"
+                id="flush"
+                name="interface"
+                onChange={(e) => updateRadioProperty(e)}
+              ></input>{" "}
+              <img alt="flush" src={flush}></img>
+            </label>
+            <div class="interfaceCard">FLUSH</div>
+          </Grid>
+          <Grid item sx={{ flexDirection: "column", minWidth: 250 }}>
+            <label htmlFor="valley">
+              <input
+                type="radio"
+                id="valley"
+                required
+                name="interface"
+                onChange={(e) => {
+                  updateRadioProperty(e);
+                }}
+              ></input>{" "}
+              <img alt="valley" src={valley}></img>
+            </label>{" "}
+            <div class="interfaceCard">VALLEY</div>
+          </Grid>
+          <Grid item sx={{ flexDirection: "column", minWidth: 250 }}>
+            <label htmlFor="crown">
+              <input
+                type="radio"
+                id="crown"
+                name="interface"
+                onChange={(e) => updateRadioProperty(e)}
+              ></input>{" "}
+              <img alt="crown" src={crown}></img>
+            </label>
+            <div class="interfaceCard">CROWN</div>
+          </Grid>
+        </Grid>
+      </Box>
+
+      <Divider
+        variant="middle"
+        sx={{ bgcolor: "secondary.main" }}
+        flexItem="false"
+      />
     </div>
   );
 }

@@ -6,6 +6,7 @@ export function pullover(properties) {
   let Fu1 = properties[0].comp1Fu;
   let Fy1 = properties[0].comp1Fy;
   let T = null;
+  let Tcsunk = null;
   let SF = null;
   let Cpov = null;
   let equationTracker = undefined;
@@ -53,6 +54,23 @@ export function pullover(properties) {
     T = (Cpov * t1 * Fu1 * (Dws - Dh)) / SF;
     equationTracker =
       "`(C_(pov)*t_1*F_(tu1)*(D_(WS)-D_H))/S_F ` ` ` ` ` ` ` ` ` ` [Eqn. 11.1]`";
+
+    //Check if eqn. 11.3 bounds
+    if (t1 >= 0.06 && t1 < 0.19 && t1 / d > 1.1) {
+      Tcsunk = ((0.27 + 1.45 * 1.1) * d * t1 * Fy1) / SF;
+      if (Tcsunk > T) {
+        T = Tcsunk;
+        equationTracker =
+          "`(0.27+1.45*1.1)*d*t_1*F_(TY1)/S_F ` ` ` ` ` ` ` ` ` ` [Eqn. 11.3]`";
+      }
+    } else {
+      Tcsunk = ((0.27 + (1.45 * t1) / d) * d * t1 * Fy1) / SF;
+      if (Tcsunk > T) {
+        T = Tcsunk;
+        equationTracker =
+          "`(0.27+1.45*t_1/d)*d*t_1*F_(TY1)/S_F ` ` ` ` ` ` ` ` ` ` [Eqn. 11.3]`";
+      }
+    }
   }
 
   //hex head with washer or flange
@@ -62,8 +80,9 @@ export function pullover(properties) {
     else if (d === 0.19) Dws = 0.414;
     else if (d === 0.216) Dws = 0.432;
     else if (d === 0.25) Dws = 0.52;
-    else if (d === 0.3125) Dws = 0.676;
-    else if (d === 0.375) Dws = 0.78;
+    //Limit Dws to 0.625" per Section 11.0 Notes
+    else if (d === 0.3125) Dws = 0.625;
+    else if (d === 0.375) Dws = 0.625;
 
     thead = " --- ";
 
@@ -98,7 +117,7 @@ export function pullover(properties) {
 
     if (thead > t1)
       T = "INVALID COMPONENT #1 THICKNESS: t1 must be > the fastener head";
-    else if (t1 >= 0.06 && t1 < 0.19 && t1 / d > 1.1) {
+    else if (t1 / d > 1.1) {
       T = ((0.27 + 1.45 * 1.1) * d * t1 * Fy1) / SF;
       equationTracker =
         "`(0.27+1.45*1.1)*d*t_1*F_(TY1)/S_F ` ` ` ` ` ` ` ` ` ` [Eqn. 11.3]`";
@@ -108,5 +127,5 @@ export function pullover(properties) {
         "`(0.27+1.45*t_1/d)*d*t_1*F_(TY1)/S_F ` ` ` ` ` ` ` ` ` ` [Eqn. 11.3]`";
     }
   }
-  return [T, equationTracker, thead, Dws, Dh];
+  return [T, equationTracker, thead, Dws, Dh, Cpov];
 }

@@ -13,6 +13,10 @@
   src: url(./Roboto-Bold.ttf);
 }
 
+:root {
+  --theme: #1565c0;
+}
+
 body {
   font-family: "roboto", Arial, Helvetica, sans-serif;
 }
@@ -44,12 +48,27 @@ TextField {
   padding-top: 0px;
 }
 
+.flexBoxHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 h1 {
   font-family: "galindo", Arial, Helvetica, sans-serif;
   font-size: 2.5em;
-  margin-top: 60px;
+  margin-top: 10px;
 }
-
+@media (min-width: 700px) {
+  h1 {
+    font-size: 3.25em;
+    margin-top: 70px;
+  }
+  .flexBoxHeader {
+    flex-direction: row;
+  }
+}
 .headType {
   margin-top: 20px;
   margin-bottom: 20px;
@@ -103,17 +122,12 @@ th {
   display: flex;
   justify-content: center;
 }
-.headCard,
-.interfaceCard {
-  display: flex;
-  flex-direction: column;
-  margin-left: 50px;
-}
 
 .flexGroup {
   display: flex;
   justify-content: center;
 }
+
 /*Hide head type radio buttons*/
 .headType [type="radio"] {
   position: absolute;
@@ -129,7 +143,7 @@ th {
 
 /*Style Checked Image*/
 [type="radio"]:checked + img {
-  outline: 2px solid black;
+  outline: 2px solid var(--theme);
 }
 
 img {

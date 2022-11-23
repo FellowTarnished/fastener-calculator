@@ -85,7 +85,7 @@ export default function resultsDetailed(
       )}
       <Divider
         variant="middle"
-        sx={{ bgcolor: "silver" }}
+        sx={{ bgcolor: "secondary.main" }}
         flexInput="false"
       ></Divider>{" "}
     </div>

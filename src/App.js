@@ -21,6 +21,7 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import robot from "./style/images/robot-cropped.png";
 import resultsDetailed from "./resultsDetailed";
 import { flushSync } from "react-dom";
+import { Palette } from "@mui/icons-material";
 
 function App() {
   //*****PROPS AND STATE*****
@@ -28,7 +29,6 @@ function App() {
     loader: { load: ["input/asciimath"] },
   };
   const ref = useRef(null);
-
   const scrollToResults = () => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -39,28 +39,28 @@ function App() {
 
   const [properties, setProperties] = useState([
     {
-      comp1Fu: 38000,
-      comp1Fy: 35000,
-      comp1Mat: "6061-T6",
-      comp1Thick: "0.2",
-      comp2Fu: 22000,
-      comp2Fy: 16000,
-      comp2Mat: "6063-T5",
-      comp2Thick: "0.2",
-      edgeDist1: "4.3",
-      edgeDist2: "3.9",
-      fastDia: "#8-18",
-      fastFu: 120000,
-      fastFy: 92000,
-      fastMat: "cs",
-      fastMatInput: "SAE Gr. 5",
-      headType: "hexWithWasher",
-      interface: "crown",
-      minorDia: 0.116,
-      nomDia: 0.164,
-      spacing: "3.6",
-      threadCount: 18,
-      threadType: "spaced",
+      //     comp1Fu: 38000,
+      //     comp1Fy: 35000,
+      //     comp1Mat: "6061-T6",
+      //     comp1Thick: "0.2",
+      //     comp2Fu: 22000,
+      //     comp2Fy: 16000,
+      //     comp2Mat: "6063-T5",
+      //     comp2Thick: "0.2",
+      //     edgeDist1: "4.3",
+      //     edgeDist2: "3.9",
+      //     fastDia: "#8-18",
+      //     fastFu: 120000,
+      //     fastFy: 92000,
+      //     fastMat: "cs",
+      //     fastMatInput: "SAE Gr. 5",
+      //     headType: "hexWithWasher",
+      //     interface: "crown",
+      //     minorDia: 0.116,
+      //     nomDia: 0.164,
+      //     spacing: "3.6",
+      //     threadCount: 18,
+      //     threadType: "spaced",
     },
   ]);
   let [resultsToggle, setResultsToggle] = useState(false);
@@ -104,7 +104,7 @@ function App() {
         }}
       >
         <header className="App-header">
-          <div className="flexBox">
+          <div className="flexBoxHeader">
             <img alt="" src={robot} className="robot"></img>
             <h1>AAMA-TRON!</h1>
           </div>
@@ -112,7 +112,10 @@ function App() {
         </header>
         <div className="body">
           <form>
-            <Divider variant="middle" sx={{ bgcolor: "silver" }}></Divider>
+            <Divider
+              variant="middle"
+              sx={{ bgcolor: "secondary.main" }}
+            ></Divider>
             <h4>FASTENER INFO</h4>
             {formFastenerInfo(
               updateProperties,
@@ -167,7 +170,7 @@ function App() {
           <div className="break"></div>
           <Divider
             variant="middle"
-            sx={{ bgcolor: "silver" }}
+            sx={{ bgcolor: "secondary.main" }}
             flexItem="false"
           ></Divider>
 

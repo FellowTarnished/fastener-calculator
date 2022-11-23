@@ -64,6 +64,7 @@ export default function CalcCapacity(
   if (Tpover[2]) tempInput[0].thead = Tpover[2];
   tempInput[0].Dws = Tpover[3];
   tempInput[0].Dh = Tpover[4];
+  tempInput[0].Cpov = Tpover[5];
 
   setAllResults(temp);
   setAllInput(tempInput);

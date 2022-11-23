@@ -86,7 +86,7 @@ export default function formComponent1(
 
       <Divider
         variant="middle"
-        sx={{ bgcolor: "silver" }}
+        sx={{ bgcolor: "secondary.main" }}
         flexItem="false"
       ></Divider>
     </div>

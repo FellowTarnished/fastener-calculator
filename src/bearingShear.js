@@ -21,11 +21,7 @@ export function bearingShear(properties) {
   let equationTracker = undefined;
   let equationTrackerTilt = undefined;
 
-  let SF = null;
-
-  //find safety factor
-  if (d <= 0.25) SF = 3;
-  else SF = 2.5;
+  let omega = 3;
 
   let V = [null, null];
 
@@ -44,11 +40,11 @@ export function bearingShear(properties) {
     } else if (+s < 2.5 * d) {
       invalidInput = ["INVALID SCREW SPACING: must be > 2.5 d"];
     } else if (e[i] >= 2 * d) {
-      V[i] = (2 * d * t[i] * Fu[i]) / SF;
+      V[i] = (2 * d * t[i] * Fu[i]) / omega;
       equationTracker =
         "`V_b = 2*d*t*F_(TU) / Omega ` ` ` ` ` ` ` ` ` ` [Eqn. 8.14]";
     } else if (e[i] < 2.0 * d && e[i] >= 1.5 * d) {
-      V[i] = (t[i] * e[i] * Fu[i]) / SF;
+      V[i] = (t[i] * e[i] * Fu[i]) / omega;
       equationTracker =
         "`V_b = t*e_a*F_(TU) / Omega ` ` ` ` ` ` ` ` ` ` [Eqn. 8.15]";
     } else {
@@ -58,13 +54,13 @@ export function bearingShear(properties) {
 
   //Find tilting value
   if (t[0] <= t[1]) {
-    V[2] = (4.2 * (t[1] ** 3 * d) ** 0.5 * Fu[1]) / SF;
+    V[2] = (4.2 * (t[1] ** 3 * d) ** 0.5 * Fu[1]) / omega;
     equationTrackerTilt =
       "`V_b = (4.2*sqrt(t_2^3*d)*F_(TU))/Omega` ` ` ` ` ` ` ` ` ` [Eqn. 8.16]`";
   }
 
   if (V[2]) {
-    if (V[2] > V[1] && V[2] > V[1]) {
+    if (V[2] > V[0] && V[2] > V[1]) {
       equationTracker = equationTrackerTilt;
     }
   }

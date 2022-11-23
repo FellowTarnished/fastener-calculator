@@ -64,26 +64,27 @@ export function pullout(properties) {
         "INVALID COMPONENT #2 THICKNESS: t2 must be > 0.06 inches for UNC screws";
     }
     if (t2 >= 0.06 && t2 <= 0.08) {
-      Tint = (0.56 * Math.PI * d * t2 * Fy2) / 3 ** 0.5;
+      Tint = (0.56 * Math.PI * d * t2 * Fy2) / (3 ** 0.5 * SF);
       equationTrackerInt =
-        "`(K_m*pi*d*t*F_(TY))/sqrt e ` ` ` ` ` ` ` ` ` ` [Eqn. 22.1]`";
+        "`(K_m*pi*d*t*F_(TY))/(sqrt 3*S_F) ` ` ` ` ` ` ` ` ` ` [Eqn. 22.1]`";
     }
     if (t2 > 0.08 && t2 <= 0.125) {
-      Tint = (0.665 * Math.PI * d * t2 * Fy2) / 3 ** 0.5;
+      Tint = (0.665 * Math.PI * d * t2 * Fy2) / (3 ** 0.5 * SF);
       equationTrackerInt =
-        "`(K_m*pi*d*t*F_(TY))/sqrt e ` ` ` ` ` ` ` ` ` ` [Eqn. 22.1]`";
+        "`(K_m*pi*d*t*F_(TY))/(sqrt 3*S_F) ` ` ` ` ` ` ` ` ` ` [Eqn. 22.1]`";
     }
     if (t2 > 0.125 && t2 < 0.25) {
       Tint =
-        ((0.665 * Math.PI) / 3 ** 0.5) * d * Fy2 * (0.25 - t2) +
-        (2 / 3 ** 0.5) * N * Atsi * Fu2 * (t2 - 0.125);
+        (((0.665 * Math.PI) / 3 ** 0.5) * d * Fy2 * (0.25 - t2) +
+          (2 / 3 ** 0.5) * N * Atsi * Fu2 * (t2 - 0.125)) /
+        SF;
       equationTrackerInt =
-        "`((0.665*pi)/sqrt 3*d*F_(TY)y*(0.25-t)+(2/sqrt 3)*n*A_(TSI)*F_(TU)*(t-0.125) ` ` ` ` ` ` ` ` ` ` [Eqn. 22.3]`";
+        "`((0.665*pi)/sqrt 3*d*F_(TY)y*(0.25-t)+(2/sqrt 3)*n*A_(TSI)*F_(TU)*(t-0.125))/S_F ` ` ` ` ` ` ` ` ` ` [Eqn. 22.3]`";
     }
     if (t2 >= 0.25 && t2 <= 0.375) {
-      Tint = (t2 * N * Atsi * Fu2) / 3 ** 0.5;
+      Tint = (t2 * N * Atsi * Fu2) / (3 ** 0.5 * SF);
       equationTrackerInt =
-        "`t*n*A_(TSI)*F_(TU)/sqrt 3  ` ` ` ` ` ` ` ` ` ` [Eqn. 22.2]`";
+        "`t*n*A_(TSI)*F_(TU)/(sqrt 3 *S_F)  ` ` ` ` ` ` ` ` ` ` [Eqn. 22.2]`";
     }
     if (t2 > 0.375)
       Tint =
@@ -96,26 +97,27 @@ export function pullout(properties) {
         "INVALID COMPONENT #2 THICKNESS: t2 must be > 0.06 inches for SPACED screws";
     }
     if (t2 >= 0.038 && t2 < 0.08) {
-      Tint = (0.56 * Math.PI * d * t2 * Fy2) / 3 ** 0.5;
+      Tint = (0.56 * Math.PI * d * t2 * Fy2) / (3 ** 0.5 * SF);
       equationTrackerInt =
-        "`K_m*pi*d*t*F_(TY)/sqrt e ` ` ` ` ` ` ` ` ` ` [Eqn. 22.4]`";
+        "`K_m*pi*d*t*F_(TY)/(sqrt 3 *S_F)  ` ` ` ` ` ` ` ` ` ` [Eqn. 22.4]`";
     }
     if (t2 >= 0.08 && t2 <= 2 / N) {
-      Tint = (0.665 * Math.PI * d * t2 * Fy2) / 3 ** 0.5;
+      Tint = (0.665 * Math.PI * d * t2 * Fy2) / (3 ** 0.5 * SF);
       equationTrackerInt =
-        "`K_m*pi*d*t*F_(TY)/sqrt e ` ` ` ` ` ` ` ` ` ` [Eqn. 22.4]`";
+        "`K_m*pi*d*t*F_(TY)/(sqrt 3 *S_F)  ` ` ` ` ` ` ` ` ` ` [Eqn. 22.4]`";
     }
     if (t2 > 2 / N && t2 < 4 / N) {
       Tint =
-        ((0.665 * Math.PI) / 3 ** 0.5) * d * Fy2 * (4 / N - t2) +
-        ((1.8 * Math.PI) / 3 ** 0.5) * d * Fu2 * (t2 - 2 / N);
+        (((0.665 * Math.PI) / 3 ** 0.5) * d * Fy2 * (4 / N - t2) +
+          ((1.8 * Math.PI) / 3 ** 0.5) * d * Fu2 * (t2 - 2 / N)) /
+        SF;
       equationTrackerInt =
-        "`((0.665*pi)/sqrt 3)*d*F_(TY)*(4/n-t)+((1.8*pi)/sqrt 3)*d*F_(TU)*(t-2/n) ` ` ` ` ` ` ` ` ` ` [Eqn. 22.6]`";
+        "`(((0.665*pi)/sqrt 3)*d*F_(TY)*(4/n-t)+((1.8*pi)/sqrt 3)*d*F_(TU)*(t-2/n))/S_F ` ` ` ` ` ` ` ` ` ` [Eqn. 22.6]`";
     }
     if (t2 >= 4 / N && t2 <= 0.375) {
-      Tint = (0.9 * Math.PI * d * t2 * Fu2) / 3 ** 0.5;
+      Tint = (0.9 * Math.PI * d * t2 * Fu2) / (3 ** 0.5 * SF);
       equationTrackerInt =
-        "`0.9*n*d*t*F_(TU)/sqrt 3 ` ` ` ` ` ` ` ` ` ` [Eqn. 22.5]`";
+        "`0.9*n*d*t*F_(TU)/(sqrt 3 *S_F)  ` ` ` ` ` ` ` ` ` ` [Eqn. 22.5]`";
     }
     if (t2 > 0.375)
       Tint =
