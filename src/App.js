@@ -29,6 +29,18 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 function App() {
+
+  Yup.addMethod(Yup.string, "spacing", function (errorMessage) {
+    return this.test(`at-card-length`, errorMessage, function (value) {
+      const { path, createError } = this;
+  
+      return (
+        (value && value.length === 16) ||
+        createError({ path, message: errorMessage })
+      );
+    });
+  });
+
   const validationSchema = Yup.object().shape({
     fastDia: Yup.string().required("*This field is required"),
     fastMatInput: Yup.string().required("*This field is required"),

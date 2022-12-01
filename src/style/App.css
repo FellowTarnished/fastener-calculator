@@ -87,6 +87,11 @@ h4 {
   justify-content: center;
 }
 
+.MuiTextField-root input {
+  padding-top: 17.5px;
+  padding-bottom: 17.5px;
+}
+
 .break {
   margin-top: 20px;
 }
