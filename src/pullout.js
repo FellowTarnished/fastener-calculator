@@ -57,6 +57,10 @@ export function pullout(properties) {
     equationTrackerExt =
       "`t_2*n*A_(TSE)*0.75*F_(TY)/sqrt d ` ` ` ` ` ` ` ` ` ` [Eqn. 10.9]`";
 
+  //******************************************************************** */
+  //NOTE: IF ADDITIONAL ALLOYS ARE ADDED IN FUTURE, THE NOTCH SENSITIVITY TERM (Kt) HAS BEEN NEGLECTED IN ALL ALLOYS USED THUS FAR AS IT EQUALS 1.0.  IT WILL NEED TO BE ADDED IF UPDATED IN FUTURE.
+  //******************************************************************** */
+
   //internal UNC thread stripping (base metal)
   if (threadType === "unc") {
     if (t2 < 0.06) {
@@ -94,7 +98,7 @@ export function pullout(properties) {
   else if (threadType === "spaced") {
     if (t2 < 0.038) {
       Tint =
-        "INVALID COMPONENT #2 THICKNESS: t2 must be > 0.06 inches for SPACED screws";
+        "INVALID COMPONENT #2 THICKNESS: t2 must be > 0.038 inches for SPACED screws";
     }
     if (t2 >= 0.038 && t2 < 0.08) {
       Tint = (0.56 * Math.PI * d * t2 * Fy2) / (3 ** 0.5 * SF);

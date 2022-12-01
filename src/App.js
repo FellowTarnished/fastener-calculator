@@ -1,13 +1,15 @@
 //*****IMPORTS*****
-import React, { useState, useContext, useRef } from "react";
+import React, { useState, useContext, useRef, Fragment } from "react";
 import MathJaxContext from "better-react-mathjax/MathJaxContext/";
 import MathJax from "better-react-mathjax/MathJax";
 import Container from "@mui/material/Container";
-import { Button, Divider, Link } from "@mui/material";
+import { Button, Divider, Link, TextField } from "@mui/material";
 
-import formFastenerInfo from "./formFastenerInfo";
-import formComponent1 from "./formComponent1";
-import formComponent2 from "./formComponent2";
+import { useForm, Controller } from "react-hook-form";
+
+import FormFastenerInfo from "./formFastenerInfo";
+import FormComponent1 from "./formComponent1";
+import FormComponent2 from "./formComponent2";
 import {
   CapacityContext,
   AllResultsContext,
@@ -18,12 +20,50 @@ import CalcCapacity from "./Calc";
 import "./style/App.css";
 
 import GitHubIcon from "@mui/icons-material/GitHub";
-import robot from "./style/images/robot-cropped.png";
+import robot from "./style/images/robot-lightblue2.png";
 import resultsDetailed from "./resultsDetailed";
 import { flushSync } from "react-dom";
 import { Palette } from "@mui/icons-material";
 
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
 function App() {
+  const validationSchema = Yup.object().shape({
+    fastDia: Yup.string().required("*This field is required"),
+    fastMatInput: Yup.string().required("*This field is required"),
+    spacing: Yup.string().required("*This field is required"),
+    headType: Yup.string().required("*This field is required"),
+    interface: Yup.string().required("*This field is required"),
+    comp1Mat: Yup.string().required("*This field is required"),
+    comp1Thick: Yup.string().required("*This field is required"),
+    edgeDist1: Yup.string().required("*This field is required"),
+    comp2Mat: Yup.string().required("*This field is required"),
+    comp2Thick: Yup.string().required("*This field is required"),
+    edgeDist2: Yup.string().required("*This field is required"),
+  });
+  // const formik = useFormik({
+  //   initialValues: {
+  //     test: "",
+  //   },
+  //   validationSchema: validationSchema,
+  //   onSubmit: (values) => {
+  //     alert(JSON.stringify(values, null, 2));
+  //   },
+  // });
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    control,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(validationSchema) });
+
+  const onSubmit = (data) => console.log(data);
+
+  //   const [value, setValue] = useState("");
+
   //*****PROPS AND STATE*****
   const config = {
     loader: { load: ["input/asciimath"] },
@@ -94,51 +134,57 @@ function App() {
   //*****RENDER*****
 
   return (
-    <MathJaxContext config={config}>
-      <Container
-        className="App"
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-        }}
-      >
-        <header className="App-header">
-          <div className="flexBoxHeader">
-            <img alt="" src={robot} className="robot"></img>
-            <h1>AAMA-TRON!</h1>
-          </div>
-          <p> An engineer's guide to using AAMA TIR-A9-14</p>
-        </header>
-        <div className="body">
-          <form>
+    <Fragment>
+      <MathJaxContext config={config}>
+        <Container
+          className="App"
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
+          <header className="App-header">
+            <div className="flexBoxHeader">
+              <img alt="" src={robot} className="robot"></img>
+              <h1>AAMA-TRON!</h1>
+            </div>
+            <p> An engineer's guide to using AAMA TIR-A9-14</p>
+          </header>
+          <div className="body">
             <Divider
               variant="middle"
               sx={{ bgcolor: "secondary.main" }}
             ></Divider>
             <h4>FASTENER INFO</h4>
-            {formFastenerInfo(
+            {FormFastenerInfo(
               updateProperties,
               updateTextInput,
-              updateRadioProperty
+              updateRadioProperty,
+              register,
+              errors
             )}
             <h4>COMPONENT #1 INFO </h4>
-            {formComponent1(
+            {FormComponent1(
               updateProperties,
               updateTextInput,
-              updateRadioProperty
+              updateRadioProperty,
+              register,
+              errors
             )}
             <h4>COMPONENT #2 INFO </h4>
-            {formComponent2(
+            {FormComponent2(
               updateProperties,
               updateTextInput,
-              updateRadioProperty
+              updateRadioProperty,
+              register,
+              errors
             )}
 
             <div className="break"></div>
 
             <Button
-              type="button"
+              type="submit"
               variant="contained"
               size="large"
               sx={{
@@ -148,6 +194,7 @@ function App() {
                 fontSize: "1.25em",
               }}
               onClick={(e) => {
+                handleSubmit(onSubmit)(e);
                 flushSync(() => {
                   CalcCapacity(
                     properties,
@@ -166,39 +213,39 @@ function App() {
             >
               SUBMIT
             </Button>
-          </form>
-          <div className="break"></div>
-          <Divider
-            variant="middle"
-            sx={{ bgcolor: "secondary.main" }}
-            flexItem="false"
-          ></Divider>
+            <div className="break"></div>
+            <Divider
+              variant="middle"
+              sx={{ bgcolor: "secondary.main" }}
+              flexItem="false"
+            ></Divider>
 
-          {resultsDetailed(
-            capacity,
-            resultsToggle,
-            ref,
-            allResults,
-            properties,
-            allInput
-          )}
-        </div>
-
-        <footer>
-          <div className="footerContainer">
-            <Link
-              underline="none"
-              sx={{ color: "black" }}
-              href="https://github.com/KennethMetz"
-              alt=""
-            >
-              <div>Copyright Ken Metz 2022</div>
-              <GitHubIcon />
-            </Link>
+            {resultsDetailed(
+              capacity,
+              resultsToggle,
+              ref,
+              allResults,
+              properties,
+              allInput
+            )}
           </div>
-        </footer>
-      </Container>
-    </MathJaxContext>
+
+          <footer>
+            <div className="footerContainer">
+              <Link
+                underline="none"
+                sx={{ color: "black" }}
+                href="https://github.com/KennethMetz"
+                alt=""
+              >
+                <div>Copyright Ken Metz 2022</div>
+                <GitHubIcon />
+              </Link>
+            </div>
+          </footer>
+        </Container>
+      </MathJaxContext>
+    </Fragment>
   );
 }
 

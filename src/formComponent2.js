@@ -7,10 +7,12 @@ import {
   Box,
 } from "@mui/material";
 
-export default function formComponent2(
+export default function FormComponent2(
   updateProperties,
   updateTextInput,
-  updateRadioProperty
+  updateRadioProperty,
+  register,
+  errors
 ) {
   return (
     <div>
@@ -27,6 +29,9 @@ export default function formComponent2(
               name="comp2Mat"
               variant="outlined"
               style={{ width: 250 }}
+              {...register("comp2Mat")}
+              error={errors.comp2Mat ? true : false}
+              helperText={errors.comp2Mat?.message}
             >
               <MenuItem disabled> ALUMINUM </MenuItem>
               <MenuItem value="6063-T6">6063-T6</MenuItem>
@@ -50,6 +55,9 @@ export default function formComponent2(
                   <InputAdornment position="end">in</InputAdornment>
                 ),
               }}
+              {...register("comp2Thick")}
+              error={errors.comp2Thick ? true : false}
+              helperText={errors.comp2Thick?.message}
             />
           </Grid>
           <Grid item>
@@ -65,6 +73,9 @@ export default function formComponent2(
                   <InputAdornment position="end">in</InputAdornment>
                 ),
               }}
+              {...register("edgeDist2")}
+              error={errors.edgeDist2 ? true : false}
+              helperText={errors.edgeDist2?.message}
             />
           </Grid>
         </Grid>

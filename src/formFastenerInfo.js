@@ -11,9 +11,10 @@ import {
   Grid,
   Box,
   Sheet,
+  Typography,
 } from "@mui/material";
 
-import React, { useState, useContext, useRef } from "react";
+import React, { useState, useContext, useRef, Fragment } from "react";
 
 import hex from "./style/images/hexJSX.svg";
 import csunk from "./style/images/countersunkJSX.svg";
@@ -22,10 +23,12 @@ import crown from "./style/images/crownJSX.svg";
 import valley from "./style/images/valleyJSX.svg";
 import flush from "./style/images/flushJSX.svg";
 
-export default function formFastenerInfo(
+export default function FormFastenerInfo(
   updateProperties,
   updateTextInput,
-  updateRadioProperty
+  updateRadioProperty,
+  register,
+  errors
 ) {
   return (
     <div>
@@ -37,8 +40,12 @@ export default function formFastenerInfo(
               onChange={(e) => updateProperties(e)}
               select
               name="fastDia"
+              id="fastDia"
               variant="outlined"
               style={{ width: 250 }}
+              {...register("fastDia")}
+              error={errors.fastDia ? true : false}
+              helperText={errors.fastDia?.message}
             >
               <MenuItem disabled> SPACED THREADS </MenuItem>
               <MenuItem value="#6-20">#6-20</MenuItem>
@@ -66,6 +73,9 @@ export default function formFastenerInfo(
               name="fastMatInput"
               variant="outlined"
               style={{ width: 250 }}
+              {...register("fastMatInput")}
+              error={errors.fastMatInput ? true : false}
+              helperText={errors.fastMatInput?.message}
             >
               <MenuItem disabled> STEEL </MenuItem>
               <MenuItem value="SAE Gr. 2">SAE Gr. 2</MenuItem>
@@ -105,12 +115,16 @@ export default function formFastenerInfo(
                   <InputAdornment position="end">in</InputAdornment>
                 ),
               }}
+              {...register("spacing")}
+              error={errors.spacing ? true : false}
+              helperText={errors.spacing?.message}
             />
           </Grid>
         </Grid>
       </Box>
 
       <h4 className="headType">HEAD TYPE</h4>
+      <Typography>{errors.headType?.messsage}</Typography>
       <Box sx={{ flexGrow: 1 }}>
         <Grid
           container
@@ -123,11 +137,11 @@ export default function formFastenerInfo(
               <input
                 type="radio"
                 id="hexHead"
-                required
                 name="headType"
                 onChange={(e) => {
                   updateRadioProperty(e);
                 }}
+                {...register("headType")}
               ></input>{" "}
               <img alt="hex head" src={hex}></img>
               <div className="headCard">HEX HEAD (NO WASHER)</div>
@@ -140,6 +154,7 @@ export default function formFastenerInfo(
                 id="hexWithWasher"
                 name="headType"
                 onChange={(e) => updateRadioProperty(e)}
+                {...register("headType")}
               ></input>{" "}
               <img alt="hex with washer" src={hwh}></img>
             </label>{" "}
@@ -152,6 +167,7 @@ export default function formFastenerInfo(
                 id="countersunk"
                 name="headType"
                 onChange={(e) => updateRadioProperty(e)}
+                {...register("headType")}
               ></input>{" "}
               <img alt="countersunk" src={csunk}></img>
             </label>{" "}
@@ -161,6 +177,8 @@ export default function formFastenerInfo(
       </Box>
 
       <h4 className="headType">INTERFACE CONFIGURATION</h4>
+      <div>{errors.interface?.messsage}</div>
+
       <Box sx={{ flexGrow: 1 }}>
         <Grid
           container
@@ -178,7 +196,7 @@ export default function formFastenerInfo(
               ></input>{" "}
               <img alt="flush" src={flush}></img>
             </label>
-            <div class="interfaceCard">FLUSH</div>
+            <div className="interfaceCard">FLUSH</div>
           </Grid>
           <Grid item sx={{ flexDirection: "column", minWidth: 250 }}>
             <label htmlFor="valley">
@@ -193,7 +211,7 @@ export default function formFastenerInfo(
               ></input>{" "}
               <img alt="valley" src={valley}></img>
             </label>{" "}
-            <div class="interfaceCard">VALLEY</div>
+            <div className="interfaceCard">VALLEY</div>
           </Grid>
           <Grid item sx={{ flexDirection: "column", minWidth: 250 }}>
             <label htmlFor="crown">
@@ -205,7 +223,7 @@ export default function formFastenerInfo(
               ></input>{" "}
               <img alt="crown" src={crown}></img>
             </label>
-            <div class="interfaceCard">CROWN</div>
+            <div className="interfaceCard">CROWN</div>
           </Grid>
         </Grid>
       </Box>

@@ -7,10 +7,14 @@ import {
   Box,
 } from "@mui/material";
 
-export default function formComponent1(
+import { useForm } from "react-hook-form";
+
+export default function FormComponent1(
   updateProperties,
   updateTextInput,
-  updateRadioProperty
+  updateRadioProperty,
+  register,
+  errors
 ) {
   return (
     <div>
@@ -25,6 +29,9 @@ export default function formComponent1(
               name="comp1Mat"
               variant="outlined"
               style={{ width: 250 }}
+              {...register("comp1Mat")}
+              error={errors.comp1Mat ? true : false}
+              helperText={errors.comp1Mat?.message}
             >
               <MenuItem disabled> ALUMINUM </MenuItem>
               <MenuItem value="6063-T6">6063-T6</MenuItem>
@@ -48,6 +55,9 @@ export default function formComponent1(
                   <InputAdornment position="end">in</InputAdornment>
                 ),
               }}
+              {...register("comp1Thick")}
+              error={errors.comp1Thick ? true : false}
+              helperText={errors.comp1Thick?.message}
             />
           </Grid>
           <Grid item>
@@ -63,6 +73,9 @@ export default function formComponent1(
                   <InputAdornment position="end">in</InputAdornment>
                 ),
               }}
+              {...register("edgeDist1")}
+              error={errors.edgeDist1 ? true : false}
+              helperText={errors.edgeDist1?.message}
             />
           </Grid>
         </Grid>
