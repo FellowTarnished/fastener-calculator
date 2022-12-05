@@ -42,6 +42,11 @@ TextField {
   align-items: center;
   flex-wrap: wrap;
 }
+
+.flexColumn {
+  display: flex;
+  flex-direction: column;
+}
 .robot {
   height: 150px;
   margin-top: 10px;
@@ -123,6 +128,13 @@ th {
   font-size: 18px;
 }
 /*FASTENER INFO STYLING*/
+
+@media (max-width: 500px) {
+  ToggleButtonGroup {
+    orientation: vertical;
+  }
+}
+
 .headType {
   display: flex;
   justify-content: center;

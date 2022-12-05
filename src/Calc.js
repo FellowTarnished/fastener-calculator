@@ -25,6 +25,7 @@ export default function CalcCapacity(
   setAllInput
 ) {
   //Pull properties from input and add to state
+  console.log(properties);
 
   getDiameter(properties, setProperties, allInput, setAllInput);
   getThreadCount(properties, setProperties, allInput, setAllInput);
@@ -89,6 +90,7 @@ export default function CalcCapacity(
     if (typeof Tpover[0] !== "number") errors.push(Tpover[0]);
     console.log(errors);
     setCapacity({ shear: " --- ", tension: " --- ", notes: errors });
+    console.log(errors);
   } else {
     let Tgovern = Math.min(T[0], Tpout[0], Tpover[0]);
     let Vgovern = Math.min(V[0], Vbear[0]);
@@ -98,4 +100,24 @@ export default function CalcCapacity(
   }
   console.log(allResults);
   console.log(allInput);
+}
+
+export function OverwriteProperties(properties, setProperties, getValues) {
+  // console.log(properties);
+  // console.log(getValues());
+  // let temp = properties.slice();
+  // temp[0].fastDia = getValues("fastDia");
+  // temp[0].fastMatInput = getValues("fastMatInput");
+  // temp[0].spacing = getValues("spacing");
+  // temp[0].headType = getValues("headType");
+  // temp[0].interface = getValues("interface");
+  // temp[0].comp1Mat = getValues("comp1Mat");
+  // temp[0].comp1Thick = getValues("comp1Thick");
+  // temp[0].edgeDist1 = getValues("edgeDist1");
+  // temp[0].comp2Mat = getValues("comp2Mat");
+  // temp[0].comp2Thick = getValues("comp2Thick");
+  // temp[0].edgeDist2 = getValues("edgeDist2");
+  // console.log(temp);
+  // setProperties(temp);
+  // console.log(properties);
 }

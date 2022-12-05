@@ -24,12 +24,12 @@ export default function FormComponent2(
           <Grid item>
             <TextField
               label="Material"
+              {...register("comp2Mat")} //NOTE THIS MUST BE ABOVE ONCHANGE CALL
               onChange={(e) => updateProperties(e)}
               select
               name="comp2Mat"
               variant="outlined"
               style={{ width: 250 }}
-              {...register("comp2Mat")}
               error={errors.comp2Mat ? true : false}
               helperText={errors.comp2Mat?.message}
             >
@@ -45,6 +45,7 @@ export default function FormComponent2(
           <Grid item>
             <TextField
               label="Thickness"
+              {...register("comp2Thick")} //NOTE THIS MUST BE ABOVE ONCHANGE CALL
               onChange={(e) => updateTextInput(e)}
               name="comp2Thick"
               id="comp2Thick"
@@ -55,7 +56,6 @@ export default function FormComponent2(
                   <InputAdornment position="end">in</InputAdornment>
                 ),
               }}
-              {...register("comp2Thick")}
               error={errors.comp2Thick ? true : false}
               helperText={errors.comp2Thick?.message}
             />
@@ -63,6 +63,7 @@ export default function FormComponent2(
           <Grid item>
             <TextField
               label="Edge Distance"
+              {...register("edgeDist2")} //NOTE THIS MUST BE ABOVE ONCHANGE CALL
               onChange={(e) => updateTextInput(e)}
               name="edgeDist2"
               id="edgeDist2"
@@ -73,7 +74,6 @@ export default function FormComponent2(
                   <InputAdornment position="end">in</InputAdornment>
                 ),
               }}
-              {...register("edgeDist2")}
               error={errors.edgeDist2 ? true : false}
               helperText={errors.edgeDist2?.message}
             />

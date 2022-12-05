@@ -27,14 +27,14 @@ export default function resultsInput(properties, allInput) {
             <MathJax>Alloy : {properties[0].comp2Mat}</MathJax>
             <MathJax>`F_(U2)` = {properties[0].comp2Fu} psi</MathJax>
             <MathJax>`F_(Y2)` = {properties[0].comp2Fy} psi</MathJax>
-            <MathJax>`e_A` = {properties[0].edgeDist1} inches</MathJax>
+            <MathJax>`e_A` = {properties[0].edgeDist2} inches</MathJax>
           </Grid>
           <Grid item>
             <div>Fastener Properties:</div>
             <MathJax>Size : {properties[0].fastDia} </MathJax>
             <MathJax>`D` = `d` = {properties[0].nomDia} inches</MathJax>
             <MathJax>Spacing : {properties[0].spacing} inches</MathJax>
-            <MathJax>Material : {properties[0].fastMatInput} inches</MathJax>
+            <MathJax>Material : {properties[0].fastMatInput} </MathJax>
             <MathJax>`F_U` = `F_(TU)` = {properties[0].fastFu} psi</MathJax>
             <MathJax>`F_Y` = {properties[0].fastFy} psi</MathJax>
             <MathJax>`F_V` = min(`0.75*F_Y, S_F * sqrt 3`)</MathJax>

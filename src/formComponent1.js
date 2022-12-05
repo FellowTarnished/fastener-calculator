@@ -24,12 +24,12 @@ export default function FormComponent1(
           <Grid item>
             <TextField
               label="Material"
+              {...register("comp1Mat")} //NOTE THIS MUST BE ABOVE ONCHANGE CALL
               onChange={(e) => updateProperties(e)}
               select
               name="comp1Mat"
               variant="outlined"
               style={{ width: 250 }}
-              {...register("comp1Mat")}
               error={errors.comp1Mat ? true : false}
               helperText={errors.comp1Mat?.message}
             >
@@ -45,7 +45,6 @@ export default function FormComponent1(
           <Grid item>
             <TextField
               label="Thickness"
-              onChange={(e) => updateTextInput(e)}
               name="comp1Thick"
               id="comp1Thick"
               variant="outlined"
@@ -55,7 +54,8 @@ export default function FormComponent1(
                   <InputAdornment position="end">in</InputAdornment>
                 ),
               }}
-              {...register("comp1Thick")}
+              {...register("comp1Thick")} //NOTE THIS MUST BE ABOVE ONCHANGE CALL
+              onChange={(e) => updateTextInput(e)}
               error={errors.comp1Thick ? true : false}
               helperText={errors.comp1Thick?.message}
             />
@@ -63,7 +63,6 @@ export default function FormComponent1(
           <Grid item>
             <TextField
               label="Edge Distance"
-              onChange={(e) => updateTextInput(e)}
               name="edgeDist1"
               id="edgeDist1"
               variant="outlined"
@@ -73,7 +72,8 @@ export default function FormComponent1(
                   <InputAdornment position="end">in</InputAdornment>
                 ),
               }}
-              {...register("edgeDist1")}
+              {...register("edgeDist1")} //NOTE THIS MUST BE ABOVE ONCHANGE CALL
+              onChange={(e) => updateTextInput(e)}
               error={errors.edgeDist1 ? true : false}
               helperText={errors.edgeDist1?.message}
             />
@@ -97,11 +97,7 @@ export default function FormComponent1(
         <FormControlLabel value="slotted" control={<Radio />} label="Slotted" />
       </RadioGroup> */}
 
-      <Divider
-        variant="middle"
-        sx={{ bgcolor: "secondary.main" }}
-        flexItem="false"
-      ></Divider>
+      <Divider variant="middle" sx={{ bgcolor: "secondary.main" }}></Divider>
     </div>
   );
 }

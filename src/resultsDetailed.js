@@ -19,7 +19,7 @@ export default function resultsDetailed(
           <h4 ref={ref}>Results Summary:</h4>
           {ResultsTable(capacity)}
           <h4 className="detailedResults"> Detailed Results:</h4>
-          <div class="flexGroup">
+          <div className="flexGroup">
             <div className="resultLabel">Fastener Shear Capacity:</div>
             <div className="resultLabel">
               {Math.round(allResults[0].shear * 10) / 10} lbs
@@ -27,7 +27,7 @@ export default function resultsDetailed(
           </div>
           <MathJax>{allResults[0].notes}</MathJax>
           <br></br>
-          <div class="flexGroup">
+          <div className="flexGroup">
             <div className="resultLabel">Fastener Tension Capacity:</div>
             <div className="resultLabel">
               {Math.round(allResults[1].tension * 10) / 10} lbs
@@ -40,7 +40,7 @@ export default function resultsDetailed(
             <div>Bearing Shear Capacity: --- (see warnings)</div>
           ) : (
             <div>
-              <div class="flexGroup">
+              <div className="flexGroup">
                 <div className="resultLabel">Bearing Shear Capacity:</div>
                 <div className="resultLabel">
                   {Math.round(allResults[2].shear * 10) / 10} lbs
@@ -54,7 +54,7 @@ export default function resultsDetailed(
             <div>Pullout Tension Capacity: --- (see warnings)</div>
           ) : (
             <div>
-              <div class="flexGroup">
+              <div className="flexGroup">
                 <div className="resultLabel">Pullout Tension Capacity:</div>
                 <div className="resultLabel">
                   {Math.round(allResults[3].tension * 10) / 10} lbs
@@ -68,7 +68,7 @@ export default function resultsDetailed(
             <div>Pullover Tension Capacity: --- (see warnings)</div>
           ) : (
             <div>
-              <div class="flexGroup">
+              <div className="flexGroup">
                 <div className="resultLabel">Pullover Tension Capacity:</div>
                 <div className="resultLabel">
                   {Math.round(allResults[4].tension * 10) / 10} lbs
@@ -83,11 +83,7 @@ export default function resultsDetailed(
       ) : (
         <div></div>
       )}
-      <Divider
-        variant="middle"
-        sx={{ bgcolor: "secondary.main" }}
-        flexInput="false"
-      ></Divider>{" "}
+      <Divider variant="middle" sx={{ bgcolor: "secondary.main" }}></Divider>{" "}
     </div>
   );
 }
