@@ -44,7 +44,9 @@ export default function resultsInput(properties, allInput) {
             ) : (
               <MathJax>`D_(WS)` = not-applicable </MathJax>
             )}
-            <MathJax>`D_H` = {allInput[0].Dh} inches</MathJax>
+            <MathJax>
+              `D_H` = {Math.round(allInput[0].Dh * 1000) / 1000} inches
+            </MathJax>
             <MathJax>`t_(head)` = {allInput[0].thead} inches</MathJax>
             <MathJax>`K` = {properties[0].minorDia} inches</MathJax>
             <MathJax>

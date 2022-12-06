@@ -28,60 +28,9 @@ import { Palette } from "@mui/icons-material";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { palette } from "@mui/system";
+import { ThemeContext } from "@emotion/react";
 
 function App() {
-  Yup.addMethod(Yup.string, "spacing", function (errorMessage) {
-    return this.test(`at-card-length`, errorMessage, function (value) {
-      const { path, createError } = this;
-
-      return (
-        (value && value.length === 16) ||
-        createError({ path, message: errorMessage })
-      );
-    });
-  });
-
-  const validationSchema = Yup.object().shape({
-    fastDia: Yup.string().required("*Fastener size is required"),
-    fastMatInput: Yup.string().required("*Fastener material is required"),
-    spacing: Yup.string().required("*Fastener spacing is required"),
-    headType: Yup.string().required("*Head type is required"),
-    interface: Yup.string().required("*Interface configuration is required"),
-    comp1Mat: Yup.string().required("*Material type is required"),
-    comp1Thick: Yup.string().required("*Thickness is required"),
-    edgeDist1: Yup.string().required("*Edge distance is required"),
-    comp2Mat: Yup.string().required("*Material type is required"),
-    comp2Thick: Yup.string().required("*Thickness is required"),
-    edgeDist2: Yup.string().required("*Edge distance is required"),
-  });
-
-  const {
-    register,
-    handleSubmit,
-    watch,
-    setValue,
-    control,
-    getValues,
-    formState: { errors },
-  } = useForm({ resolver: yupResolver(validationSchema) });
-
-  const onSubmit = (data) => {
-    console.log(data);
-  };
-
-  //*****PROPS AND STATE*****
-  const config = {
-    loader: { load: ["input/asciimath"] },
-  };
-  const ref = useRef(null);
-  const scrollToResults = () => {
-    ref.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const [capacity, setCapacity] = useContext(CapacityContext);
-  const [allResults, setAllResults] = useContext(AllResultsContext);
-  const [allInput, setAllInput] = useContext(AllInputContext);
-
   const [properties, setProperties] = useState([
     {
       // comp1Fu: 38000,
@@ -108,6 +57,136 @@ function App() {
       // threadType: "spaced",
     },
   ]);
+
+  const [allInput, setAllInput] = useContext(AllInputContext);
+
+  Yup.addMethod(Yup.string, "spacing", function (errorMessage) {
+    return this.test(`at-card-length`, errorMessage, function (value) {
+      const { path, createError } = this;
+
+      return (
+        (value && value.length === 16) ||
+        createError({ path, message: errorMessage })
+      );
+    });
+  });
+
+  const validationSchema = Yup.object().shape({
+    // Values passed for custom validation purposes
+    nomDia: Yup.number(),
+    threadType: Yup.string(),
+    thead: Yup.string(),
+    // Input terms that are required/being validated.
+    fastDia: Yup.string().required("*Fastener size is required"),
+    fastMatInput: Yup.string().required("*Fastener material is required"),
+    spacing: Yup.number()
+      .typeError("*Fastener spacing is required")
+      .required("*Fastener spacing is required")
+      .positive("*Fastener spacing must be a positive number")
+      .test({
+        name: "minSpacing",
+        params: { properties },
+        message:
+          "*Fastener spacing must be greater than (2.5 * nominal screw diameter)",
+        test: (value) => value > 2.5 * properties[0].nomDia,
+      }),
+    headType: Yup.string().required("*Head type is required"),
+    interface: Yup.string().required("*Interface configuration is required"),
+    comp1Mat: Yup.string().required("*Material type is required"),
+    comp1Thick: Yup.number()
+      .typeError("*Thickness is required")
+      .required("*Thickness is required")
+      .positive("*Thickness must be a positive number")
+      .min(0.0399, "*Thickness must be greater than or equal to 0.04 inches.")
+      .when("headType", {
+        is: (headType) => headType === "countersunk",
+        then: Yup.number().test({
+          params: { properties },
+          name: "minComp1Thickness",
+          message: `*Thickness must be greater than or equal to the screw head thickness (${properties[0].thead} inches) for countersunk fasteners.`,
+          test: (value, thead) => value >= thead,
+        }),
+      }),
+    edgeDist1: Yup.number()
+      .typeError("*Edge distance is required")
+      .required("*Edge distance is required")
+      .positive("*Edge distance must be a positive number")
+      .test({
+        name: "edgeDist1",
+        params: { properties },
+        message:
+          "*Edge distance must be greater than (1.5 * nominal screw diameter). (Ref. AAMA TIR-A9-14 Section 8.3.2)",
+        test: (value) => value > 1.5 * properties[0].nomDia,
+      }),
+    comp2Mat: Yup.string().required("*Material type is required"),
+    comp2Thick: Yup.number()
+      .typeError("*Thickness is required")
+      .required("*Thickness is required")
+      .positive("*Thickness must be a positive number")
+      .max(
+        0.375,
+        "*Thickness must be less than 0.375 inches. AAMA does not provide pullout values for thicker base material. (Ref. AAMA TIR-A9-14 Section 22.0)"
+      )
+      .when("threadType", {
+        is: (threadType) => threadType === "spaced",
+        then: Yup.number().test({
+          name: "minComp2Thickness",
+          message:
+            "*Thickness must be greater than or equal to 0.038 inches for fasteners with SPACED thread. (Ref. AAMA TIR-A9-14 Section 10.0)",
+          test: (value) => value > 0.038,
+        }),
+      })
+      .when("threadType", {
+        is: (threadType) => threadType === "unc",
+        then: Yup.number().test({
+          name: "minComp2Thickness2",
+          message:
+            "*Thickness must be greater than or equal to 0.06 inches for fasteners with UNC thread. (Ref. AAMA TIR-A9-14 Section 10.0)",
+          test: (value) => value > 0.06,
+        }),
+      }),
+    edgeDist2: Yup.number()
+      .typeError("*Edge distance is required")
+      .required("*Edge distance is required")
+      .positive("*Edge distance must be a positive number")
+      .test({
+        name: "minSpacing",
+        params: { properties },
+        message:
+          "*Edge distance must be greater than (1.5 * nominal screw diameter). (Ref. AAMA TIR-A9-14 Section 8.3.2)",
+        test: (value) => value > 1.5 * properties[0].nomDia,
+      }),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    control,
+    getValues,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+    // context: { nomDia: properties[0].nomDia },
+  });
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
+  //*****PROPS AND STATE*****
+  const config = {
+    loader: { load: ["input/asciimath"] },
+  };
+  const ref = useRef(null);
+  const scrollToResults = () => {
+    ref.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const [capacity, setCapacity] = useContext(CapacityContext);
+  const [allResults, setAllResults] = useContext(AllResultsContext);
+
   let [resultsToggle, setResultsToggle] = useState(false);
 
   //*****LOCAL FUNCTIONS*****
@@ -132,7 +211,7 @@ function App() {
 
   function updateTextInput(e) {
     let temp = properties.slice();
-    temp[0][e.target.id] = e.target.value;
+    temp[0][e.target.id] = +e.target.value;
     setProperties(temp);
     console.log(properties);
     setResultsToggle(false);
@@ -170,7 +249,9 @@ function App() {
               updateRadioProperty,
               register,
               errors,
-              setValue
+              setValue,
+              properties,
+              setProperties
             )}
             <h4>COMPONENT #1 INFO </h4>
             {FormComponent1(
@@ -178,7 +259,8 @@ function App() {
               updateTextInput,
               updateRadioProperty,
               register,
-              errors
+              errors,
+              setValue
             )}
             <h4>COMPONENT #2 INFO </h4>
             {FormComponent2(
@@ -186,7 +268,10 @@ function App() {
               updateTextInput,
               updateRadioProperty,
               register,
-              errors
+              errors,
+              properties,
+              setProperties,
+              setValue
             )}
 
             <div className="break"></div>
@@ -214,10 +299,14 @@ function App() {
                       allResults,
                       setAllResults,
                       allInput,
-                      setAllInput
+                      setAllInput,
+                      setValue,
+                      getValues
                     );
                     setResultsToggle(true);
                   });
+                  console.log(getValues());
+
                   scrollToResults();
                 } catch (e) {
                   console.log(e);
@@ -239,7 +328,7 @@ function App() {
               errors.comp2Mat ||
               errors.comp2Thick ||
               errors.edgeDist2
-                ? "*Please resolve errors shown above (either missing or incorrect fields)"
+                ? "*Please resolve errors shown above (either missing or invalid fields)"
                 : ""}
             </Typography>
 

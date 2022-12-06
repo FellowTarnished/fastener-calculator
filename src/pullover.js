@@ -1,4 +1,4 @@
-export function pullover(properties) {
+export function pullover(properties, setValue) {
   let d = properties[0].nomDia;
   let headType = properties[0].headType;
   let inter = properties[0].interface;
@@ -84,7 +84,8 @@ export function pullover(properties) {
     else if (d === 0.3125) Dws = 0.625;
     else if (d === 0.375) Dws = 0.625;
 
-    thead = " --- ";
+    // thead = " --- ";
+    thead = null;
 
     let ratio = t1 / Dws;
 
@@ -127,5 +128,7 @@ export function pullover(properties) {
         "`(0.27+1.45*t_1/d)*d*t_1*F_(TY1)/S_F ` ` ` ` ` ` ` ` ` ` [Eqn. 11.3]`";
     }
   }
+  console.log(thead);
+  setValue("thead", thead);
   return [T, equationTracker, thead, Dws, Dh, Cpov];
 }

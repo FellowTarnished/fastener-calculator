@@ -9,12 +9,17 @@ import {
 
 import { useForm } from "react-hook-form";
 
+import { getDiameter } from "./props";
+
+import { pullover } from "./pullover";
+
 export default function FormComponent1(
   updateProperties,
   updateTextInput,
   updateRadioProperty,
   register,
-  errors
+  errors,
+  setValue
 ) {
   return (
     <div>
@@ -55,7 +60,11 @@ export default function FormComponent1(
                 ),
               }}
               {...register("comp1Thick")} //NOTE THIS MUST BE ABOVE ONCHANGE CALL
-              onChange={(e) => updateTextInput(e)}
+              onChange={(e) => {
+                updateTextInput(e);
+                // getDiameter(properties, setProperties);
+                // pullover(properties);
+              }}
               error={errors.comp1Thick ? true : false}
               helperText={errors.comp1Thick?.message}
             />

@@ -22,14 +22,16 @@ export default function CalcCapacity(
   allResults,
   setAllResults,
   allInput,
-  setAllInput
+  setAllInput,
+  setValue,
+  getValues
 ) {
   //Pull properties from input and add to state
   console.log(properties);
 
-  getDiameter(properties, setProperties, allInput, setAllInput);
+  getDiameter(properties, setProperties, setValue);
   getThreadCount(properties, setProperties, allInput, setAllInput);
-  getThreadType(properties, setProperties, allInput, setAllInput);
+  getThreadType(properties, setProperties, setValue);
   getFastType(properties, setProperties, allInput, setAllInput);
   getMatType(properties, setProperties, allInput, setAllInput);
 
@@ -56,7 +58,7 @@ export default function CalcCapacity(
 
   //Find pullout and pullover
   let Tpout = pullout(properties);
-  let Tpover = pullover(properties);
+  let Tpover = pullover(properties, setValue);
   console.log(Tpover);
   temp[3].tension = Tpout[0];
   temp[3].notes = Tpout[1];
@@ -100,6 +102,10 @@ export default function CalcCapacity(
   }
   console.log(allResults);
   console.log(allInput);
+
+  setValue("nomDia", properties[0].nomDia);
+  setValue("threadType", properties[0].threadType);
+  setValue("thead", allInput[0].thead);
 }
 
 export function OverwriteProperties(properties, setProperties, getValues) {

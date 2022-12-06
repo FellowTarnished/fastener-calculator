@@ -1,11 +1,7 @@
+import { setNestedObjectValues } from "formik";
 import React, { useState, useContext, useEffect } from "react";
 
-export function getThreadType(
-  properties,
-  setProperties,
-  allInput,
-  setAllInput
-) {
+export function getThreadType(properties, setProperties, setValue) {
   let fast = properties[0].fastDia;
   let threadType = undefined;
   if (
@@ -22,9 +18,10 @@ export function getThreadType(
   let temp = properties.slice();
   temp[0].threadType = threadType;
   setProperties(temp);
+  setValue("threadType", threadType);
 }
 
-export function getDiameter(properties, setProperties, allInput, setAllInput) {
+export function getDiameter(properties, setProperties, setValue) {
   let D = undefined;
   let K = undefined;
   if (properties[0].fastDia.includes("#6")) {
@@ -53,6 +50,7 @@ export function getDiameter(properties, setProperties, allInput, setAllInput) {
   temp[0].nomDia = D;
   temp[0].minorDia = K;
   setProperties(temp);
+  setValue("nomDia", D);
 }
 
 export function getThreadCount(

@@ -7,12 +7,17 @@ import {
   Box,
 } from "@mui/material";
 
+import { getThreadType } from "./props";
+
 export default function FormComponent2(
   updateProperties,
   updateTextInput,
   updateRadioProperty,
   register,
-  errors
+  errors,
+  properties,
+  setProperties,
+  setValue
 ) {
   return (
     <div>
@@ -46,7 +51,10 @@ export default function FormComponent2(
             <TextField
               label="Thickness"
               {...register("comp2Thick")} //NOTE THIS MUST BE ABOVE ONCHANGE CALL
-              onChange={(e) => updateTextInput(e)}
+              onChange={(e) => {
+                updateTextInput(e);
+                getThreadType(properties, setProperties, setValue);
+              }}
               name="comp2Thick"
               id="comp2Thick"
               variant="outlined"

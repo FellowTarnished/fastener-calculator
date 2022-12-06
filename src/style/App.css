@@ -88,6 +88,19 @@ h4 {
   font-size: 20px;
 }
 
+/* Hide spinner for number inputs */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 .css-qfz70r-MuiFormGroup-root {
   justify-content: center;
 }

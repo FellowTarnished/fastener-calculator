@@ -29,6 +29,8 @@ import flush from "./style/images/flushJSX.svg";
 import { setNestedObjectValues } from "formik";
 import { flushSync } from "react-dom";
 
+import { getDiameter, getThreadType } from "./props";
+
 export default function FormFastenerInfo(
   updateProperties,
   updateTextInput,
@@ -36,7 +38,8 @@ export default function FormFastenerInfo(
   register,
   errors,
   setValue,
-  getValues
+  properties,
+  setProperties
 ) {
   // const [headType, setHeadType] = React.useState("hexHead");
 
@@ -67,14 +70,16 @@ export default function FormFastenerInfo(
               variant="outlined"
               style={{ width: 250 }}
               {...register("fastDia")} //NOTE THIS MUST BE ABOVE ONCHANGE FUNCTIONS
-              onChange={(e) => updateProperties(e)}
+              onChange={(e) => {
+                updateProperties(e);
+                getDiameter(properties, setProperties, setValue);
+                getThreadType(properties, setProperties, setValue);
+              }}
               error={errors.fastDia ? true : false}
               helperText={errors.fastDia?.message}
             >
               <MenuItem disabled> SPACED THREADS </MenuItem>
-              <MenuItem value="#6-20" selected>
-                #6-20
-              </MenuItem>
+              <MenuItem value="#6-20">#6-20</MenuItem>
               <MenuItem value="#8-18">#8-18</MenuItem>
               <MenuItem value="#10-16">#10-16</MenuItem>
               <MenuItem value="#12-14">#12-14</MenuItem>
@@ -128,6 +133,8 @@ export default function FormFastenerInfo(
           <Grid item>
             <TextField
               label="Fastener Spacing"
+              type="number"
+              inputProps={{ step: "0.1" }}
               name="spacing"
               id="spacing"
               variant="outlined"
@@ -271,6 +278,7 @@ export default function FormFastenerInfo(
               <input
                 type="radio"
                 id="hexHead"
+                value="hexHead"
                 name="headType"
                 {...register("headType")} //NOTE THIS MUST BE ABOVE ONCHANGE FUNCTIONS
                 onChange={(e) => {
@@ -286,9 +294,10 @@ export default function FormFastenerInfo(
               <input
                 type="radio"
                 id="hexWithWasher"
+                value="hexWithWasher"
                 name="headType"
-                {...register("headType")}
-                onChange={(e) => updateRadioProperty(e)} //NOTE THIS MUST BE ABOVE ONCHANGE FUNCTIONS
+                {...register("headType")} //NOTE THIS MUST BE ABOVE ONCHANGE FUNCTIONS
+                onChange={(e) => updateRadioProperty(e)}
               ></input>{" "}
               <img alt="hex with washer" src={hwh}></img>
             </label>{" "}
@@ -299,6 +308,7 @@ export default function FormFastenerInfo(
               <input
                 type="radio"
                 id="countersunk"
+                value="countersunk"
                 name="headType"
                 {...register("headType")} //NOTE THIS MUST BE ABOVE ONCHANGE FUNCTIONS
                 onChange={(e) => updateRadioProperty(e)}
@@ -325,6 +335,7 @@ export default function FormFastenerInfo(
               <input
                 type="radio"
                 id="flush"
+                value="flush"
                 name="interface"
                 {...register("interface")} //NOTE THIS MUST BE ABOVE ONCHANGE FUNCTIONS
                 onChange={(e) => updateRadioProperty(e)}
@@ -338,6 +349,7 @@ export default function FormFastenerInfo(
               <input
                 type="radio"
                 id="valley"
+                value="valley"
                 required
                 name="interface"
                 {...register("interface")} //NOTE THIS MUST BE ABOVE ONCHANGE FUNCTIONS
@@ -354,6 +366,7 @@ export default function FormFastenerInfo(
               <input
                 type="radio"
                 id="crown"
+                value="crown"
                 name="interface"
                 {...register("interface")} //NOTE THIS MUST BE ABOVE ONCHANGE FUNCTIONS
                 onChange={(e) => updateRadioProperty(e)}
