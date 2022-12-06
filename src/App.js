@@ -71,6 +71,7 @@ function App() {
     });
   });
 
+  // DEFINE YUP SCHEMA
   const validationSchema = Yup.object().shape({
     // Values passed for custom validation purposes
     nomDia: Yup.number(),
@@ -97,16 +98,16 @@ function App() {
       .typeError("*Thickness is required")
       .required("*Thickness is required")
       .positive("*Thickness must be a positive number")
-      .min(0.0399, "*Thickness must be greater than or equal to 0.04 inches.")
-      .when("headType", {
-        is: (headType) => headType === "countersunk",
-        then: Yup.number().test({
-          params: { properties },
-          name: "minComp1Thickness",
-          message: `*Thickness must be greater than or equal to the screw head thickness (${properties[0].thead} inches) for countersunk fasteners.`,
-          test: (value, thead) => value >= thead,
-        }),
-      }),
+      .min(0.0399, "*Thickness must be greater than or equal to 0.04 inches."),
+    // .when("headType", {
+    //   is: (headType) => headType === "countersunk",
+    //   then: Yup.number().test({
+    //     // params: { properties },
+    //     name: "minComp1Thickness",
+    //     message: `*Thickness must be greater than or equal to the screw head thickness for countersunk fasteners.`,
+    //     test: (value, thead) => value >= thead,
+    //   }),
+    // }),
     edgeDist1: Yup.number()
       .typeError("*Edge distance is required")
       .required("*Edge distance is required")
@@ -166,7 +167,9 @@ function App() {
     control,
     getValues,
     formState: { errors },
+    trigger,
   } = useForm({
+    mode: "all",
     resolver: yupResolver(validationSchema),
     // context: { nomDia: properties[0].nomDia },
   });
@@ -195,15 +198,11 @@ function App() {
     let temp = properties.slice();
     temp[0][e.target.name] = e.target.value;
     setProperties(temp);
-    console.log(properties);
     setResultsToggle(false);
   }
 
   function updateRadioProperty(e, value) {
-    // console.log(e.target.parentNode.id);
-    // console.log(value);
     let temp = properties.slice();
-    // temp[0][e.target.parentNode.id] = value;
     temp[0][e.target.name] = e.target.id;
     setProperties(temp);
     setResultsToggle(false);
@@ -213,7 +212,6 @@ function App() {
     let temp = properties.slice();
     temp[0][e.target.id] = +e.target.value;
     setProperties(temp);
-    console.log(properties);
     setResultsToggle(false);
   }
 
@@ -235,7 +233,10 @@ function App() {
               <img alt="" src={robot} className="robot"></img>
               <h1>AAMA-TRON!</h1>
             </div>
-            <p> An engineer's guide to using AAMA TIR-A9-14</p>
+            <p className="description">
+              {" "}
+              An engineer's guide to using AAMA TIR-A9-14
+            </p>
           </header>
           <div className="body">
             <Divider
@@ -251,7 +252,8 @@ function App() {
               errors,
               setValue,
               properties,
-              setProperties
+              setProperties,
+              trigger
             )}
             <h4>COMPONENT #1 INFO </h4>
             {FormComponent1(
@@ -260,7 +262,10 @@ function App() {
               updateRadioProperty,
               register,
               errors,
-              setValue
+              setValue,
+              properties,
+              setProperties,
+              getValues
             )}
             <h4>COMPONENT #2 INFO </h4>
             {FormComponent2(
@@ -281,15 +286,13 @@ function App() {
               variant="contained"
               size="large"
               sx={{
-                minWidth: "320px",
+                minWidth: "288px",
                 minHeight: "65px",
                 marginTop: "20px",
                 fontSize: "1.25em",
               }}
               onClick={handleSubmit(() => {
                 try {
-                  // OverwriteProperties(properties, setProperties, getValues);
-                  console.log(properties);
                   flushSync(() => {
                     CalcCapacity(
                       properties,
@@ -305,7 +308,6 @@ function App() {
                     );
                     setResultsToggle(true);
                   });
-                  console.log(getValues());
 
                   scrollToResults();
                 } catch (e) {

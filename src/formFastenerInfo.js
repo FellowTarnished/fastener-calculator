@@ -2,23 +2,13 @@ import {
   TextField,
   MenuItem,
   InputAdornment,
-  Radio,
-  RadioGroup,
-  FormLabel,
-  FormControlLabel,
-  Button,
   Divider,
   Grid,
   Box,
-  Sheet,
   Typography,
-  ToggleButton,
-  ToggleButtonGroup,
 } from "@mui/material";
 
-import { useState, useContext, useRef, Fragment } from "react";
 import * as React from "react";
-import { setValue } from "react-hook-form";
 
 import hex from "./style/images/hexJSX.svg";
 import csunk from "./style/images/countersunkJSX.svg";
@@ -26,8 +16,6 @@ import hwh from "./style/images/hex-flangedJSX.svg";
 import crown from "./style/images/crownJSX.svg";
 import valley from "./style/images/valleyJSX.svg";
 import flush from "./style/images/flushJSX.svg";
-import { setNestedObjectValues } from "formik";
-import { flushSync } from "react-dom";
 
 import { getDiameter, getThreadType } from "./props";
 
@@ -39,24 +27,9 @@ export default function FormFastenerInfo(
   errors,
   setValue,
   properties,
-  setProperties
+  setProperties,
+  trigger
 ) {
-  // const [headType, setHeadType] = React.useState("hexHead");
-
-  // const handleHeadTypeChoice = (e, newHeadType) => {
-  //   if (newHeadType !== null) {
-  //     setHeadType(newHeadType);
-  //   }
-  // };
-
-  // const [interfaceConfig, setInterfaceConfig] = React.useState("flush");
-
-  // const handleInterfaceChoice = (e, newInterfaceConfig) => {
-  //   if (newInterfaceConfig !== null) {
-  //     setInterfaceConfig(newInterfaceConfig);
-  //   }
-  // };
-
   return (
     <div>
       <Box sx={{ flexGrow: 1 }}>
@@ -74,12 +47,13 @@ export default function FormFastenerInfo(
                 updateProperties(e);
                 getDiameter(properties, setProperties, setValue);
                 getThreadType(properties, setProperties, setValue);
+                trigger(["spacing", "edgeDist1", "edgeDist2"]);
               }}
               error={errors.fastDia ? true : false}
               helperText={errors.fastDia?.message}
             >
               <MenuItem disabled> SPACED THREADS </MenuItem>
-              <MenuItem value="#6-20">#6-20</MenuItem>
+              <MenuItem value="#6-20"> #6-20 </MenuItem>
               <MenuItem value="#8-18">#8-18</MenuItem>
               <MenuItem value="#10-16">#10-16</MenuItem>
               <MenuItem value="#12-14">#12-14</MenuItem>
@@ -154,113 +128,7 @@ export default function FormFastenerInfo(
           </Grid>
         </Grid>
       </Box>
-      {/* <h4>HEAD TYPE</h4>
-      <ToggleButtonGroup
-        color="darker"
-        {...register("headType")} //NOTE THIS MUST BE ABOVE ONCHANGE CALL
-        onChange={(e, value, getValues) => {
-          handleHeadTypeChoice(e, value);
-          updateRadioProperty(e, value);
-          console.log(getValues("headType"));
-        }}
-        name="headType"
-        id="headType"
-        value={headType}
-        exclusive
-      >
-        <ToggleButton
-          sx={{
-            Width: "150px",
-          }}
-          value="hexHead"
-          id="headType"
-        >
-          <div className="flexColumn" value="hexHead" id="headType">
-            <img alt="hex head" src={hex}></img>
-            <div>HEX HEAD </div>
-            <div>(NO WASHER)</div>
-          </div>
-        </ToggleButton>
-        <ToggleButton
-          sx={{
-            minWidth: "200px",
-          }}
-          id="headType"
-          value="hexWithWasher"
-        >
-          <div className="flexColumn" value="hexWithWasher" id="headType">
-            <img alt="hex with washer" src={hwh}></img>
-            <div>HEX HEAD</div>
-            <div>(FLANGED OR WITH WASHER)</div>
-          </div>
-        </ToggleButton>
-        <ToggleButton
-          sx={{
-            minWidth: "150px",
-          }}
-          value="countersunk"
-          id="headType"
-        >
-          <div className="flexColumn" value="countersunk" id="headType">
-            <img alt="countersunk" src={csunk}></img>
-            <div>COUNTERSUNK</div>
-            <div>(FLAT ONLY)</div>
-          </div>
-        </ToggleButton>
-      </ToggleButtonGroup>
-
-      <h4>INTERFACE CONFIGURATION</h4>
-      <ToggleButtonGroup
-        color="darker"
-        {...register("interface")} //NOTE THIS MUST BE ABOVE ONCHANGE CALL
-        onChange={(e, value, setValue) => {
-          handleInterfaceChoice(e, value);
-          updateRadioProperty(e, value);
-        }}
-        name="interface"
-        id="interface"
-        value={interfaceConfig}
-        exclusive
-      >
-        <ToggleButton
-          sx={{
-            Width: "200px",
-          }}
-          value="flush"
-          id="interface"
-        >
-          <div className="flexColumn" value="flush" id="interface">
-            <img alt="flush" src={flush}></img>
-            <div>FLUSH </div>
-          </div>
-        </ToggleButton>
-        <ToggleButton
-          sx={{
-            minWidth: "200px",
-          }}
-          value="valley"
-          id="interface"
-        >
-          <div className="flexColumn" value="valley" id="interface">
-            <img alt="valley" src={valley}></img>
-            <div>VALLEY</div>
-          </div>
-        </ToggleButton>
-        <ToggleButton
-          sx={{
-            minWidth: "200px",
-          }}
-          value="crown"
-          id="interface"
-        >
-          <div className="flexColumn" value="crown" id="interface">
-            <img alt="crown" src={crown}></img>
-            <div>CROWN</div>
-          </div>
-        </ToggleButton>
-      </ToggleButtonGroup>
-
-      <div className="break"></div> */}
+      <div className="break"></div>
       <h4 className="headType">HEAD TYPE</h4>
       <div className="break"></div>
       <Typography sx={{ color: "error.main" }}>
@@ -340,7 +208,7 @@ export default function FormFastenerInfo(
                 {...register("interface")} //NOTE THIS MUST BE ABOVE ONCHANGE FUNCTIONS
                 onChange={(e) => updateRadioProperty(e)}
               ></input>{" "}
-              <img alt="flush" src={flush}></img>
+              <img alt="flush" className="interfaceIMG" src={flush}></img>
             </label>
             <div className="interfaceCard">FLUSH</div>
           </Grid>
@@ -357,7 +225,7 @@ export default function FormFastenerInfo(
                   updateRadioProperty(e);
                 }}
               ></input>{" "}
-              <img alt="valley" src={valley}></img>
+              <img alt="valley" className="interfaceIMG" src={valley}></img>
             </label>{" "}
             <div className="interfaceCard">VALLEY</div>
           </Grid>
@@ -371,7 +239,7 @@ export default function FormFastenerInfo(
                 {...register("interface")} //NOTE THIS MUST BE ABOVE ONCHANGE FUNCTIONS
                 onChange={(e) => updateRadioProperty(e)}
               ></input>{" "}
-              <img alt="crown" src={crown}></img>
+              <img alt="crown" className="interfaceIMG" src={crown}></img>
             </label>
             <div className="interfaceCard">CROWN</div>
           </Grid>

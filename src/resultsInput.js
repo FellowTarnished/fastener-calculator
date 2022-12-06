@@ -1,12 +1,5 @@
 import MathJax from "better-react-mathjax/MathJax";
-import {
-  TextField,
-  MenuItem,
-  InputAdornment,
-  Divider,
-  Grid,
-  Box,
-} from "@mui/material";
+import { Grid, Box } from "@mui/material";
 
 export default function resultsInput(properties, allInput) {
   return (

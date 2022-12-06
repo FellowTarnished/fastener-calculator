@@ -116,9 +116,9 @@ export function pullover(properties, setValue) {
 
     Dws = " --- ";
 
-    if (thead > t1)
-      T = "INVALID COMPONENT #1 THICKNESS: t1 must be > the fastener head";
-    else if (t1 / d > 1.1) {
+    // if (thead > t1)
+    //   T = "INVALID COMPONENT #1 THICKNESS: t1 must be > the fastener head";
+    if (t1 / d > 1.1) {
       T = ((0.27 + 1.45 * 1.1) * d * t1 * Fy1) / SF;
       equationTracker =
         "`(0.27+1.45*1.1)*d*t_1*F_(TY1)/S_F ` ` ` ` ` ` ` ` ` ` [Eqn. 11.3]`";

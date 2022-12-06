@@ -1,6 +1,3 @@
-import { setNestedObjectValues } from "formik";
-import React, { useState, useContext, useEffect } from "react";
-
 export function getThreadType(properties, setProperties, setValue) {
   let fast = properties[0].fastDia;
   let threadType = undefined;

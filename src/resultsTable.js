@@ -68,11 +68,6 @@ export default function ResultsTable(capacity) {
                 </TableCell>
               </TableRow>
             </TableBody>
-
-            {/* <h4 className="resultItem">Warnings:</h4>
-        {capacity.notes?.map((item, index) => {
-          return <div key={index}>{item}</div>;
-        })} */}
           </Table>
         </TableContainer>
       </Paper>

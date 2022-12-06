@@ -13,10 +13,6 @@ export function bearingShear(properties) {
   let e1 = +properties[0].edgeDist1;
   let e2 = +properties[0].edgeDist2;
   let e = [e1, e2];
-  //base material types
-  // let cm1 = properties[0].comp1Mat;
-  // let cm2 = properties[0].comp2Mat;
-  // let cm = [cm1, cm2];
 
   let equationTracker = undefined;
   let equationTrackerTilt = undefined;

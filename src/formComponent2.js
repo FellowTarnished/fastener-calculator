@@ -1,11 +1,4 @@
-import {
-  TextField,
-  MenuItem,
-  InputAdornment,
-  Divider,
-  Grid,
-  Box,
-} from "@mui/material";
+import { TextField, MenuItem, InputAdornment, Grid, Box } from "@mui/material";
 
 import { getThreadType } from "./props";
 

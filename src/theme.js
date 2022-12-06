@@ -1,4 +1,4 @@
-import { red, blue, indigo } from "@mui/material/colors";
+import { red, blue } from "@mui/material/colors";
 import { createTheme } from "@mui/material/styles";
 
 const color1 = blue[800];

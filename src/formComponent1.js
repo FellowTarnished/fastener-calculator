@@ -7,8 +7,6 @@ import {
   Box,
 } from "@mui/material";
 
-import { useForm } from "react-hook-form";
-
 import { getDiameter } from "./props";
 
 import { pullover } from "./pullover";
@@ -19,7 +17,10 @@ export default function FormComponent1(
   updateRadioProperty,
   register,
   errors,
-  setValue
+  setValue,
+  properties,
+  setProperties,
+  getValues
 ) {
   return (
     <div>
@@ -62,8 +63,8 @@ export default function FormComponent1(
               {...register("comp1Thick")} //NOTE THIS MUST BE ABOVE ONCHANGE CALL
               onChange={(e) => {
                 updateTextInput(e);
-                // getDiameter(properties, setProperties);
-                // pullover(properties);
+                getDiameter(properties, setProperties, setValue);
+                pullover(properties, setValue);
               }}
               error={errors.comp1Thick ? true : false}
               helperText={errors.comp1Thick?.message}
@@ -90,21 +91,6 @@ export default function FormComponent1(
         </Grid>
       </Box>
       <div className="break"></div>
-      {/* <FormLabel id="holeType">Hole Type</FormLabel>
-
-      <RadioGroup
-        row
-        aria-labelledby="holeType-button-group-label"
-        name="holeType"
-        onChange={(e) => updateProperties(e)}
-      >
-        <FormControlLabel
-          value="standard"
-          control={<Radio />}
-          label="Standard"
-        />
-        <FormControlLabel value="slotted" control={<Radio />} label="Slotted" />
-      </RadioGroup> */}
 
       <Divider variant="middle" sx={{ bgcolor: "secondary.main" }}></Divider>
     </div>
