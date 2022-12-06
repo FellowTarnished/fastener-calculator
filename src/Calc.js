@@ -1,6 +1,3 @@
-// import { CapacityContext } from "./CapacityContext";
-// import React, { useState, useContext, useEffect } from "react";
-
 import {
   getThreadType,
   getFastType,

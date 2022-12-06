@@ -1,11 +1,10 @@
 //*****IMPORTS*****
 import React, { useState, useContext, useRef, Fragment } from "react";
 import MathJaxContext from "better-react-mathjax/MathJaxContext/";
-import MathJax from "better-react-mathjax/MathJax";
 import Container from "@mui/material/Container";
-import { Button, Divider, Link, TextField, Typography } from "@mui/material";
+import { Button, Divider, Link, Typography } from "@mui/material";
 
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 import FormFastenerInfo from "./formFastenerInfo";
 import FormComponent1 from "./formComponent1";
@@ -15,7 +14,7 @@ import {
   AllResultsContext,
   AllInputContext,
 } from "./CapacityContext";
-import CalcCapacity, { OverwriteProperties } from "./Calc";
+import CalcCapacity from "./Calc";
 
 import "./style/App.css";
 
@@ -23,12 +22,9 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import robot from "./style/images/robot-lightblue2.png";
 import resultsDetailed from "./resultsDetailed";
 import { flushSync } from "react-dom";
-import { Palette } from "@mui/icons-material";
 
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { palette } from "@mui/system";
-import { ThemeContext } from "@emotion/react";
 
 function App() {
   const [properties, setProperties] = useState([
