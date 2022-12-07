@@ -1,5 +1,7 @@
 import { pullover } from "../pullover";
 
+//NOTE: NEED TO COMMENT OUT "SETVALUE" FUNCTION IN PULLOVER.JS TO HAVE TESTS RUN PROPERLY
+
 //hex head tests
 const a1 = [
   {
@@ -12,7 +14,7 @@ const a1 = [
   },
 ];
 test("SF of 3 used - #6 screw hex head", () => {
-  expect(Math.round(pullover(a1))).toBeCloseTo(65);
+  expect(Math.round(pullover(a1)[0])).toBeCloseTo(65);
 });
 
 const a2 = [
@@ -26,7 +28,7 @@ const a2 = [
   },
 ];
 test("SF of 2.5 used - 3/8 screw hex head", () => {
-  expect(Math.round(pullover(a2))).toBeCloseTo(197);
+  expect(Math.round(pullover(a2)[0])).toBeCloseTo(197);
 });
 
 const a3 = [
@@ -40,7 +42,7 @@ const a3 = [
   },
 ];
 test("crown interface", () => {
-  expect(Math.round(pullover(a3))).toBeCloseTo(138);
+  expect(Math.round(pullover(a3)[0])).toBeCloseTo(138);
 });
 
 //hex head with washer tests
@@ -56,7 +58,7 @@ const b = [
   },
 ];
 test("t1/Dws>0.5", () => {
-  expect(Math.round(pullover(b))).toBeCloseTo(677);
+  expect(Math.round(pullover(b)[0])).toBeCloseTo(677);
 });
 
 const b1 = [
@@ -71,7 +73,7 @@ const b1 = [
   },
 ];
 test("t1/Dws<0.5", () => {
-  expect(Math.round(pullover(b1))).toBeCloseTo(117);
+  expect(Math.round(pullover(b1)[0])).toBeCloseTo(117);
 });
 
 const b2 = [
@@ -85,7 +87,9 @@ const b2 = [
   },
 ];
 test("too thin base material", () => {
-  expect(pullover(b2)).toMatch("ERROR TOO THIN BASE MATERIAL");
+  expect(pullover(b2)[0]).toMatch(
+    "INVALID COMPONENT #1 THICKNESS: t1 must be >= 0.04 inches"
+  );
 });
 
 //countersunk tests
@@ -101,7 +105,7 @@ const c = [
   },
 ];
 test("t1/d>1.1", () => {
-  expect(Math.round(pullover(c))).toBeCloseTo(263);
+  expect(Math.round(pullover(c)[0])).toBeCloseTo(263);
 });
 
 const c1 = [
@@ -116,19 +120,5 @@ const c1 = [
   },
 ];
 test("t1/d<1.1", () => {
-  expect(Math.round(pullover(c1))).toBeCloseTo(42);
-});
-
-const c2 = [
-  {
-    nomDia: 0.138,
-    comp1Thick: 0.035,
-    edgeDist1: 3,
-    comp1Fu: 20000,
-    headType: "countersunk",
-    interface: "flush",
-  },
-];
-test("too thin base material - countersunk", () => {
-  expect(pullover(c2)).toMatch("ERROR TOO THIN BASE MATERIAL");
+  expect(Math.round(pullover(c1)[0])).toBeCloseTo(42);
 });

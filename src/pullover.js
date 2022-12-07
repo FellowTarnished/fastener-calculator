@@ -1,3 +1,5 @@
+//NOTE TO GET JEST TESTS TO PASS THE FUNCTION "SETVALUE" AT BOTTOM OF FUNCTION NEEDS TO BE REMOVED/COMMENTED OUT
+
 export function pullover(properties, setValue) {
   let d = properties[0].nomDia;
   let headType = properties[0].headType;
@@ -128,7 +130,7 @@ export function pullover(properties, setValue) {
         "`(0.27+1.45*t_1/d)*d*t_1*F_(TY1)/S_F ` ` ` ` ` ` ` ` ` ` [Eqn. 11.3]`";
     }
   }
-  console.log(thead);
-  setValue("thead", thead);
+
+  setValue("thead", thead); // NOTE THIS LINE MUST BE REMOVED TO GET JEST TESTS TO PASS FOR THIS FUNCTION
   return [T, equationTracker, thead, Dws, Dh, Cpov];
 }

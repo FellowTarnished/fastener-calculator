@@ -60,7 +60,6 @@ export function bearingShear(properties) {
       equationTracker = equationTrackerTilt;
     }
   }
-
   if (invalidInput) return invalidInput;
   else if (V[2]) return [Math.min(V[0], V[1], V[2]), equationTracker];
   else return [Math.min(V[0], V[1]), equationTracker];

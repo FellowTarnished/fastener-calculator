@@ -12,7 +12,7 @@ const a = [
   },
 ];
 test("#6 unc screw capacities", () => {
-  expect(Math.round(fastenerTension(a))).toBeCloseTo(224);
+  expect(Math.round(fastenerTension(a)[0])).toBeCloseTo(224);
 });
 
 const b = [
@@ -25,7 +25,7 @@ const b = [
   },
 ];
 test("#8 unc screw capacities", () => {
-  expect(Math.round(fastenerTension(b))).toBeCloseTo(346);
+  expect(Math.round(fastenerTension(b)[0])).toBeCloseTo(346);
 });
 
 const c = [
@@ -38,7 +38,7 @@ const c = [
   },
 ];
 test("#10 unc screw capacities", () => {
-  expect(Math.round(fastenerTension(c))).toBeCloseTo(432);
+  expect(Math.round(fastenerTension(c)[0])).toBeCloseTo(432);
 });
 
 const d = [
@@ -51,7 +51,7 @@ const d = [
   },
 ];
 test("#12 unc screw capacities", () => {
-  expect(Math.round(fastenerTension(d))).toBeCloseTo(596);
+  expect(Math.round(fastenerTension(d)[0])).toBeCloseTo(596);
 });
 
 const e = [
@@ -64,7 +64,7 @@ const e = [
   },
 ];
 test("1/4 unc screw capacities", () => {
-  expect(Math.round(fastenerTension(e))).toBeCloseTo(785);
+  expect(Math.round(fastenerTension(e)[0])).toBeCloseTo(785);
 });
 
 const f = [
@@ -77,7 +77,7 @@ const f = [
   },
 ];
 test("5/16 unc screw capacities", () => {
-  expect(Math.round(fastenerTension(f))).toBeCloseTo(1552);
+  expect(Math.round(fastenerTension(f)[0])).toBeCloseTo(1552);
 });
 
 const g = [
@@ -90,7 +90,7 @@ const g = [
   },
 ];
 test("3/8 unc screw capacities", () => {
-  expect(Math.round(fastenerTension(g))).toBeCloseTo(2294);
+  expect(Math.round(fastenerTension(g)[0])).toBeCloseTo(2294);
 });
 
 //SPACED TESTS
@@ -106,7 +106,7 @@ const s1 = [
   },
 ];
 test("#6 spaced screw capacities", () => {
-  expect(Math.round(fastenerTension(s1))).toBeCloseTo(190);
+  expect(Math.round(fastenerTension(s1)[0])).toBeCloseTo(190);
 });
 
 const s2 = [
@@ -120,7 +120,7 @@ const s2 = [
   },
 ];
 test("#8 spaced screw capacities", () => {
-  expect(Math.round(fastenerTension(s2))).toBeCloseTo(261);
+  expect(Math.round(fastenerTension(s2)[0])).toBeCloseTo(261);
 });
 
 const s3 = [
@@ -134,7 +134,7 @@ const s3 = [
   },
 ];
 test("#10 spaced screw capacities", () => {
-  expect(Math.round(fastenerTension(s3))).toBeCloseTo(353);
+  expect(Math.round(fastenerTension(s3)[0])).toBeCloseTo(353);
 });
 
 const s4 = [
@@ -148,7 +148,7 @@ const s4 = [
   },
 ];
 test("#12 spaced screw capacities", () => {
-  expect(Math.round(fastenerTension(s4))).toBeCloseTo(478);
+  expect(Math.round(fastenerTension(s4)[0])).toBeCloseTo(478);
 });
 
 const s5 = [
@@ -162,7 +162,7 @@ const s5 = [
   },
 ];
 test("1/4 spaced screw capacities", () => {
-  expect(Math.round(fastenerTension(s5))).toBeCloseTo(663);
+  expect(Math.round(fastenerTension(s5)[0])).toBeCloseTo(663);
 });
 
 const s6 = [
@@ -176,7 +176,7 @@ const s6 = [
   },
 ];
 test("5/16 spaced screw capacities", () => {
-  expect(Math.round(fastenerTension(s6))).toBeCloseTo(1295);
+  expect(Math.round(fastenerTension(s6)[0])).toBeCloseTo(1295);
 });
 
 const s7 = [
@@ -190,5 +190,5 @@ const s7 = [
   },
 ];
 test("3/8 spaced screw capacities", () => {
-  expect(Math.round(fastenerTension(s7))).toBeCloseTo(2078);
+  expect(Math.round(fastenerTension(s7)[0])).toBeCloseTo(2078);
 });

@@ -14,7 +14,7 @@ const a1 = [
   },
 ];
 test("SF of 3 used when e>=2*d", () => {
-  expect(Math.round(bearingShear(a1))).toBeCloseTo(657);
+  expect(Math.round(bearingShear(a1)[0])).toBeCloseTo(657);
 });
 
 const a2 = [
@@ -31,7 +31,7 @@ const a2 = [
   },
 ];
 test("SF of 3 used when e<2*d", () => {
-  expect(Math.round(bearingShear(a2))).toBeCloseTo(493);
+  expect(Math.round(bearingShear(a2)[0])).toBeCloseTo(493);
 });
 
 const a3 = [
@@ -45,10 +45,11 @@ const a3 = [
     comp2Mat: "5005-H34",
     comp1Fu: 20000,
     comp2Fu: 20000,
+    spacing: 5,
   },
 ];
 test("SF of 2.5 used when e>=2*d", () => {
-  expect(Math.round(bearingShear(a3))).toBeCloseTo(1182);
+  expect(Math.round(bearingShear(a3)[0])).toBeCloseTo(985);
 });
 
 const a4 = [
@@ -65,7 +66,7 @@ const a4 = [
   },
 ];
 test("SF of 2.5 used when e<2*d", () => {
-  expect(Math.round(bearingShear(a4))).toBeCloseTo(887);
+  expect(Math.round(bearingShear(a4)[0])).toBeCloseTo(739);
 });
 
 const c = [
@@ -82,7 +83,7 @@ const c = [
   },
 ];
 test("error when e1 = 1.49d", () => {
-  expect(bearingShear(c)).toMatch(/INVALID EDGE DIST/);
+  expect(bearingShear(c)[0]).toMatch(/INVALID EDGE DISTANCE: must be >= 1.5d/);
 });
 
 const d = [
@@ -99,7 +100,7 @@ const d = [
   },
 ];
 test("error when e2 = 1.49d", () => {
-  expect(bearingShear(d)).toMatch(/INVALID EDGE DIST/);
+  expect(bearingShear(d)[0]).toMatch(/INVALID EDGE DISTANCE: must be >= 1.5d/);
 });
 
 const e = [
@@ -116,7 +117,7 @@ const e = [
   },
 ];
 test("screw tilting", () => {
-  expect(Math.round(bearingShear(e))).toBeCloseTo(321);
+  expect(Math.round(bearingShear(e)[0])).toBeCloseTo(268);
 });
 
 const f = [
@@ -134,5 +135,5 @@ const f = [
   },
 ];
 test("error due to spacing", () => {
-  expect(bearingShear(f)).toMatch(/INVALID SPACING/);
+  expect(bearingShear(f)[0]).toMatch(/INVALID SCREW SPACING: must be > 2.5 d/);
 });

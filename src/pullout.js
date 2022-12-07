@@ -127,7 +127,6 @@ export function pullout(properties) {
       Tint =
         "INVALID COMPONENT #2 THICKNESS: t2 must be < 0.375 inches for specification to provide pullout values";
   }
-  console.log(Tint);
   if (Tint > Text) equationTracker = equationTrackerInt;
   else if (Text >= Tint) equationTracker = equationTrackerExt;
   if (typeof Tint === "string") return [Tint, undefined];
