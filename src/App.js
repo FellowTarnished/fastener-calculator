@@ -1,7 +1,6 @@
 //*****IMPORTS*****
 import React, { useState, useContext, useRef, Fragment } from "react";
 import MathJaxContext from "better-react-mathjax/MathJaxContext/";
-import MathJax from "better-react-mathjax/MathJax";
 import Container from "@mui/material/Container";
 import { Button, Divider, Link, Typography } from "@mui/material";
 
@@ -73,7 +72,7 @@ function App() {
     // Values passed for custom validation purposes
     nomDia: Yup.number(),
     threadType: Yup.string(),
-    thead: Yup.string(),
+    // thead: Yup.string(),
     // Input terms that are required/being validated.
     fastDia: Yup.string().required("*Fastener size is required"),
     fastMatInput: Yup.string().required("*Fastener material is required"),
@@ -127,21 +126,25 @@ function App() {
       )
       .when("threadType", {
         is: (threadType) => threadType === "spaced",
-        then: Yup.number().test({
-          name: "minComp2Thickness",
-          message:
-            "*Thickness must be greater than or equal to 0.038 inches for fasteners with SPACED thread. (Ref. AAMA TIR-A9-14 Section 10.0)",
-          test: (value) => value > 0.038,
-        }),
+        then: Yup.number()
+          .typeError("*Thickness is required")
+          .test({
+            name: "minComp2Thickness",
+            message:
+              "*Thickness must be greater than or equal to 0.038 inches for fasteners with SPACED thread. (Ref. AAMA TIR-A9-14 Section 10.0)",
+            test: (value) => value > 0.038,
+          }),
       })
       .when("threadType", {
         is: (threadType) => threadType === "unc",
-        then: Yup.number().test({
-          name: "minComp2Thickness2",
-          message:
-            "*Thickness must be greater than or equal to 0.06 inches for fasteners with UNC thread. (Ref. AAMA TIR-A9-14 Section 10.0)",
-          test: (value) => value > 0.06,
-        }),
+        then: Yup.number()
+          .typeError("*Thickness is required")
+          .test({
+            name: "minComp2Thickness2",
+            message:
+              "*Thickness must be greater than or equal to 0.06 inches for fasteners with UNC thread. (Ref. AAMA TIR-A9-14 Section 10.0)",
+            test: (value) => value > 0.06,
+          }),
       }),
     edgeDist2: Yup.number()
       .typeError("*Edge distance is required")
@@ -159,9 +162,7 @@ function App() {
   const {
     register,
     handleSubmit,
-    watch,
     setValue,
-    control,
     getValues,
     formState: { errors },
     trigger,
@@ -171,9 +172,9 @@ function App() {
     // context: { nomDia: properties[0].nomDia },
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+  // const onSubmit = (data) => {
+  //   console.log(data);
+  // };
 
   //*****PROPS AND STATE*****
   const config = {
@@ -250,7 +251,8 @@ function App() {
               setValue,
               properties,
               setProperties,
-              trigger
+              trigger,
+              getValues
             )}
             <h4>COMPONENT #1 INFO </h4>
             {FormComponent1(
@@ -273,7 +275,8 @@ function App() {
               errors,
               properties,
               setProperties,
-              setValue
+              setValue,
+              getValues
             )}
 
             <div className="break"></div>
@@ -305,11 +308,10 @@ function App() {
                     );
                     setResultsToggle(true);
                   });
-
                   scrollToResults();
-                } catch (e) {
-                  console.log(e);
-                  console.log(getValues());
+                } catch (error) {
+                  console.log("Error within 'handleSubmit' function");
+                  console.log(error);
                 }
               })}
             >
