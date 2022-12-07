@@ -1,6 +1,7 @@
 //*****IMPORTS*****
 import React, { useState, useContext, useRef, Fragment } from "react";
 import MathJaxContext from "better-react-mathjax/MathJaxContext/";
+import MathJax from "better-react-mathjax/MathJax";
 import Container from "@mui/material/Container";
 import { Button, Divider, Link, Typography } from "@mui/material";
 
