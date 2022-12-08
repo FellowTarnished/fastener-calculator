@@ -10,7 +10,8 @@ export default function FormComponent2(
   errors,
   properties,
   setProperties,
-  setValue
+  setValue,
+  getValues
 ) {
   return (
     <div>
@@ -65,7 +66,11 @@ export default function FormComponent2(
             <TextField
               label="Edge Distance"
               {...register("edgeDist2")} //NOTE THIS MUST BE ABOVE ONCHANGE CALL
-              onChange={(e) => updateTextInput(e)}
+              onChange={(e) => {
+                updateTextInput(e);
+                console.log(properties);
+                console.log(getValues());
+              }}
               name="edgeDist2"
               id="edgeDist2"
               variant="outlined"

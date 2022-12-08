@@ -1,5 +1,3 @@
-//NOTE TO GET JEST TESTS TO PASS THE FUNCTION "SETVALUE" AT BOTTOM OF FUNCTION NEEDS TO BE REMOVED/COMMENTED OUT
-
 export function pullover(properties, setValue) {
   let d = properties[0].nomDia;
   let headType = properties[0].headType;
@@ -58,7 +56,7 @@ export function pullover(properties, setValue) {
       "`(C_(pov)*t_1*F_(tu1)*(D_(WS)-D_H))/S_F ` ` ` ` ` ` ` ` ` ` [Eqn. 11.1]`";
 
     //Check if eqn. 11.3 bounds
-    if (t1 >= 0.06 && t1 < 0.19 && t1 / d > 1.1) {
+    if (t1 / d > 1.1) {
       Tcsunk = ((0.27 + 1.45 * 1.1) * d * t1 * Fy1) / SF;
       if (Tcsunk > T) {
         T = Tcsunk;
@@ -131,6 +129,5 @@ export function pullover(properties, setValue) {
     }
   }
 
-  setValue("thead", thead); // NOTE THIS LINE MUST BE REMOVED TO GET JEST TESTS TO PASS FOR THIS FUNCTION
   return [T, equationTracker, thead, Dws, Dh, Cpov];
 }

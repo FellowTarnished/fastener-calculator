@@ -28,7 +28,8 @@ export default function FormFastenerInfo(
   setValue,
   properties,
   setProperties,
-  trigger
+  trigger,
+  getValues
 ) {
   return (
     <div>
@@ -165,7 +166,9 @@ export default function FormFastenerInfo(
                 value="hexWithWasher"
                 name="headType"
                 {...register("headType")} //NOTE THIS MUST BE ABOVE ONCHANGE FUNCTIONS
-                onChange={(e) => updateRadioProperty(e)}
+                onChange={(e) => {
+                  updateRadioProperty(e);
+                }}
               ></input>{" "}
               <img alt="hex with washer" src={hwh}></img>
             </label>{" "}
@@ -179,7 +182,9 @@ export default function FormFastenerInfo(
                 value="countersunk"
                 name="headType"
                 {...register("headType")} //NOTE THIS MUST BE ABOVE ONCHANGE FUNCTIONS
-                onChange={(e) => updateRadioProperty(e)}
+                onChange={(e) => {
+                  updateRadioProperty(e);
+                }}
               ></input>{" "}
               <img alt="countersunk" src={csunk}></img>
             </label>{" "}
@@ -206,7 +211,9 @@ export default function FormFastenerInfo(
                 value="flush"
                 name="interface"
                 {...register("interface")} //NOTE THIS MUST BE ABOVE ONCHANGE FUNCTIONS
-                onChange={(e) => updateRadioProperty(e)}
+                onChange={(e) => {
+                  updateRadioProperty(e);
+                }}
               ></input>{" "}
               <img alt="flush" className="interfaceIMG" src={flush}></img>
             </label>
