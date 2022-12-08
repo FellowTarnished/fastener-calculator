@@ -228,8 +228,15 @@ function App() {
         >
           <header className="App-header">
             <div className="flexBoxHeader">
-              <img alt="" src={robot} className="robot"></img>
-              <h1>AAMA-TRON!</h1>
+              <Link
+                underline="none"
+                sx={{ color: "black" }}
+                href="https://kennethmetz.github.io/fastener-calculator/"
+                alt=""
+              >
+                <img alt="" src={robot} className="robot"></img>
+                <h1>AAMA-TRON!</h1>
+              </Link>
             </div>
             <p className="description">
               {" "}
