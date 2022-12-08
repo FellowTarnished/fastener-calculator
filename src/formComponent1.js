@@ -9,7 +9,7 @@ import {
 
 import { getDiameter } from "./props";
 
-// import { pullover } from "./pullover";
+import { pullover } from "./pullover";
 
 export default function FormComponent1(
   updateProperties,
@@ -64,6 +64,7 @@ export default function FormComponent1(
               onChange={(e) => {
                 updateTextInput(e);
                 getDiameter(properties, setProperties, setValue);
+                pullover(properties, setValue);
               }}
               error={errors.comp1Thick ? true : false}
               helperText={errors.comp1Thick?.message}
