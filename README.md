@@ -6,6 +6,8 @@ It was created by Ken Metz, PE (licensed in MD & OR at time of development). He 
 
 [Live site can be found here](https://kennethmetz.github.io/fastener-calculator/)
 
+![](/AAMA-TRON tour.gif) 
+
 ## BACKGROUND:
 
 This project aims to ease the learning curve present in the application of AAMA TIR-A9-14 in the design of metal fasteners. This web app is meant to assist in the education of any engineer who is new to this design document (AAMA TIR-A9-14). It is to be used solely for educational purposes.
