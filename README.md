@@ -6,7 +6,7 @@ It was created by Ken Metz, PE (licensed in MD & OR at time of development). He 
 
 [Live site can be found here](https://kennethmetz.github.io/fastener-calculator/)
 
-![](/AAMA-TRON tour.gif) 
+![](./AAMA-TRON tour.gif) 
 
 ## BACKGROUND:
 
